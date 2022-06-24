@@ -16,7 +16,13 @@ function SignupFormPage() {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
-    const [url, setUrl] = useState("");
+
+    const [imgOne, setImgOne] = useState("");
+    const [imgTwo, setImgTwo] = useState("");
+    const [imgThree, setImgThree] = useState("");
+    const [imgFour, setImgFour] = useState("");
+
+    const [images, setImages] = useState([imgOne, imgTwo, imgThree, imgFour]);
     const [errors, setErrors] = useState([]);
 
     if (!sessionUser) return <Redirect to="/" />;
@@ -24,7 +30,7 @@ function SignupFormPage() {
     const handleSubmit = (e) => {
       e.preventDefault();
       setErrors([]);
-      return dispatch(spotActions.create({ userId, name, price, address, city, state, country, url }))
+      return dispatch(spotActions.create({ userId, name, price, address, city, state, country, images }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -51,6 +57,7 @@ function SignupFormPage() {
               type="number"
               min="10"
               step='1'
+              value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
           />
@@ -95,12 +102,34 @@ function SignupFormPage() {
           Image Url
           <input
             type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={imgOne}
+            onChange={(e) => setImgOne(e.target.value)}
+            placeholder=' (Required)'
             required
           />
+          <input
+            type="text"
+            value={imgTwo}
+            onChange={(e) => setImgTwo(e.target.value)}
+            placeholder=' (Optional)'
+          />
+          <input
+            type="text"
+            value={imgThree}
+            onChange={(e) => setImgThree(e.target.value)}
+            placeholder=' (Optional)'
+          />
+          <input
+            type="text"
+            value={imgFour}
+            onChange={(e) => setImgFour(e.target.value)}
+            placeholder=' (Optional)'
+          />
         </label>
-        <button type="submit">Post</button>
+        <button
+          type="submit"
+          onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
+          >Post</button>
       </form>
     );
 }

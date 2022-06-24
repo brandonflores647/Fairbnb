@@ -2,10 +2,10 @@ import { csrfFetch } from './csrf';
 
 const SET_SPOT = 'spot/SET_SPOT';
 
-const setSpot = (spot, img) => ({
+const setSpot = (spot, imgArr) => ({
     type: SET_SPOT,
     spot,
-    img
+    imgArr
 });
 
 // THUNKS =============================================
@@ -17,9 +17,10 @@ export const create = (spot) => async dispatch => {
     });
 
     if (response.ok) {
-        const data = await response.json();
-        dispatch(setSpot(data.spot, data.img));
-        return response;
+      const data = await response.json();
+      console.log(JSON.stringify(data))
+      dispatch(setSpot(data.spot, data.imgArr));
+      return response;
     }
 }
 
@@ -31,6 +32,13 @@ const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SPOT:
         newState = { ...state }
+        const imgObj = {};
+        action.imgArr.forEach(img => {
+          imgObj[img.id] = {
+            url: img.url
+          }
+        });
+
         newState[action.spot.id] = {
           data: {
               userId: action.spot.userId,
@@ -42,12 +50,9 @@ const spotReducer = (state = initialState, action) => {
               country: action.spot.country
           },
           reviews: {},
-          images: {
-            [action.img.id]: {
-                url: action.img.url
-            },
-          },
+          images: imgObj,
         }
+
         return newState;
     default:
       return state;
