@@ -27,22 +27,6 @@ router.post(
         const spotId = spot.id;
         const imgArr = [];
 
-        // if (images[0]) {
-        //     const url = images[0];
-        //     imgArr.push(await Image.create({spotId, url}));
-        // }
-        // if (images[1]) {
-        //     const url = images[1];
-        //     imgArr.push(await Image.create({spotId, url}));
-        // }
-        // if (images[2]) {
-        //     const url = images[2];
-        //     imgArr.push(await Image.create({spotId, url}));
-        // }
-        // if (images[3]) {
-        //     const url = images[3];
-        //     imgArr.push(await Image.create({spotId, url}));
-        // }
         for (let url of images) {
             if (url) imgArr.push(await Image.create({spotId, url}));
         }
