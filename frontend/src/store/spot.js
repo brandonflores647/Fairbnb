@@ -31,7 +31,15 @@ const spotReducer = (state = initialState, action) => {
     case SET_SPOT:
       newState = { ...state }
       newState[action.spot.id] = {
-        data: {},
+        data: {
+            userId: action.spot.userId,
+            price: action.spot.price,
+            name: action.spot.name,
+            address: action.spot.address,
+            city: action.spot.city,
+            state: action.spot.state,
+            country: action.spot.country
+        },
         reviews: {},
         images: {},
       }

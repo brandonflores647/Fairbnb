@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 // const { setTokenCookie, requireAuth } = require('../../utils/auth');
 // const { validateSignup } = require('../../utils/validation');
-const { Spot } = require('../../db/models');
+const { Spot, Image } = require('../../db/models');
 
 const router = express.Router();
 
@@ -12,7 +12,8 @@ router.post(
     '/',
     // validateSignup,
     asyncHandler(async (req, res) => {
-        const { userId, address, city, state, country, name, price } = req.body;
+        const { userId, address, city, state, country, name, price, url } = req.body;
+
         const spot = await Spot.create({
             userId,
             address,
@@ -22,10 +23,13 @@ router.post(
             name,
             price
         });
-        console.log(spot)
+        const spotId = spot.id;
+
+        const img = await Image.create({spotId, url })
 
         return res.json({
-          spot
+          spot,
+          img
         });
     })
 );
