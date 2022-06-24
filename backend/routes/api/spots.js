@@ -25,7 +25,7 @@ router.post(
         });
         const spotId = spot.id;
 
-        const img = await Image.create({spotId, url })
+        const img = await Image.create({spotId, url})
 
         return res.json({
           spot,
