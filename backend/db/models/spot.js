@@ -46,5 +46,19 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'spotId'
     });
   };
+
+  // Spot.createSpot = async function ({ userId, address, city, state, country, name, price }) {
+  //   await Spot.create({
+  //     userId,
+  //     address,
+  //     city,
+  //     state,
+  //     country,
+  //     name,
+  //     price
+  //   });
+    // return await Spot.scope('currentSpot').findByPk(spot.id);
+  // };
+
   return Spot;
 };
