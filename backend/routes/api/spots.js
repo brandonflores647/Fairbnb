@@ -38,4 +38,11 @@ router.post(
     })
 );
 
+// Load individual
+router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
+    const spotId = parseInt(req.params.spotId, 10);
+    const spot = await Spot.findByPk(spotId);
+    return res.json(spot);
+}));
+
 module.exports = router;

@@ -1,11 +1,17 @@
 import { csrfFetch } from './csrf';
 
 const SET_SPOT = 'spot/SET_SPOT';
+const LOAD_SPOT = 'spot/LOAD_SPOT';
 
 const setSpot = (spot, imgArr) => ({
     type: SET_SPOT,
     spot,
     imgArr
+});
+
+const loadSpot = (spot) => ({
+    type: LOAD_SPOT,
+    spot,
 });
 
 // THUNKS =============================================
@@ -19,6 +25,17 @@ export const create = (spot) => async dispatch => {
     if (response.ok) {
       const data = await response.json();
       dispatch(setSpot(data.spot, data.imgArr));
+      return response;
+    }
+}
+
+export const getSpotDetail = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${id}`);
+
+    if (response.ok) {
+      const spot = await response.json();
+      console.log(spot)
+      dispatch(loadSpot(spot));
       return response;
     }
 }
@@ -53,6 +70,8 @@ const spotReducer = (state = initialState, action) => {
         }
 
         return newState;
+    case LOAD_SPOT:
+        return { ...action.spot };
     default:
       return state;
   }
