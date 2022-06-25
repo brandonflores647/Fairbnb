@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 const { requireAuth } = require('../../utils/auth');
 const { validateSpot } = require('../../utils/validation');
-const { Spot, Image } = require('../../db/models');
+const { Spot, Image, Review } = require('../../db/models');
 
 const router = express.Router();
 
@@ -42,7 +42,17 @@ router.post(
 router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
     const spotId = parseInt(req.params.spotId, 10);
     const spot = await Spot.findByPk(spotId);
-    return res.json(spot);
+    const images = await Image.findAll({
+        where: {
+            spotId
+        }
+    });
+    const reviews = await Review.findAll({
+        where: {
+            spotId
+        }
+    });
+    return res.json({spot, images, reviews});
 }));
 
 module.exports = router;
