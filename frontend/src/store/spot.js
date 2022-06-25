@@ -18,7 +18,6 @@ export const create = (spot) => async dispatch => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(JSON.stringify(data))
       dispatch(setSpot(data.spot, data.imgArr));
       return response;
     }

@@ -8,7 +8,8 @@ import './SpotForm.css';
 function SignupFormPage() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    const userId = sessionUser.id;
+    let userId;
+    if (sessionUser) userId = sessionUser.id;
 
     const [name, setName] = useState("");
     const [price, setPrice] = useState(10);
@@ -25,7 +26,7 @@ function SignupFormPage() {
     const [images, setImages] = useState([imgOne, imgTwo, imgThree, imgFour]);
     const [errors, setErrors] = useState([]);
 
-    if (!sessionUser) return <Redirect to="/" />;
+    if (!sessionUser) return <Redirect to="/login" />;
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -105,7 +106,6 @@ function SignupFormPage() {
             value={imgOne}
             onChange={(e) => setImgOne(e.target.value)}
             placeholder=' (Required)'
-            required
           />
           <input
             type="text"

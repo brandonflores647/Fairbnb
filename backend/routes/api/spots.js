@@ -1,17 +1,17 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler');
 
-// const { setTokenCookie, requireAuth } = require('../../utils/auth');
-// const { validateSignup } = require('../../utils/validation');
+const { requireAuth } = require('../../utils/auth');
+const { validateSpot } = require('../../utils/validation');
 const { Spot, Image } = require('../../db/models');
 
 const router = express.Router();
 
-
 // Create
 router.post(
     '/',
-    // validateSignup,
+    requireAuth,
+    validateSpot,
     asyncHandler(async (req, res) => {
         const { userId, address, city, state, country, name, price, images } = req.body;
 
