@@ -34,7 +34,6 @@ export const getSpotDetail = (id) => async dispatch => {
 
     if (response.ok) {
       const spot = await response.json();
-      console.log(spot)
       dispatch(loadSpot(spot));
       return response;
     }

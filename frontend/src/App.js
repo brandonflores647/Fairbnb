@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import * as sessionActions from './store/session';
 
 import Navigation from './components/Navigation';
+import PageNotFound from './components/PageNotFound';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import SpotFormPage from './components/SpotFormPage';
@@ -35,8 +36,11 @@ function App() {
         <Route exact path="/spots/new">
           <SpotFormPage />
         </Route>
-        <Route exact path="/spots/:spotId">
+        <Route exact path='/spots/:spotId'>
           <SpotDetail />
+        </Route>
+        <Route>
+          <PageNotFound />
         </Route>
       </Switch>
     </>

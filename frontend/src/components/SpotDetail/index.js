@@ -6,15 +6,14 @@ import { getSpotDetail } from '../../store/spot';
 const SpotDetail = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
-    const spot = useSelector(state => state.spot);
-
     useEffect(() => {
         dispatch(getSpotDetail(spotId));
     }, [])
-
-    return (
+    const spot = useSelector(state => state.spot);
+    if (spot.id) return (
         <h2>{spot.name}</h2>
-    );
+    )
+    else return null;
 }
 
 export default SpotDetail;
