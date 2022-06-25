@@ -7,6 +7,7 @@ import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import SpotFormPage from './components/SpotFormPage';
+import SpotsContainer from './components/SpotsContainer';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <h1>cool app</h1>
+          <SpotsContainer />
         </Route>
         <Route exact path="/login">
           <LoginFormPage />
