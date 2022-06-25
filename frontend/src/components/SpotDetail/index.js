@@ -6,12 +6,17 @@ import { getSpotDetail } from '../../store/spot';
 const SpotDetail = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
+
     useEffect(() => {
         dispatch(getSpotDetail(spotId));
     }, [dispatch])
+
     const spot = useSelector(state => state.spot);
+    const sessionUser = useSelector(state => state.session.user);
+
     if (spot.data) return (
         <>
+            {sessionUser.id === spot.data.userId ? <button>Edit</button> : null}
             <h2>{spot.data.name}</h2>
             <p>{spot.data.price}</p>
             <p>{spot.data.address}</p>
