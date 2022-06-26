@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from "../../store/spot";
+import SpotDeleteForm from '../SpotDeleteForm';
 
 const SpotEditForm = ({ hideForm }) => {
     const dispatch = useDispatch();
@@ -29,6 +30,8 @@ const SpotEditForm = ({ hideForm }) => {
     const [oldImages] = useState(images);
     const [errors, setErrors] = useState([]);
 
+    const [deleteBtn, setDeleteBtn] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -42,6 +45,7 @@ const SpotEditForm = ({ hideForm }) => {
     };
 
     return (
+        <>
         <form onSubmit={handleSubmit} id='signup-form'>
             {errors.length > 0 ?
             <ul>
@@ -136,6 +140,16 @@ const SpotEditForm = ({ hideForm }) => {
                 onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
                 >Post</button>
         </form>
+
+        {sessionUser && sessionUser.id === spot.data.userId ?
+                <button onClick={() => setDeleteBtn(!deleteBtn)}
+                    >{deleteBtn ? 'Cancel' : 'Delete'}</button> : null}
+        {deleteBtn ?
+                <SpotDeleteForm /*hideForm={() => setEditForm(false)}*//>
+            :
+                null
+            }
+        </>
     );
 }
 

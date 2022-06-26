@@ -40,25 +40,16 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId'
     });
     Spot.hasMany(models.Review, {
-      foreignKey: 'spotId'
+      foreignKey: 'spotId',
+      onDelete: 'CASCADE',
+      hooks: true
     });
     Spot.hasMany(models.Image, {
-      foreignKey: 'spotId'
+      foreignKey: 'spotId',
+      onDelete: 'CASCADE',
+      hooks: true
     });
   };
-
-  // Spot.createSpot = async function ({ userId, address, city, state, country, name, price }) {
-  //   await Spot.create({
-  //     userId,
-  //     address,
-  //     city,
-  //     state,
-  //     country,
-  //     name,
-  //     price
-  //   });
-    // return await Spot.scope('currentSpot').findByPk(spot.id);
-  // };
 
   return Spot;
 };

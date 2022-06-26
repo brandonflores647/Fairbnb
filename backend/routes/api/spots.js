@@ -2,7 +2,7 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 
 const { requireAuth } = require('../../utils/auth');
-const { validateSpot } = require('../../utils/validation');
+const { validateSpot, validateSpotDelete } = require('../../utils/validation');
 const { Spot, Image, Review } = require('../../db/models');
 
 const router = express.Router();
@@ -55,7 +55,7 @@ router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
     return res.json({spot, images, reviews});
 }));
 
-// Update
+// Update individual
 router.patch('/:spotId(\\d+)',
     requireAuth,
     validateSpot,
@@ -106,6 +106,20 @@ router.patch('/:spotId(\\d+)',
         await spot.save();
 
         return res.json({spot, imgArr, reviews});
+}));
+
+// Delete individual
+router.delete('/:spotId(\\d+)',
+    requireAuth,
+    validateSpotDelete,
+    asyncHandler(async (req, res) => {
+        const spotId = req.body.spot.id;
+
+        // destroy spot from DB
+        const spot = await Spot.findByPk(spotId);
+        await spot.destroy();
+
+        return res.json({});
 }));
 
 module.exports = router;
