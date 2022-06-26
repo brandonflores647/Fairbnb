@@ -115,17 +115,6 @@ router.delete('/:spotId(\\d+)',
     asyncHandler(async (req, res) => {
         const spotId = req.body.spot.id;
 
-        // TODO: destory all reviews associated with spot from DB
-
-        // destroy all images associated with spot from DB
-        const imgArr = Object.values(req.body.images);
-
-        for (let image of imgArr) {
-            const url = image.url;
-            const imgToRemove = await Image.findOne({ where: { spotId, url } });
-            await imgToRemove.destroy();
-        }
-
         // destroy spot from DB
         const spot = await Spot.findByPk(spotId);
         await spot.destroy();
