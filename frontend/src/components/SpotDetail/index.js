@@ -24,7 +24,7 @@ const SpotDetail = () => {
                     >{editForm ? 'Cancel' : 'Edit'}</button> : null}
 
             {editForm ?
-                <SpotEditForm />
+                <SpotEditForm hideForm={() => setEditForm(false)}/>
             :
                 <>
                     <h2>{spot.data.name}</h2>

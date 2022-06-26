@@ -123,12 +123,12 @@ const spotReducer = (state = initialState, action) => {
       });
 
       const reviewObj = {};
-      // action.reviews.forEach(review => {
-      //   reviewObj[review.id] = {
-      //     description: review.description,
-      //     rating: review.rating
-      //   }
-      // });
+      action.reviews.forEach(review => {
+        reviewObj[review.id] = {
+          description: review.description,
+          rating: review.rating
+        }
+      });
 
       return {
         data: {

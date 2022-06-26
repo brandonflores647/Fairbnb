@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from "../../store/spot";
 
-const SpotEditForm = () => {
+const SpotEditForm = ({ hideForm }) => {
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user);
@@ -31,6 +31,7 @@ const SpotEditForm = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       setErrors([]);
+      hideForm();
       return await dispatch(update({ id, userId, name, price, address, city, state, country, images }))
         .catch(async (res) => {
           const data = await res.json();

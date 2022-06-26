@@ -63,22 +63,18 @@ router.patch('/:spotId(\\d+)',
     const spotId = parseInt(req.params.spotId, 10);
     const spot = await Spot.findByPk(spotId);
 
-    // const { id, userId, address, city, state, country, name, price, images } = req.body;
+    const imgArr = [];
 
     for (let url of req.body.images) {
         if (url) {
-            const img = await Image.findAll({ where: { url } })
+            imgArr.push(await Image.findOne({ where: { url } }));
+            const img = await Image.findAll({ where: { url } });
             if (!img.length) {
                 await Image.create({spotId, url});
             }
         }
     }
 
-    const imgArr = await Image.findAll({
-        where: {
-            spotId
-        }
-    });
     const reviews = await Review.findAll({
         where: {
             spotId
