@@ -57,71 +57,55 @@ router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
 
 // Update
 router.patch('/:spotId(\\d+)',
-requireAuth,
-// validateSpot,
-asyncHandler(async (req, res) => {
-    const spotId = parseInt(req.params.spotId, 10);
-    const spot = await Spot.findByPk(spotId);
+    requireAuth,
+    validateSpot,
+    asyncHandler(async (req, res) => {
+        const spotId = parseInt(req.params.spotId, 10);
+        const spot = await Spot.findByPk(spotId);
 
-    const imgArr = [];
+        const imgArr = [];
 
-    // check if images are removed, delete from DB if so
-    const filteredOld = (req.body.oldImages).filter(url => {
-        return !(req.body.images).includes(url);
-    });
-    if (filteredOld.length) {
-        for (let url of filteredOld) {
+        // check if images are removed, delete from DB if so
+        const filteredOld = (req.body.oldImages).filter(url => {
+            return !(req.body.images).includes(url);
+        });
+        if (filteredOld.length) {
+            for (let url of filteredOld) {
+                if (url) {
+                    const imgToRemove = await Image.findOne({ where: { spotId, url } });
+                    await imgToRemove.destroy();
+                }
+            }
+        }
+        // check for new image, add to DB if so
+        for (let url of req.body.images) {
             if (url) {
-                const imgToRemove = await Image.findOne({ where: { spotId, url } });
-                await imgToRemove.destroy();
+                const img = await Image.findAll({ where: { url } });
+                if (!img.length) {
+                    const newImg = await Image.create({spotId, url});
+                    imgArr.push(newImg);
+                } else {
+                    imgArr.push(await Image.findOne({ where: { url } }));
+                }
             }
         }
-    }
-    // check for new image, add to DB if so
-    for (let url of req.body.images) {
-        if (url) {
-            const img = await Image.findAll({ where: { url } });
-            if (!img.length) {
-                const newImg = await Image.create({spotId, url});
-                console.log(JSON.stringify(newImg))
-                imgArr.push(newImg);
-                console.log('')
-                console.log('')
-                console.log('')
-                console.log('CREATED NEW IMAGE')
-                console.log('')
-                console.log('')
-                console.log('')
-            } else {
-                imgArr.push(await Image.findOne({ where: { url } }));
-                console.log('')
-                console.log('')
-                console.log('')
-                console.log(imgArr.length)
-                console.log('')
-                console.log('')
-                console.log('')
+
+        const reviews = await Review.findAll({
+            where: {
+                spotId
             }
-        }
-    }
+        });
 
+        spot.address = req.body.address;
+        spot.city = req.body.city;
+        spot.state = req.body.state;
+        spot.country = req.body.country;
+        spot.name = req.body.name;
+        spot.price = req.body.price;
 
-    const reviews = await Review.findAll({
-        where: {
-            spotId
-        }
-    });
+        await spot.save();
 
-    spot.address = req.body.address;
-    spot.city = req.body.city;
-    spot.state = req.body.state;
-    spot.country = req.body.country;
-    spot.name = req.body.name;
-    spot.price = req.body.price;
-
-    await spot.save();
-
-    return res.json({spot, imgArr, reviews});
+        return res.json({spot, imgArr, reviews});
 }));
 
 module.exports = router;

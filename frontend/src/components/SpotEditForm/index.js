@@ -32,12 +32,13 @@ const SpotEditForm = ({ hideForm }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
-        hideForm();
-        return await dispatch(update({ id, userId, name, price, address, city, state, country, images, oldImages }))
+        let data;
+        await dispatch(update({ id, userId, name, price, address, city, state, country, images, oldImages }))
         .catch(async (res) => {
-          const data = await res.json();
+          data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         });
+        if (!data) hideForm();
     };
 
     return (
