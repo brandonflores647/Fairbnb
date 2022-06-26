@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from "../../store/spot";
 
@@ -26,13 +26,14 @@ const SpotEditForm = ({ hideForm }) => {
     const [imgThree, setImgThree] = useState(imgArr[2] ? imgArr[2].url : '');
     const [imgFour, setImgFour] = useState(imgArr[3] ? imgArr[3].url : '');
     const [images, setImages] = useState([imgOne, imgTwo, imgThree, imgFour]);
+    const [oldImages] = useState(images);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
-      setErrors([]);
-      hideForm();
-      return await dispatch(update({ id, userId, name, price, address, city, state, country, images }))
+        e.preventDefault();
+        setErrors([]);
+        hideForm();
+        return await dispatch(update({ id, userId, name, price, address, city, state, country, images, oldImages }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
