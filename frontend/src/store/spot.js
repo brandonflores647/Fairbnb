@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const SET_SPOT = 'spot/SET_SPOT';
 const LOAD_SPOT = 'spot/LOAD_SPOT';
+const UPDATE_SPOT = 'spot/UPDATE_SPOT';
 
 const setSpot = (spot, imgArr) => ({
     type: SET_SPOT,
@@ -16,29 +17,49 @@ const loadSpot = (spot, images, reviews) => ({
     reviews
 });
 
+const updateSpot = (spot, imgArr, reviews) => ({
+    type: UPDATE_SPOT,
+    spot,
+    imgArr,
+    reviews
+});
+
 // THUNKS =============================================
 
 export const create = (spot) => async dispatch => {
-    const response = await csrfFetch('/api/spots', {
-      method: 'POST',
-      body: JSON.stringify(spot)
-    });
+  const response = await csrfFetch('/api/spots', {
+    method: 'POST',
+    body: JSON.stringify(spot)
+  });
 
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(setSpot(data.spot, data.imgArr));
-      return data;
-    }
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setSpot(data.spot, data.imgArr));
+    return data;
+  }
 }
 
 export const getSpotDetail = (id) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${id}`);
+  const response = await csrfFetch(`/api/spots/${id}`);
 
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(loadSpot(data.spot, data.images, data.reviews));
-      return data;
-    }
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadSpot(data.spot, data.images, data.reviews));
+    return data;
+  }
+}
+
+export const update = (spot) => async dispatch => {
+  const response = await csrfFetch(`/api/spots/${spot.id}`, {
+    method: "PATCH",
+    body: JSON.stringify(spot),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(updateSpot(data.spot, data.imgArr, data.reviews));
+    return data;
+  }
 }
 
 const initialState = { };
@@ -90,6 +111,32 @@ const spotReducer = (state = initialState, action) => {
         images: imgObj,
         reviews: reviewObj,
       };
+    }
+    case UPDATE_SPOT: {
+      newState = { ...state }
+
+      const imgObj = {};
+      action.imgArr.forEach(img => {
+        imgObj[img.id] = {
+          url: img.url
+        }
+      });
+
+      const reviewObj = {};
+      // action.reviews.forEach(review => {
+      //   reviewObj[review.id] = {
+      //     description: review.description,
+      //     rating: review.rating
+      //   }
+      // });
+
+      return {
+        data: {
+          ...action.spot
+        },
+        images: imgObj,
+        reviews: reviewObj,
+      }
     }
     default:
       return state;

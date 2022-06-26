@@ -55,4 +55,46 @@ router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
     return res.json({spot, images, reviews});
 }));
 
+// Update
+router.patch('/:spotId(\\d+)',
+    requireAuth,
+    // validateSpot,
+    asyncHandler(async (req, res) => {
+    const spotId = parseInt(req.params.spotId, 10);
+    const spot = await Spot.findByPk(spotId);
+
+    // const { id, userId, address, city, state, country, name, price, images } = req.body;
+
+    for (let url of req.body.images) {
+        if (url) {
+            const img = await Image.findAll({ where: { url } })
+            if (!img.length) {
+                await Image.create({spotId, url});
+            }
+        }
+    }
+
+    const imgArr = await Image.findAll({
+        where: {
+            spotId
+        }
+    });
+    const reviews = await Review.findAll({
+        where: {
+            spotId
+        }
+    });
+
+    spot.address = req.body.address;
+    spot.city = req.body.city;
+    spot.state = req.body.state;
+    spot.country = req.body.country;
+    spot.name = req.body.name;
+    spot.price = req.body.price;
+
+    await spot.save();
+
+    return res.json({spot, imgArr, reviews});
+}));
+
 module.exports = router;

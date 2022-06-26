@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail } from '../../store/spot';
+import SpotEditForm from '../SpotEditForm';
 
 const SpotDetail = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
+
+    const [editForm, setEditForm] = useState(false);
 
     useEffect(() => {
         dispatch(getSpotDetail(spotId));
@@ -16,16 +19,25 @@ const SpotDetail = () => {
 
     if (spot.data) return (
         <>
-            {sessionUser.id === spot.data.userId ? <button>Edit</button> : null}
-            <h2>{spot.data.name}</h2>
-            <p>{spot.data.price}</p>
-            <p>{spot.data.address}</p>
-            <p>{spot.data.city}</p>
-            <p>{spot.data.state}</p>
-            <p>{spot.data.country}</p>
-            {Object.values(spot.images).map(img => {
-                return <img src={img.url}/>
-            })}
+            {sessionUser && sessionUser.id === spot.data.userId ?
+                <button onClick={() => setEditForm(!editForm)}
+                    >{editForm ? 'Cancel' : 'Edit'}</button> : null}
+
+            {editForm ?
+                <SpotEditForm />
+            :
+                <>
+                    <h2>{spot.data.name}</h2>
+                    <p>{spot.data.price}</p>
+                    <p>{spot.data.address}</p>
+                    <p>{spot.data.city}</p>
+                    <p>{spot.data.state}</p>
+                    <p>{spot.data.country}</p>
+                    {Object.values(spot.images).map((img, i) => {
+                        return <img key={i} src={img.url}/>
+                    })}
+                </>
+            }
         </>
     )
     else return null;
