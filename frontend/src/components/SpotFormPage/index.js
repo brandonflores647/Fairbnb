@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import * as spotActions from "../../store/spot";
+import { Redirect, useHistory } from "react-router-dom";
+import { create } from "../../store/spot";
 
 import './SpotForm.css';
 
-function SignupFormPage() {
+function SpotFormPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     let userId;
     if (sessionUser) userId = sessionUser.id;
@@ -28,14 +29,18 @@ function SignupFormPage() {
 
     if (!sessionUser) return <Redirect to="/login" />;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       setErrors([]);
-      return dispatch(spotActions.create({ userId, name, price, address, city, state, country, images }))
+      let dispatchData;
+      dispatchData = await dispatch(create({ userId, name, price, address, city, state, country, images }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         });
+      if (dispatchData) {
+        history.push(`/spots/${dispatchData.spot.id}`);
+      }
     };
 
     return (
@@ -134,4 +139,4 @@ function SignupFormPage() {
     );
 }
 
-export default SignupFormPage;
+export default SpotFormPage;

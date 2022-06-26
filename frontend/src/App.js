@@ -4,9 +4,12 @@ import { Route, Switch } from 'react-router-dom';
 import * as sessionActions from './store/session';
 
 import Navigation from './components/Navigation';
+import PageNotFound from './components/PageNotFound';
 import LoginFormPage from './components/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage';
 import SpotFormPage from './components/SpotFormPage';
+import SpotsContainer from './components/SpotsContainer';
+import SpotDetail from './components/SpotDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +25,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <h1>cool app</h1>
+          <SpotsContainer />
         </Route>
         <Route exact path="/login">
           <LoginFormPage />
@@ -31,6 +35,12 @@ function App() {
         </Route>
         <Route exact path="/spots/new">
           <SpotFormPage />
+        </Route>
+        <Route exact path='/spots/:spotId'>
+          <SpotDetail />
+        </Route>
+        <Route>
+          <PageNotFound />
         </Route>
       </Switch>
     </>
