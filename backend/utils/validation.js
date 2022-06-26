@@ -51,75 +51,86 @@ const validateSignup = [
     handleValidationErrors
 ];
 
-
 const validateSpot = [
-    check('name')
-      .exists({ checkFalsy: true })
-      .withMessage("Please provide a name."),
-    check('name')
-      .not()
-      .isEmail()
-      .withMessage('Please provide a proper value for the name field.'),
-    check('name')
-      .isLength({ min: 5 })
-      .withMessage('Name must be atleast 5 characters.'),
-    check('address')
-      .isLength({ min: 8 })
-      .withMessage('Address must be atleast 8 characters.'),
-    check('city')
-      .isLength({ min: 4 })
-      .withMessage('City must be atleast 4 characters.'),
-    check('state')
-      .isLength({ min: 4 })
-      .withMessage('State must be atleast 4 characters.'),
-    check('country')
-      .isLength({ min: 4 })
-      .withMessage('Country must be atleast 4 characters.'),
-    check('images[0]')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide atleast 1 image.'),
-    check('images[0]')
-      .isLength({ min: 4 })
-      .withMessage('Uh oh! Looks like your first image is invalid.'),
-    check('images[0]')
-      .isLength({ max: 255 })
-      .withMessage('Uh oh! Looks like your first image url is too long! Please compress it.'),
-    check('images[1]')
-      .custom((value) => {
-        if (value && value.length < 6) {
-          throw new Error('Uh oh! Looks like your second image is invalid.');
-        }
-        if (value && value.length > 255) {
-          throw new Error('Uh oh! Looks like your second image url is too long! Please compress it.');
-        }
-        return true;
-      }),
+  check('name')
+  .exists({ checkFalsy: true })
+  .withMessage("Please provide a name."),
+  check('name')
+  .not()
+  .isEmail()
+  .withMessage('Please provide a proper value for the name field.'),
+  check('name')
+  .isLength({ min: 5 })
+  .withMessage('Name must be atleast 5 characters.'),
+  check('address')
+  .isLength({ min: 8 })
+  .withMessage('Address must be atleast 8 characters.'),
+  check('city')
+  .isLength({ min: 4 })
+  .withMessage('City must be atleast 4 characters.'),
+  check('state')
+  .isLength({ min: 4 })
+  .withMessage('State must be atleast 4 characters.'),
+  check('country')
+  .isLength({ min: 4 })
+  .withMessage('Country must be atleast 4 characters.'),
+  check('images[0]')
+  .exists({ checkFalsy: true })
+  .withMessage('Please provide your cover image in the first input field.'),
+  check('images[0]')
+  .isLength({ min: 4 })
+  .withMessage('Uh oh! Looks like your first image is invalid.'),
+  check('images[0]')
+  .isLength({ max: 255 })
+  .withMessage('Uh oh! Looks like your first image url is too long! Please compress it.'),
+  check('images[1]')
+  .custom((value) => {
+      if (value && value.length < 6) {
+        throw new Error('Uh oh! Looks like your second image is invalid.');
+      }
+      if (value && value.length > 255) {
+        throw new Error('Uh oh! Looks like your second image url is too long! Please compress it.');
+      }
+      return true;
+    }),
     check('images[2]')
-      .custom((value) => {
-        if (value && value.length < 6) {
-          throw new Error('Uh oh! Looks like your third image is invalid.');
-        }
-        if (value && value.length > 255) {
-          throw new Error('Uh oh! Looks like your third image url is too long! Please compress it.');
-        }
-        return true;
-      }),
+    .custom((value) => {
+      if (value && value.length < 6) {
+        throw new Error('Uh oh! Looks like your third image is invalid.');
+      }
+      if (value && value.length > 255) {
+        throw new Error('Uh oh! Looks like your third image url is too long! Please compress it.');
+      }
+      return true;
+    }),
     check('images[3]')
-      .custom((value) => {
-        if (value && value.length < 6) {
-          throw new Error('Uh oh! Looks like your fourth image is invalid.');
-        }
-        if (value && value.length > 255) {
-          throw new Error('Uh oh! Looks like your fourth image url is too long! Please compress it.');
+    .custom((value) => {
+      if (value && value.length < 6) {
+        throw new Error('Uh oh! Looks like your fourth image is invalid.');
+      }
+      if (value && value.length > 255) {
+        throw new Error('Uh oh! Looks like your fourth image url is too long! Please compress it.');
+      }
+      return true;
+    }),
+    handleValidationErrors
+];
+
+const validateSpotDelete = [
+    check('spot')
+      .custom((value, { req }) => {
+        if (value.name !== req.body.deleteInput) {
+          throw new Error("The provided name does not match this spots name.");
         }
         return true;
       }),
     handleValidationErrors
 ];
 
-module.exports = {
+  module.exports = {
   handleValidationErrors,
   validateLogin,
   validateSignup,
   validateSpot,
+  validateSpotDelete,
 };

@@ -21,7 +21,7 @@ const SpotDetail = () => {
         <>
             {sessionUser && sessionUser.id === spot.data.userId ?
                 <button onClick={() => setEditForm(!editForm)}
-                    >{editForm ? 'Cancel' : 'Edit'}</button> : null}
+                    >{editForm ? 'Cancel Edit' : 'Edit'}</button> : null}
 
             {editForm ?
                 <SpotEditForm hideForm={() => setEditForm(false)}/>

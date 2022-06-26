@@ -2,7 +2,7 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 
 const { requireAuth } = require('../../utils/auth');
-const { validateSpot } = require('../../utils/validation');
+const { validateSpot, validateSpotDelete } = require('../../utils/validation');
 const { Spot, Image, Review } = require('../../db/models');
 
 const router = express.Router();
@@ -55,7 +55,7 @@ router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
     return res.json({spot, images, reviews});
 }));
 
-// Update
+// Update individual
 router.patch('/:spotId(\\d+)',
     requireAuth,
     validateSpot,
@@ -106,6 +106,31 @@ router.patch('/:spotId(\\d+)',
         await spot.save();
 
         return res.json({spot, imgArr, reviews});
+}));
+
+// Delete individual
+router.delete('/:spotId(\\d+)',
+    requireAuth,
+    validateSpotDelete,
+    asyncHandler(async (req, res) => {
+        const spotId = req.body.spot.id;
+
+        // TODO: destory all reviews associated with spot from DB
+
+        // destroy all images associated with spot from DB
+        const imgArr = Object.values(req.body.images);
+
+        for (let image of imgArr) {
+            const url = image.url;
+            const imgToRemove = await Image.findOne({ where: { spotId, url } });
+            await imgToRemove.destroy();
+        }
+
+        // destroy spot from DB
+        const spot = await Spot.findByPk(spotId);
+        await spot.destroy();
+
+        return res.json({});
 }));
 
 module.exports = router;
