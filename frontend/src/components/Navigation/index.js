@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as sessionActions from '../../store/session';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
 const Navigation = ({ loaded }) => {
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
 
     let sessionLinks;
@@ -18,6 +20,14 @@ const Navigation = ({ loaded }) => {
                 <NavLink to='/signup'>Sign Up</NavLink>
             </>
         )
+    }
+
+    const handleDemoLogin = () => {
+        const emails = ['demo@user.io', 'user1@user.io', 'user2@user.io'];
+        return dispatch(sessionActions.login({
+            credential: emails[Math.floor(Math.random()*emails.length)],
+            password: 'P@ssw0rd!'
+        }))
     }
 
     return (
@@ -41,7 +51,8 @@ const Navigation = ({ loaded }) => {
                 </NavLink>
             </div>
             <div id='right-nav-info'>
-                <p>Demo Login</p>
+                {sessionUser ? <p id='right-nav-welcome'>Welcome {sessionUser.username}</p>
+                    : <div id='right-nav-demo-login' onClick={handleDemoLogin}>Demo Login</div>}
                 { loaded && sessionLinks }
             </div>
         </nav>
