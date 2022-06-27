@@ -1,5 +1,11 @@
 import { csrfFetch } from './csrf';
 
+// Review Actions
+import {
+  SET_REVIEW,
+} from './review.js';
+
+// Spot Actions
 const SET_SPOT = 'spot/SET_SPOT';
 const LOAD_SPOT = 'spot/LOAD_SPOT';
 const UPDATE_SPOT = 'spot/UPDATE_SPOT';
@@ -28,6 +34,7 @@ const updateSpot = (spot, imgArr, reviews) => ({
 const deleteSpot = () => ({
     type: DELETE_SPOT,
 });
+
 
 // THUNKS =============================================
 
@@ -131,8 +138,6 @@ const spotReducer = (state = initialState, action) => {
       };
     }
     case UPDATE_SPOT: {
-      newState = { ...state }
-
       const imgObj = {};
       action.imgArr.forEach(img => {
         imgObj[img.id] = {
@@ -158,6 +163,11 @@ const spotReducer = (state = initialState, action) => {
     }
     case DELETE_SPOT: {
       return {};
+    }
+    case SET_REVIEW: {
+      return {
+        ...state
+      }
     }
     default:
       return state;

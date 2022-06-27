@@ -145,7 +145,7 @@ const SpotEditForm = ({ hideForm }) => {
                 <button onClick={() => setDeleteBtn(!deleteBtn)}
                     >{deleteBtn ? 'Cancel' : 'Delete'}</button> : null}
         {deleteBtn ?
-                <SpotDeleteForm /*hideForm={() => setEditForm(false)}*//>
+                <SpotDeleteForm />
             :
                 null
             }

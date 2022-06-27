@@ -3,9 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail } from '../../store/spot';
 import SpotEditForm from '../SpotEditForm';
+import ReviewContainer from './ReviewContainer';
 
 const SpotDetail = () => {
-    const history = useHistory();
     const dispatch = useDispatch();
     const { spotId } = useParams();
 
@@ -17,6 +17,7 @@ const SpotDetail = () => {
 
     const sessionUser = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spot);
+    const reviews = useSelector(state => state.spot.reviews);
 
     if (spot.data) return (
         <>
@@ -39,6 +40,7 @@ const SpotDetail = () => {
                     })}
                 </>
             }
+            <ReviewContainer reviews={reviews}/>
         </>
     )
     else return <p>Loading...</p>;
