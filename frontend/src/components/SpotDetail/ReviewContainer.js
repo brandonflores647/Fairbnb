@@ -13,13 +13,24 @@ const ReviewContainer = ({ reviews }) => {
 
             {sessionUser && (!reviews[userId]) ? <ReviewForm /> : null}
 
+            {sessionUser && reviews[userId] ?
+            <div>
+                <p>{`${sessionUser.username}'s Review:`}</p>
+                <p>{reviews[userId].rating}</p>
+                <p>{reviews[userId].description}</p>
+                {userId === reviews[userId].userId ?
+                    <button>Delete</button> : null}
+            </div> : null}
+
             {Object.values(reviews).map((review, i) => {
-                return (
-                    <div key={i}>
-                        <p>{review.rating}</p>
-                        <p>{review.description}</p>
-                    </div>
-                );
+                if (review.userId !== userId) {
+                    return (
+                        <div key={i}>
+                            <p>{review.rating}</p>
+                            <p>{review.description}</p>
+                        </div>
+                    );
+                }
             })}
         </>
     );

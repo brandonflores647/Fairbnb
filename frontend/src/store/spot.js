@@ -124,6 +124,7 @@ const spotReducer = (state = initialState, action) => {
       const reviewObj = {};
       action.reviews.forEach(review => {
         reviewObj[review.userId] = {
+          userId: review.userId,
           description: review.description,
           rating: review.rating
         }
@@ -160,6 +161,7 @@ const spotReducer = (state = initialState, action) => {
     case SET_REVIEW: {
       newState = { ...state }
       newState.reviews[action.review.userId] = {
+        userId: action.review.userId,
         description: action.review.description,
         rating: action.review.rating,
       }
