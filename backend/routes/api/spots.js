@@ -90,12 +90,6 @@ router.patch('/:spotId(\\d+)',
             }
         }
 
-        const reviews = await Review.findAll({
-            where: {
-                spotId
-            }
-        });
-
         spot.address = req.body.address;
         spot.city = req.body.city;
         spot.state = req.body.state;
@@ -105,7 +99,7 @@ router.patch('/:spotId(\\d+)',
 
         await spot.save();
 
-        return res.json({spot, imgArr, reviews});
+        return res.json({spot, imgArr});
 }));
 
 // Delete individual

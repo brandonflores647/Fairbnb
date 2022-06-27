@@ -24,11 +24,10 @@ const loadSpot = (spot, images, reviews) => ({
     reviews
 });
 
-const updateSpot = (spot, imgArr, reviews) => ({
+const updateSpot = (spot, imgArr) => ({
     type: UPDATE_SPOT,
     spot,
-    imgArr,
-    reviews
+    imgArr
 });
 
 const deleteSpot = () => ({
@@ -69,7 +68,7 @@ export const update = (spot) => async dispatch => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(updateSpot(data.spot, data.imgArr, data.reviews));
+    dispatch(updateSpot(data.spot, data.imgArr));
     return data;
   }
 }
@@ -145,20 +144,14 @@ const spotReducer = (state = initialState, action) => {
         }
       });
 
-      const reviewObj = {};
-      action.reviews.forEach(review => {
-        reviewObj[review.userId] = {
-          description: review.description,
-          rating: review.rating
-        }
-      });
-
       return {
         data: {
           ...action.spot
         },
         images: imgObj,
-        reviews: reviewObj,
+        reviews: {
+          ...state.reviews
+        }
       }
     }
     case DELETE_SPOT: {
