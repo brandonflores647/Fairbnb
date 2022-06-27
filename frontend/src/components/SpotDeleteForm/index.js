@@ -28,11 +28,11 @@ const SpotDeleteForm = () => {
     return (
         <>
         <p>Type the name if this spot and press 'Delete' to confirm this action.</p>
+        {errors.length > 0 ?
+            <ul>
+                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            </ul> : null}
         <form onSubmit={handleSubmit}>
-            {errors.length > 0 ?
-                <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul> : null}
             <input
                 value={deleteInput}
                 onChange={(e) => setDeleteInput(e.target.value)}

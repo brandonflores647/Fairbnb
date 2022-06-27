@@ -165,9 +165,12 @@ const spotReducer = (state = initialState, action) => {
       return {};
     }
     case SET_REVIEW: {
-      return {
-        ...state
+      newState = { ...state }
+      newState.reviews[action.review.id] = {
+        description: action.review.description,
+        rating: action.review.rating,
       }
+      return newState;
     }
     default:
       return state;

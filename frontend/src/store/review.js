@@ -2,10 +2,9 @@ import { csrfFetch } from './csrf';
 
 export const SET_REVIEW = 'spot/SET_REVIEW';
 
-export const setReview = (title, description) => ({
+export const setReview = (review) => ({
     type: SET_REVIEW,
-    title,
-    description
+    review
 });
 
 // THUNKS =============================================
@@ -18,7 +17,7 @@ export const createReviewThunk = (data) => async dispatch => {
 
     if (response.ok) {
       const resData = await response.json();
-      dispatch(setReview(resData.title, resData.description));
+      dispatch(setReview(resData));
       return resData;
     }
 }

@@ -127,10 +127,38 @@ const validateSpotDelete = [
     handleValidationErrors
 ];
 
+const validateReview = [
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a description."),
+  check('description')
+    .custom((value) => {
+      if (value && value.length < 6) {
+        throw new Error('Uh oh! Reviews must be atleast 6 characters in length.');
+      }
+      if (value && value.length > 200) {
+        throw new Error(`Sorry! Reviews are limited to 200 characters. This review has ${value.length}.`);
+      }
+      return true;
+    }),
+  check('rating')
+    .custom((value) => {
+      if (parseInt(value, 10) > 5) {
+        throw new Error('Uh oh! Reviews cannot be rated higher than 5 stars.');
+      }
+      if (parseInt(value, 10) < 1) {
+        throw new Error('Uh oh! Reviews cannot be rated lower than 1 star.');
+      }
+      return true;
+    }),
+  handleValidationErrors
+];
+
   module.exports = {
   handleValidationErrors,
   validateLogin,
   validateSignup,
   validateSpot,
   validateSpotDelete,
+  validateReview,
 };

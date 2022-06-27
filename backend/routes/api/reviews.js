@@ -2,6 +2,7 @@ const express = require('express')
 const asyncHandler = require('express-async-handler');
 
 const { requireAuth } = require('../../utils/auth');
+const { validateReview } = require('../../utils/validation');
 const { Review } = require('../../db/models');
 
 const router = express.Router();
@@ -10,24 +11,18 @@ const router = express.Router();
 router.post(
     '/',
     requireAuth,
+    validateReview,
     asyncHandler(async (req, res) => {
-        const { title, description } = req.body;
+        const { userId, spotId, description, rating } = req.body;
 
         const review = await Review.create({
-            title,
-            description
+            userId,
+            spotId,
+            description,
+            rating
         });
-        const spotId = spot.id;
-        const imgArr = [];
 
-        for (let url of images) {
-            if (url) imgArr.push(await Image.create({spotId, url}));
-        }
-
-        return res.json({
-          spot,
-          imgArr
-        });
+        return res.json(review);
     })
 );
 
