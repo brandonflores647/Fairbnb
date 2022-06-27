@@ -1,51 +1,26 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createReviewThunk } from '../../store/review'
+import ReviewForm from "./ReviewForm";
+import { useSelector } from 'react-redux';
 
 const ReviewContainer = ({ reviews }) => {
-    const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    const spotId = useSelector(state => state.spot.data.id);
 
     let userId;
     if (sessionUser) userId = sessionUser.id;
 
-    const [errors, setErrors] = useState([]);
-    const [description, setDescription] = useState('');
-    const [rating, setRating] = useState(1);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrors([]);
-        await dispatch(createReviewThunk({userId, spotId, description, rating}))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            });
-    }
-
     return (
         <>
             <p>Reviews</p>
-            {errors.length > 0 ?
-                <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul> : null}
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Description"
-                />
-                <input
-                    type="number"
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                    min='1'
-                    max='5'
-                />
-                <button type='submit'>Submit Review</button>
-            </form>
+
+            {sessionUser && (!reviews[userId]) ? <ReviewForm /> : null}
+
+            {Object.values(reviews).map((review, i) => {
+                return (
+                    <div key={i}>
+                        <p>{review.rating}</p>
+                        <p>{review.description}</p>
+                    </div>
+                );
+            })}
         </>
     );
 }
