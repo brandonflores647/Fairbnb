@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail } from '../../store/spot';
 import SpotEditForm from '../SpotEditForm';
 
 const SpotDetail = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { spotId } = useParams();
 
@@ -14,8 +15,8 @@ const SpotDetail = () => {
         dispatch(getSpotDetail(spotId));
     }, [dispatch])
 
-    const spot = useSelector(state => state.spot);
     const sessionUser = useSelector(state => state.session.user);
+    const spot = useSelector(state => state.spot);
 
     if (spot.data) return (
         <>
@@ -40,7 +41,7 @@ const SpotDetail = () => {
             }
         </>
     )
-    else return null;
+    else return <p>Loading...</p>;
 }
 
 export default SpotDetail;
