@@ -10,6 +10,7 @@ import SignupFormPage from './components/SignupFormPage';
 import SpotFormPage from './components/SpotFormPage';
 import SpotsContainer from './components/SpotsContainer';
 import SpotDetail from './components/SpotDetail';
+import Footer from './components/Footer';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
           <PageNotFound />
         </Route>
       </Switch>
+      <Footer />
     </>
     ) : null
 }
