@@ -17,21 +17,27 @@
     transition: height .1s ease-in;
 }
 
+.footer-anchor {
+    color: black;
+    text-decoration: none;
+}
+
 #footer-right-info {
     display: flex;
     justify-content: space-between;
-    width: 300px;
+    width: 365px;
 }
 
-#footer-language {
+#footer-github {
     position: relative;
     display: flex;
     align-items: flex-start;
     height: fit-content;
 }
-#footer-language > p {margin-left: 5px;}
-#footer-globe {
-    margin-top: 17px;
+#footer-github > p {margin-left: 5px;}
+#footer-linkedin > p {margin-left: 5px;}
+#footer-github-logo {
+    margin-top: 10px;
 }
 
 .footer-right-info-text {
@@ -65,49 +71,54 @@
 
 /* tooltips */
 
-.footer-language-tt {
+.footer-github-tt {
+    display: flex;
+    justify-content: center;
     position: absolute;
     z-index: 2;
-    width: fit-content;
+    width: 182px;
 
     padding: 5px 15px 5px 15px;
 
-    left: 10px;
+    left: -30px;
     bottom: 60px;
 
     font-weight: 600;
-    background-color: #9f9f9f;
+    background-color: #d2d2d2;
     border-radius: 5px;
     opacity: 0;
 
     transition: opacity .2s ease-in;
 }
-#footer-language:hover .footer-language-tt {opacity: 100%;}
-#language-triangle {
+#footer-github:hover .footer-github-tt {opacity: 100%;}
+#github-triangle {
     position: absolute;
     width: 0;
     height: 0;
-    left: 52px;
+    left: 8px;
     bottom: 52px;
 
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
 
-    border-top: 8px solid #9f9f9f;
+    border-top: 8px solid #d2d2d2;
     opacity: 0;
 
     transition: opacity .2s ease-in;
 }
-#footer-language:hover #language-triangle {opacity: 100%;}
+#footer-github:hover #github-triangle {opacity: 100%;}
 
-#footer-currency {
+#footer-linkedin {
+    display: flex;
     position: relative;
     height: fit-content;
 }
-.footer-currency-tt {
+.footer-linkedin-tt {
+    display: flex;
+    justify-content: center;
     position: absolute;
     z-index: 2;
-    width: fit-content;
+    width: 210px;
 
     padding: 5px 15px 5px 15px;
 
@@ -115,26 +126,26 @@
     bottom: 60px;
 
     font-weight: 600;
-    background-color: #9f9f9f;
+    background-color: #d2d2d2;
     border-radius: 5px;
     opacity: 0;
 
     transition: opacity .2s ease-in;
 }
-#footer-currency:hover .footer-currency-tt {opacity: 100%;}
-#currency-triangle {
+#footer-linkedin:hover .footer-linkedin-tt {opacity: 100%;}
+#linkedin-triangle {
     position: absolute;
     width: 0;
     height: 0;
-    left: 20px;
+    left: 8px;
     bottom: 52px;
 
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
 
-    border-top: 8px solid #9f9f9f;
+    border-top: 8px solid #d2d2d2;
     opacity: 0;
 
     transition: opacity .2s ease-in;
 }
-#footer-currency:hover #currency-triangle {opacity: 100%;}
+#footer-linkedin:hover #linkedin-triangle {opacity: 100%;}
