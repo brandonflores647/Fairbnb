@@ -27,6 +27,7 @@
     position: relative;
     display: flex;
     align-items: flex-start;
+    height: fit-content;
 }
 #footer-language > p {margin-left: 5px;}
 #footer-globe {
@@ -35,19 +36,21 @@
 
 .footer-right-info-text {
     font-weight: 600;
+    user-select: none;
 }
 
 #footer-about {
     display: flex;
     align-items: flex-start;
     cursor: pointer;
+    height: fit-content;
 }
 
 #footer-arrow {
     width: 15px;
     margin-top: 18px;
     margin-left: 8px;
-    transition: transform .2s linear;
+    transition: transform .25s linear;
 }
 
 .footer-animation-false {
@@ -99,6 +102,7 @@
 
 #footer-currency {
     position: relative;
+    height: fit-content;
 }
 .footer-currency-tt {
     position: absolute;
