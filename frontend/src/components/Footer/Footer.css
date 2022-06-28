@@ -1,19 +1,20 @@
 #footer-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    z-index: 2;
 
     position: fixed;
     bottom: 0;
 
     width: 100%;
-    height: 3.3rem;
 
     margin: 0;
     padding: 0 15% 0 15%;
 
     background-color: white;
     border-top: 1px solid #dddddd;
+
+    transition: height .1s ease-in;
 }
 
 #footer-right-info {
@@ -25,8 +26,12 @@
 #footer-language {
     position: relative;
     display: flex;
+    align-items: flex-start;
 }
 #footer-language > p {margin-left: 5px;}
+#footer-globe {
+    margin-top: 17px;
+}
 
 .footer-right-info-text {
     font-weight: 600;
@@ -34,13 +39,25 @@
 
 #footer-about {
     display: flex;
+    align-items: flex-start;
     cursor: pointer;
 }
 
 #footer-arrow {
     width: 15px;
+    margin-top: 18px;
     margin-left: 8px;
     transition: transform .2s linear;
+}
+
+.footer-animation-false {
+    height: 3.3rem;
+}
+.footer-animation-true {
+    height: 50%;
+}
+.footer-animation-arrow-true {
+    transform: rotate(-180deg);
 }
 
 /* tooltips */
