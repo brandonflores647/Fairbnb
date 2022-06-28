@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from "../../store/spot";
 import SpotDeleteForm from '../SpotDeleteForm';
@@ -145,7 +145,7 @@ const SpotEditForm = ({ hideForm }) => {
                 <button onClick={() => setDeleteBtn(!deleteBtn)}
                     >{deleteBtn ? 'Cancel' : 'Delete'}</button> : null}
         {deleteBtn ?
-                <SpotDeleteForm /*hideForm={() => setEditForm(false)}*//>
+                <SpotDeleteForm />
             :
                 null
             }
