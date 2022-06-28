@@ -45,7 +45,9 @@ const ReviewContainer = ({ reviews }) => {
                 <div>
                     <p>{`${sessionUser.username}'s Review:`}</p>
                     {editForm ?
-                        <EditReviewForm />
+                        <EditReviewForm
+                            setDelMessage={setDelMessage}
+                            setEditForm={setEditForm}/>
                         :
                         <>
                             <p>{reviews[userId].rating}</p>

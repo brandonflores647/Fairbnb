@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 export const SET_REVIEW = 'spot/SET_REVIEW';
+export const EDIT_REVIEW = 'spot/EDIT_REVIEW';
 export const DELETE_REVIEW = 'spot/DELETE_REVIEW';
 
 export const setReview = (review) => ({
@@ -18,6 +19,19 @@ export const deleteReview = (review) => ({
 export const createReviewThunk = (data) => async dispatch => {
   const response = await csrfFetch('/api/reviews', {
     method: 'POST',
+    body: JSON.stringify(data)
+  });
+
+  if (response.ok) {
+    const resData = await response.json();
+    dispatch(setReview(resData));
+    return resData;
+  }
+}
+
+export const editReviewThunk = (data) => async dispatch => {
+  const response = await csrfFetch(`/api/reviews/${data.reviewId}`, {
+    method: 'PATCH',
     body: JSON.stringify(data)
   });
 
