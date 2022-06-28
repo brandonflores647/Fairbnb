@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createReviewThunk } from '../../store/review'
 
-const ReviewForm = () => {
+const ReviewForm = ({ setDelMessage, setEditForm }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const spotId = useSelector(state => state.spot.data.id);
@@ -17,6 +17,8 @@ const ReviewForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
+        setDelMessage('Delete');
+        setEditForm(false);
         await dispatch(createReviewThunk({userId, spotId, description, rating}))
             .catch(async (res) => {
                 const data = await res.json();
