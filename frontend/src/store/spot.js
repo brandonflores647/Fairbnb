@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 // Review Actions
 import {
   SET_REVIEW,
+  DELETE_REVIEW
 } from './review.js';
 
 // Spot Actions
@@ -124,6 +125,7 @@ const spotReducer = (state = initialState, action) => {
       const reviewObj = {};
       action.reviews.forEach(review => {
         reviewObj[review.userId] = {
+          id: review.id,
           userId: review.userId,
           description: review.description,
           rating: review.rating
@@ -161,10 +163,16 @@ const spotReducer = (state = initialState, action) => {
     case SET_REVIEW: {
       newState = { ...state }
       newState.reviews[action.review.userId] = {
+        id: action.review.id,
         userId: action.review.userId,
         description: action.review.description,
         rating: action.review.rating,
       }
+      return newState;
+    }
+    case DELETE_REVIEW: {
+      newState = { ...state }
+      newState.reviews[action.review.userId] = {}
       return newState;
     }
     default:

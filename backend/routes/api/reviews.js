@@ -26,4 +26,17 @@ router.post(
     })
 );
 
+// Delete
+router.delete(
+    '/:reviewId(\\d+)',
+    requireAuth,
+    asyncHandler(async (req, res) => {
+        const reviewId = req.body.review.id;
+
+        const review = await Review.findByPk(reviewId);
+        await review.destroy();
+
+        return res.json({});
+}));
+
 module.exports = router;
