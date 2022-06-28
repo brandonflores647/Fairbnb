@@ -6,13 +6,17 @@ import SpotEditForm from '../SpotEditForm';
 import ReviewContainer from './ReviewContainer';
 
 const SpotDetail = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { spotId } = useParams();
 
     const [editForm, setEditForm] = useState(false);
 
     useEffect(() => {
-        dispatch(getSpotDetail(spotId));
+        dispatch(getSpotDetail(spotId))
+            .then(res => {
+                if (!res.spot) history.push('/');
+            });
     }, [dispatch])
 
     const sessionUser = useSelector(state => state.session.user);

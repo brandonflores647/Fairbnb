@@ -52,6 +52,7 @@ router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
             spotId
         }
     });
+
     return res.json({spot, images, reviews});
 }));
 
