@@ -17,7 +17,7 @@ const SpotDetail = () => {
             .then(res => {
                 if (!res.spot) history.push('/');
             });
-    }, [dispatch])
+    }, [dispatch, history, spotId])
 
     const sessionUser = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spot);
@@ -40,7 +40,7 @@ const SpotDetail = () => {
                     <p>{spot.data.state}</p>
                     <p>{spot.data.country}</p>
                     {Object.values(spot.images).map((img, i) => {
-                        return <img key={i} src={img.url}/>
+                        return <img key={i} src={img.url} alt={`number ${i}`}/>
                     })}
                 </>
             }
