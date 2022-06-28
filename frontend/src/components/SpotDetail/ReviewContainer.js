@@ -36,7 +36,7 @@ const ReviewContainer = ({ reviews }) => {
             <p>Reviews</p>
 
             {sessionUser &&
-                (!reviews[userId] || reviews[userId] && !reviews[userId].id)
+                (!reviews[userId] || (reviews[userId] && !reviews[userId].id))
                 ? <ReviewForm
                     setDelMessage={setDelMessage}
                     setEditForm={setEditForm}/> : null}
@@ -69,6 +69,7 @@ const ReviewContainer = ({ reviews }) => {
                         </div>
                     );
                 }
+                return null;
             })}
         </>
     );
