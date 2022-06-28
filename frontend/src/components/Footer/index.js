@@ -6,6 +6,8 @@ const Footer = () => {
             <p>© 2022 Fairbnb, Inc.</p>
             <div id='footer-right-info'>
                 <div id='footer-language'>
+                    <span className='footer-language-tt'>Language</span>
+                    <span class='triangle'></span>
                     <svg width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M13 2.04932C13 2.04932 16 5.99994 16 11.9999C16 17.9999 13 21.9506 13 21.9506" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -13,10 +15,10 @@ const Footer = () => {
                     <path d="M2.62964 15.5H21.3704" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M2.62964 8.5H21.3704" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <p class='footer-right-info-text'>English (US)</p>
+                    <p className='footer-right-info-text'>English (US)</p>
                 </div>
-                <p class='footer-right-info-text'>$ USD</p>
-                <p class='footer-right-info-text'>About</p>
+                <p className='footer-right-info-text'>$ USD</p>
+                <p className='footer-right-info-text'>About</p>
             </div>
         </div>
     );
