@@ -13,26 +13,26 @@ const UPDATE_SPOT = 'spot/UPDATE_SPOT';
 const DELETE_SPOT = 'spot/DELETE_SPOT';
 
 const setSpot = (spot, imgArr) => ({
-    type: SET_SPOT,
-    spot,
-    imgArr
+  type: SET_SPOT,
+  spot,
+  imgArr
 });
 
 const loadSpot = (spot, images, reviews) => ({
-    type: LOAD_SPOT,
-    spot,
-    images,
-    reviews
+  type: LOAD_SPOT,
+  spot,
+  images,
+  reviews
 });
 
 const updateSpot = (spot, imgArr) => ({
-    type: UPDATE_SPOT,
-    spot,
-    imgArr
+  type: UPDATE_SPOT,
+  spot,
+  imgArr
 });
 
 const deleteSpot = () => ({
-    type: DELETE_SPOT,
+  type: DELETE_SPOT,
 });
 
 
