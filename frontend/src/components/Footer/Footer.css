@@ -32,6 +32,17 @@
     font-weight: 600;
 }
 
+#footer-about {
+    display: flex;
+    cursor: pointer;
+}
+
+#footer-arrow {
+    width: 15px;
+    margin-left: 8px;
+    transition: transform .2s linear;
+}
+
 /* tooltips */
 
 .footer-language-tt {
