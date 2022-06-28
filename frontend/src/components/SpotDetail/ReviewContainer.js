@@ -1,4 +1,5 @@
 import ReviewForm from "./ReviewForm";
+import EditReviewForm from "./EditReviewForm";
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteReviewThunk } from '../../store/review'
@@ -7,7 +8,6 @@ const ReviewContainer = ({ reviews }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
 
-
     let userId;
     if (sessionUser) userId = sessionUser.id;
 
@@ -15,6 +15,7 @@ const ReviewContainer = ({ reviews }) => {
     review = useSelector((state) => state.spot.reviews[userId]);
 
     const [delMessage, setDelMessage] = useState('Delete');
+    const [editForm, setEditForm] = useState(false);
 
     const handleDelete = async (e) => {
         e.preventDefault();
@@ -34,15 +35,29 @@ const ReviewContainer = ({ reviews }) => {
         <>
             <p>Reviews</p>
 
-            {sessionUser && (!reviews[userId]) ? <ReviewForm /> : null}
+            {sessionUser &&
+                (!reviews[userId] || reviews[userId] && !reviews[userId].id)
+                ? <ReviewForm
+                    setDelMessage={setDelMessage}
+                    setEditForm={setEditForm}/> : null}
 
-            {sessionUser && reviews[userId] ?
+            {sessionUser && reviews[userId] && reviews[userId].id ?
                 <div>
                     <p>{`${sessionUser.username}'s Review:`}</p>
-                    <p>{reviews[userId].rating}</p>
-                    <p>{reviews[userId].description}</p>
+                    {editForm ?
+                        <EditReviewForm
+                            setDelMessage={setDelMessage}
+                            setEditForm={setEditForm}/>
+                        :
+                        <>
+                            <p>{reviews[userId].rating}</p>
+                            <p>{reviews[userId].description}</p>
+                        </>
+                    }
                     {userId === reviews[userId].userId ?
                         <button onClick={handleDelete}>{delMessage}</button> : null}
+                    {userId === reviews[userId].userId ?
+                        <button onClick={() => setEditForm(!editForm)}>{editForm ? 'Cancel' : 'Edit'}</button> : null}
                 </div> : null }
 
             {Object.values(reviews).map((review, i) => {
