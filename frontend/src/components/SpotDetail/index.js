@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail } from '../../store/spot';
 import SpotEditForm from '../SpotEditForm';
+import BookingForm from './BookingForm';
 import ReviewContainer from './ReviewContainer';
 
 const SpotDetail = () => {
@@ -19,7 +20,9 @@ const SpotDetail = () => {
             });
     }, [dispatch, history, spotId])
 
+    let userId;
     const sessionUser = useSelector(state => state.session.user);
+    if (sessionUser) userId = sessionUser.id;
     const spot = useSelector(state => state.spot);
     const reviews = useSelector(state => state.spot.reviews);
 
@@ -44,6 +47,9 @@ const SpotDetail = () => {
                     })}
                 </>
             }
+
+            <BookingForm userId={userId} price={spot.data.price} />
+
             <ReviewContainer reviews={reviews}/>
         </>
     )
