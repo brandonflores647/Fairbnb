@@ -11,6 +11,7 @@ import SpotFormPage from './components/SpotFormPage';
 import SpotsContainer from './components/SpotsContainer';
 import SpotDetail from './components/SpotDetail';
 import Footer from './components/Footer';
+import Profile from './components/Profile';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route exact path='/spots/:spotId'>
           <SpotDetail />
+        </Route>
+        <Route exact path='/users/:userId'>
+          <Profile />
         </Route>
         <Route>
           <PageNotFound />
