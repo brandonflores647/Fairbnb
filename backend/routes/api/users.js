@@ -27,8 +27,19 @@ router.post(
 router.get('/:userId(\\d+)', asyncHandler(async (req, res) => {
   const userId = parseInt(req.params.userId, 10);
 
-  const user = await User.findByPk(userId);
-
+  const user = await User.findByPk(userId, {
+    include: [
+      {
+        model: Review,
+        attributes: ['spotId','description','rating']
+      },
+      {
+        model: Booking,
+        attributes: ['spotId','startDate','endDate','cost']
+      }
+    ]
+  });
+  console.log(JSON.stringify(user))
   // const reviews = await Review.findAll({
   //     where: {
   //         spotId

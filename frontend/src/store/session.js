@@ -90,7 +90,25 @@ const sessionReducer = (state = initialState, action) => {
       return newState;
     case GET_USER_DETAIL:
       newState = {...state};
-      // newState.user.me = action.user;
+      const reviewsObj = {}
+      action.user.Reviews.forEach((review, i) => {
+        reviewsObj[i] = {
+          spotId: review.spotId,
+          description: review.description,
+          rating: review.rating
+        }
+      });
+      const bookingsObj = {}
+      action.user.Bookings.forEach((booking, i) => {
+        bookingsObj[i] = {
+          spotId: booking.spotId,
+          startDate: booking.startDate,
+          endDate: booking.endDate,
+          cost: booking.cost
+        }
+      });
+      newState.user.reviews = reviewsObj;
+      newState.user.bookings = bookingsObj;
       return newState;
     default:
       return state;

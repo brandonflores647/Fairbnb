@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserDetail } from '../../store/session';
-import { restoreCSRF } from '../../store/csrf';
 
 const Profile = () => {
     const history = useHistory();
