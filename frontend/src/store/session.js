@@ -88,6 +88,10 @@ const sessionReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.user = null;
       return newState;
+    case GET_USER_DETAIL:
+      newState = {...state};
+      // newState.user.me = action.user;
+      return newState;
     default:
       return state;
   }
