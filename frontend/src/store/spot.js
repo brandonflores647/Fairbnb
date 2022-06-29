@@ -113,6 +113,7 @@ const spotReducer = (state = initialState, action) => {
           country: action.spot.country
       };
       newState.images = imgObj;
+      newState.reviews = {}
       return newState;
     }
     case LOAD_SPOT: {
