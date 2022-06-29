@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createBookingThunk } from '../../store/booking'
 
 const BookingForm = ({ userId, price }) => {
+    const dispatch = useDispatch();
+    const spot = useSelector(state => state.spot);
 
     const todayDate = new Date();
     const today = todayDate.toISOString().split('T')[0];
@@ -20,11 +23,18 @@ const BookingForm = ({ userId, price }) => {
         const diffInDays = diffInTime / (1000 * 3600 * 24);
 
         setCost(parseInt(price, 10) + (parseInt(price, 10) * diffInDays));
-    }, [startDate, endDate])
+    }, [startDate, endDate, price])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
+        let dispatchData;
+        dispatchData = await dispatch(createBookingThunk({spotId: spot.data.id, userId, startDate, endDate, cost}))
+            .catch(async (res) => {
+              const data = await res.json();
+              if (data && data.errors) setErrors(data.errors);
+            })
+        return dispatchData;
     }
 
     return (
@@ -33,7 +43,6 @@ const BookingForm = ({ userId, price }) => {
                 <ul>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul> : null}
-
             <form onSubmit={handleSubmit}>
                 <label>
                     Start

@@ -6,6 +6,11 @@ import {
   DELETE_REVIEW
 } from './review.js';
 
+// Booking Actions
+import {
+  SET_BOOKING,
+} from './booking.js'
+
 // Spot Actions
 const SET_SPOT = 'spot/SET_SPOT';
 const LOAD_SPOT = 'spot/LOAD_SPOT';
@@ -177,6 +182,13 @@ const spotReducer = (state = initialState, action) => {
     case DELETE_REVIEW: {
       newState = { ...state }
       newState.reviews[action.review.userId] = {}
+      return newState;
+    }
+    case SET_BOOKING: {
+      newState = { ...state }
+      newState.booking = {
+        hasBooked: true
+      }
       return newState;
     }
     default:
