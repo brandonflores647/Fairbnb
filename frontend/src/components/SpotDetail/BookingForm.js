@@ -13,8 +13,8 @@ const BookingForm = ({ userId, price }) => {
 
     useEffect(() => {
         // Calculate difference between start & end date
-        const formattedStart = new Date(startDate)
-        const formattedEnd = new Date(endDate)
+        const formattedStart = new Date(startDate);
+        const formattedEnd = new Date(endDate);
 
         const diffInTime = formattedEnd.getTime() - formattedStart.getTime();
         const diffInDays = diffInTime / (1000 * 3600 * 24);

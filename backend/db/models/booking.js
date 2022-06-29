@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE
     },
+    cost: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
   }, {});
   Booking.associate = function(models) {
     Booking.belongsTo(models.Spot, {
