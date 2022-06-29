@@ -6,6 +6,11 @@ import {
   DELETE_REVIEW
 } from './review.js';
 
+// Booking Actions
+import {
+  SET_BOOKING,
+} from './booking.js'
+
 // Spot Actions
 const SET_SPOT = 'spot/SET_SPOT';
 const LOAD_SPOT = 'spot/LOAD_SPOT';
@@ -18,11 +23,12 @@ const setSpot = (spot, imgArr) => ({
   imgArr
 });
 
-const loadSpot = (spot, images, reviews) => ({
+const loadSpot = (spot, images, reviews, bookings) => ({
   type: LOAD_SPOT,
   spot,
   images,
-  reviews
+  reviews,
+  bookings
 });
 
 const updateSpot = (spot, imgArr) => ({
@@ -56,7 +62,7 @@ export const getSpotDetail = (id) => async dispatch => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(loadSpot(data.spot, data.images, data.reviews));
+    dispatch(loadSpot(data.spot, data.images, data.reviews, data.bookings));
     return data;
   }
 }
@@ -112,7 +118,9 @@ const spotReducer = (state = initialState, action) => {
           state: action.spot.state,
           country: action.spot.country
       };
+      newState.bookings = {};
       newState.images = imgObj;
+      newState.reviews = {};
       return newState;
     }
     case LOAD_SPOT: {
@@ -131,10 +139,15 @@ const spotReducer = (state = initialState, action) => {
           rating: review.rating
         }
       });
+      const bookingObj = {};
+      action.bookings.forEach(booking => {
+        bookingObj[booking.userId] = booking.userId
+      })
       return {
         data: {
           ...action.spot
         },
+        bookings: bookingObj,
         images: imgObj,
         reviews: reviewObj,
       };
@@ -173,6 +186,11 @@ const spotReducer = (state = initialState, action) => {
     case DELETE_REVIEW: {
       newState = { ...state }
       newState.reviews[action.review.userId] = {}
+      return newState;
+    }
+    case SET_BOOKING: {
+      newState = { ...state }
+      newState.bookings[action.booking.userId] = action.booking.userId
       return newState;
     }
     default:

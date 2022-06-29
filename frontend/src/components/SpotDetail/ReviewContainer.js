@@ -28,6 +28,7 @@ const ReviewContainer = ({ reviews }) => {
             }, "2000")
         } else {
             await dispatch(deleteReviewThunk({review}));
+            setDelMessage('Delete');
         }
     }
 

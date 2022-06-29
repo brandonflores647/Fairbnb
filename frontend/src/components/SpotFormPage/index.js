@@ -34,13 +34,14 @@ function SpotFormPage() {
       setErrors([]);
       let dispatchData;
       dispatchData = await dispatch(create({ userId, name, price, address, city, state, country, images }))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
-      if (dispatchData) {
-        history.push(`/spots/${dispatchData.spot.id}`);
-      }
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      })
+      .then(res => {
+        if (res) history.push(`/spots/${res.spot.id}`)
+      })
+      return dispatchData;
     };
 
     return (
