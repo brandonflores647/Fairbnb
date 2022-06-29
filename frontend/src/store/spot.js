@@ -132,6 +132,7 @@ const spotReducer = (state = initialState, action) => {
         }
       });
       return {
+        hasBooked: false,
         data: {
           ...action.spot
         },
