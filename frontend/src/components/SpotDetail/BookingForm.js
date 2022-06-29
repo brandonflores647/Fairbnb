@@ -39,33 +39,39 @@ const BookingForm = ({ userId, price }) => {
 
     return (
         <>
-            {errors.length > 0 ?
-                <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul> : null}
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Start
-                    <input
-                        type="date"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        min={today}
-                        max={endDate}
-                    />
-                </label>
-                <label>
-                    End
-                    <input
-                        type="date"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        min={today}
-                    />
-                </label>
-                <p>Total Cost: ${cost}</p>
-                <button type='submit'>Submit Booking</button>
-            </form>
+            {spot.bookings[userId] ?
+                <div>
+                    <p>Looks like you've booked this spot! Go to your profile to modify your booking</p>
+                </div>
+            : (spot.data.userId === userId) ? null :
+                <form onSubmit={handleSubmit}>
+                    {errors.length > 0 ?
+                        <ul>
+                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul> : null}
+                    <label>
+                        Start
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            min={today}
+                            max={endDate}
+                        />
+                    </label>
+                    <label>
+                        End
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            min={today}
+                        />
+                    </label>
+                    <p>Total Cost: ${cost}</p>
+                    <button type='submit'>Submit Booking</button>
+                </form>
+            }
         </>
     );
 }

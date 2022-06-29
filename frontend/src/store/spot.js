@@ -23,11 +23,12 @@ const setSpot = (spot, imgArr) => ({
   imgArr
 });
 
-const loadSpot = (spot, images, reviews) => ({
+const loadSpot = (spot, images, reviews, bookings) => ({
   type: LOAD_SPOT,
   spot,
   images,
-  reviews
+  reviews,
+  bookings
 });
 
 const updateSpot = (spot, imgArr) => ({
@@ -61,7 +62,7 @@ export const getSpotDetail = (id) => async dispatch => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(loadSpot(data.spot, data.images, data.reviews));
+    dispatch(loadSpot(data.spot, data.images, data.reviews, data.bookings));
     return data;
   }
 }
@@ -117,8 +118,9 @@ const spotReducer = (state = initialState, action) => {
           state: action.spot.state,
           country: action.spot.country
       };
+      newState.bookings = {};
       newState.images = imgObj;
-      newState.reviews = {}
+      newState.reviews = {};
       return newState;
     }
     case LOAD_SPOT: {
@@ -137,13 +139,15 @@ const spotReducer = (state = initialState, action) => {
           rating: review.rating
         }
       });
+      const bookingObj = {};
+      action.bookings.forEach(booking => {
+        bookingObj[booking.userId] = booking.userId
+      })
       return {
         data: {
           ...action.spot
         },
-        booking: {
-          hasBooked: false,
-        },
+        bookings: bookingObj,
         images: imgObj,
         reviews: reviewObj,
       };
@@ -186,9 +190,7 @@ const spotReducer = (state = initialState, action) => {
     }
     case SET_BOOKING: {
       newState = { ...state }
-      newState.booking = {
-        hasBooked: true
-      }
+      newState.bookings[action.booking.userId] = action.booking.userId
       return newState;
     }
     default:

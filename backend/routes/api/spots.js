@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 const { requireAuth } = require('../../utils/auth');
 const { validateSpot, validateSpotDelete } = require('../../utils/validation');
-const { Spot, Image, Review } = require('../../db/models');
+const { Spot, Image, Review, Booking } = require('../../db/models');
 
 const router = express.Router();
 
@@ -42,6 +42,7 @@ router.post(
 router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
     const spotId = parseInt(req.params.spotId, 10);
     const spot = await Spot.findByPk(spotId);
+
     const images = await Image.findAll({
         where: {
             spotId
@@ -52,8 +53,12 @@ router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
             spotId
         }
     });
-
-    return res.json({spot, images, reviews});
+    const bookings = await Booking.findAll({
+        where: {
+            spotId,
+        }
+    });
+    return res.json({spot, images, reviews, bookings});
 }));
 
 // Update individual
