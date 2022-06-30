@@ -12,6 +12,9 @@ const IndividualBooking = ({ data }) => {
     const [endDate, setEndDate] = useState(data.endDate.split('T')[0]);
     const [cost, setCost] = useState(data.cost);
 
+    const todayDate = new Date();
+    const today = todayDate.toISOString().split('T')[0];
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -78,7 +81,7 @@ const IndividualBooking = ({ data }) => {
                         type="date"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        min={data.startDate.split('T')[0]}
+                        min={today}
                         max={endDate}
                     />
                 </label>
