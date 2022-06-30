@@ -93,6 +93,7 @@ const sessionReducer = (state = initialState, action) => {
       const reviewsObj = {}
       action.user.Reviews.forEach((review, i) => {
         reviewsObj[i] = {
+          spot: review.Spot.name,
           spotId: review.spotId,
           description: review.description,
           rating: review.rating
@@ -101,6 +102,7 @@ const sessionReducer = (state = initialState, action) => {
       const bookingsObj = {}
       action.user.Bookings.forEach((booking, i) => {
         bookingsObj[i] = {
+          spot: booking.Spot.name,
           spotId: booking.spotId,
           startDate: booking.startDate,
           endDate: booking.endDate,

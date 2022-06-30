@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { validateSignup } = require('../../utils/validation');
-const { User, Review, Booking } = require('../../db/models');
+const { User, Review, Booking, Spot } = require('../../db/models');
 
 const router = express.Router();
 
@@ -31,25 +31,23 @@ router.get('/:userId(\\d+)', asyncHandler(async (req, res) => {
     include: [
       {
         model: Review,
-        attributes: ['spotId','description','rating']
+        attributes: ['spotId','description','rating'],
+        include: {
+          model: Spot,
+          attributes: ['name']
+        }
       },
       {
         model: Booking,
-        attributes: ['spotId','startDate','endDate','cost']
-      }
+        attributes: ['spotId','startDate','endDate','cost'],
+        include: {
+          model: Spot,
+          attributes: ['name']
+        }
+      },
     ]
   });
   console.log(JSON.stringify(user))
-  // const reviews = await Review.findAll({
-  //     where: {
-  //         spotId
-  //     }
-  // });
-  // const bookings = await Booking.findAll({
-  //     where: {
-  //         spotId,
-  //     }
-  // });
   return res.json(user);
 }));
 

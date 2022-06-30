@@ -6,6 +6,7 @@ const ProfileBookingContainer = ({ bookings }) => {
                 Object.values(bookings).map((ele, i) => {
                     return (
                         <div key={i}>
+                            <p>{ele.spot}</p>
                             <p>Start: </p>
                             <p>{ele.startDate.split('T')[0]}</p>
                             <p>End: </p>

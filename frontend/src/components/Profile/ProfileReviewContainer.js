@@ -6,6 +6,7 @@ const ProfileReviewContainer = ({ reviews }) => {
                 Object.values(reviews).map((ele, i) => {
                     return (
                         <div key={i}>
+                            <p>{ele.spot}</p>
                             <p>Description: </p>
                             <p>{ele.description}</p>
                             <p>Rating: </p>

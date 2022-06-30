@@ -11,7 +11,6 @@ const Profile = () => {
     const { userId } = useParams();
     const sesh = useSelector(state => state.session);
 
-
     useEffect(() => {
         const handleDispatch = () => {
             if (!sesh.user) return history.push('/');
