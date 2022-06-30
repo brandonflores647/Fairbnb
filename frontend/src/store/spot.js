@@ -176,6 +176,7 @@ const spotReducer = (state = initialState, action) => {
           imgObj[i] = img.url;
         });
         newState[spot.id] = {
+          id: spot.id,
           name: spot.name,
           price: spot.price,
           images: imgObj

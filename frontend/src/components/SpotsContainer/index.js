@@ -10,13 +10,15 @@ const SpotsContainer = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllSpots())
-    }, [dispatch]);
+        dispatch(getAllSpots());
+    }, []);
 
     return (
         <div className='spots-container'>
-            {Object.values(spots).map(spot => {
-                return <SpotCard spot={spot} />
+            {Object.values(spots).map((spot, i) => {
+                return (
+                    <SpotCard spot={spot} key={i}/>
+                );
             })}
         </div>
     );

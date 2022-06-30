@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const SpotCard = ({ spot }) => {
 
@@ -12,10 +13,12 @@ const SpotCard = ({ spot }) => {
                 {Object.values(spot.images).map((img, i) => {
                     return (
                         <div className={i === current ? 'slide-active' : 'slide'} key={i}>
-                            {i === current ?
-                                <img className='individual-spot-img' src={img} alt=''></img>
-                                : null}
-                        </div>
+                                {i === current ?
+                                    <NavLink to={`/spots/${spot.id}`} className='individual-spot-link'>
+                                        <img className='individual-spot-img' src={img} alt=''></img>
+                                    </NavLink>
+                                    : null}
+                            </div>
                     )
                 })}
                 {length > 1 ?
@@ -30,9 +33,13 @@ const SpotCard = ({ spot }) => {
                     : null
                 }
             </div>
-            <p className='spot-card-name'>{spot.name}</p>
-            <p className='spot-card-price'>
-                <span className='spot-card-cost'>${spot.price}</span> night</p>
+            <NavLink to={`/spots/${spot.id}`} className='individual-spot-link'>
+                <div>
+                    <p className='spot-card-name'>{spot.name}</p>
+                    <p className='spot-card-price'>
+                        <span className='spot-card-cost'>${spot.price}</span> night</p>
+                </div>
+            </NavLink>
         </div>
     )
 }

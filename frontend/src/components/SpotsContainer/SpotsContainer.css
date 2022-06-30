@@ -105,3 +105,8 @@
 .spot-card-cost {
     font-weight: 600;
 }
+
+.individual-spot-link {
+    color: black;
+    text-decoration: none;
+}
