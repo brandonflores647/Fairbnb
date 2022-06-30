@@ -11,6 +11,7 @@ const IndividualBooking = ({ data }) => {
     const [startDate, setStartDate] = useState(data.startDate.split('T')[0]);
     const [endDate, setEndDate] = useState(data.endDate.split('T')[0]);
     const [cost, setCost] = useState(data.cost);
+    const [deleteMsg, setDeleteMsg] = useState('Delete');
 
     const todayDate = new Date();
     const today = todayDate.toISOString().split('T')[0];
@@ -34,11 +35,22 @@ const IndividualBooking = ({ data }) => {
         return dispatchData;
     }
 
+    const handleDelete = async (e) => {
+        if (deleteMsg === 'Delete') {
+            setDeleteMsg('Confirm Deletion');
+            e.target.disabled = true;
+            setTimeout(() => {
+                e.target.disabled = false;
+            }, 2000)
+        }
+    }
+
     const handleCancel = () => {
         setEditForm(!editForm);
         setStartDate(data.startDate.split('T')[0]);
         setEndDate(data.endDate.split('T')[0]);
         setCost(data.cost);
+        setDeleteMsg('Delete');
     }
 
     useEffect(() => {
@@ -54,7 +66,7 @@ const IndividualBooking = ({ data }) => {
         } else {
             setCost(parseInt(data.price, 10) + (parseInt(data.price, 10) * diffInDays));
         }
-    }, [startDate, endDate, data.cost]);
+    }, [startDate, endDate, data.price]);
 
     return (
         <>
@@ -69,34 +81,37 @@ const IndividualBooking = ({ data }) => {
                 <p>$ {data.cost}</p>
             </div>
             :
-            <form onSubmit={handleSubmit}>
-                <p>{data.spot}</p>
-                {errors.length > 0 ?
-                    <ul>
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul> : null}
-                <label>
-                    Start
-                    <input
-                        type="date"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        min={today}
-                        max={endDate}
-                    />
-                </label>
-                <label>
-                    End
-                    <input
-                        type="date"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        min={data.startDate.split('T')[0]}
-                    />
-                </label>
-                <p>Total Cost: ${cost}</p>
-                <button type='submit'>Submit Booking</button>
-            </form>
+            <>
+                <form onSubmit={handleSubmit}>
+                    <p>{data.spot}</p>
+                    {errors.length > 0 ?
+                        <ul>
+                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul> : null}
+                    <label>
+                        Start
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            min={today}
+                            max={endDate}
+                        />
+                    </label>
+                    <label>
+                        End
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            min={data.startDate.split('T')[0]}
+                        />
+                    </label>
+                    <p>Total Cost: ${cost}</p>
+                    <button type='submit'>Submit Edit</button>
+                </form>
+                <button onClick={handleDelete}>{deleteMsg}</button>
+            </>
             }
         <button onClick={!editForm ? (e) => setEditForm(!editForm)
                         : handleCancel}>{editForm ? 'Cancel' : 'Edit'}</button>
