@@ -1,0 +1,17 @@
+.profile-container {
+    display: flex;
+}
+
+.booking-container {
+    border: 1px solid black;
+}
+.individual-booking-container {
+    border: 1px solid black;
+}
+
+.review-container {
+    border: 1px solid black;
+}
+.individual-review-container {
+    border: 1px solid black;
+}

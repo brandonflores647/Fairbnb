@@ -9,7 +9,7 @@ const Footer = () => {
         <div id='footer-container' className={`footer-animation-${footerGrow}`}>
             <p>© 2022 Fairbnb, Inc.</p>
             <div id='footer-right-info'>
-                <a className='footer-anchor' href='https://github.com/brandonflores647'>
+                <a className='footer-anchor' href='https://github.com/brandonflores647' target='https://github.com/brandonflores647'>
                     <div id='footer-github'>
                         <span className='footer-github-tt'>Checkout my Github!</span>
                         <span id='github-triangle'></span>
@@ -19,7 +19,7 @@ const Footer = () => {
                         <p className='footer-right-info-text'>Github</p>
                     </div>
                 </a>
-                <a className='footer-anchor' href='https://www.linkedin.com/in/brandon-flores-798b98239/'>
+                <a className='footer-anchor' href='https://www.linkedin.com/in/brandon-flores-798b98239/' target='https://www.linkedin.com/in/brandon-flores-798b98239/'>
                     <div id='footer-linkedin'>
                         <span className='footer-linkedin-tt'>Contact me on LinkedIn!</span>
                         <span id='linkedin-triangle'></span>

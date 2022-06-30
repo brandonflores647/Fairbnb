@@ -47,7 +47,6 @@ router.get('/:userId(\\d+)', asyncHandler(async (req, res) => {
       },
     ]
   });
-  console.log(JSON.stringify(user))
   return res.json(user);
 }));
 
