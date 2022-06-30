@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editBookingThunk } from '../../store/booking';
+import { deleteBookingThunk } from '../../store/booking';
 
 const IndividualBooking = ({ data }) => {
     const dispatch = useDispatch();
@@ -42,6 +43,9 @@ const IndividualBooking = ({ data }) => {
             setTimeout(() => {
                 e.target.disabled = false;
             }, 2000)
+        } else {
+            await dispatch(deleteBookingThunk({spotId: data.spotId, userId: user.id}));
+            setDeleteMsg('Delete');
         }
     }
 
@@ -66,7 +70,7 @@ const IndividualBooking = ({ data }) => {
         } else {
             setCost(parseInt(data.price, 10) + (parseInt(data.price, 10) * diffInDays));
         }
-    }, [startDate, endDate, data.price]);
+    }, [startDate, endDate, data]);
 
     return (
         <>
@@ -113,7 +117,7 @@ const IndividualBooking = ({ data }) => {
                 <button onClick={handleDelete}>{deleteMsg}</button>
             </>
             }
-        <button onClick={!editForm ? (e) => setEditForm(!editForm)
+            <button onClick={!editForm ? (e) => setEditForm(!editForm)
                         : handleCancel}>{editForm ? 'Cancel' : 'Edit'}</button>
         </>
     );

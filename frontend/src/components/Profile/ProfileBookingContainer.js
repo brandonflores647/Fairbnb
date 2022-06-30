@@ -6,9 +6,13 @@ const ProfileBookingContainer = ({ bookings }) => {
             <p>Your Bookings:</p>
             {bookings ?
                 Object.values(bookings).map((ele, i) => {
-                    return (
-                        <IndividualBooking key={i} data={ele}/>
-                    );
+                    if (ele) {
+                        return (
+                            <IndividualBooking key={i} data={ele}/>
+                        );
+                    } else {
+                        <></>
+                    }
                 })
             : null}
         </div>

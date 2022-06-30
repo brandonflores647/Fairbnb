@@ -3,12 +3,12 @@ import { csrfFetch } from './csrf';
 // Booking actions
 import {
   EDIT_BOOKING,
+  DELETE_BOOKING,
 } from './booking.js'
 
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const GET_USER_DETAIL = 'session/GET_USER_DETAIL';
-
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -129,6 +129,10 @@ const sessionReducer = (state = initialState, action) => {
         cost: action.booking.cost,
         price: action.booking.Spot.price,
       }
+      return newState;
+    case DELETE_BOOKING:
+      newState = { ...state }
+      newState.user.bookings[action.spotId] = null;
       return newState;
     default:
       return state;

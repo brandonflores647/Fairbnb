@@ -53,4 +53,24 @@ router.patch(
     })
 );
 
+// DELETE
+router.delete(
+    '/',
+    requireAuth,
+    asyncHandler(async (req, res) => {
+        const { spotId, userId } = req.body;
+
+        const booking = await Booking.findOne({
+            where: {
+                spotId,
+                userId
+            }
+        });
+
+        await booking.destroy();
+
+        return res.json({spotId});
+    })
+);
+
 module.exports = router;
