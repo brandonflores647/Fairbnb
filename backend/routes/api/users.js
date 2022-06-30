@@ -42,7 +42,7 @@ router.get('/:userId(\\d+)', asyncHandler(async (req, res) => {
         attributes: ['spotId','startDate','endDate','cost'],
         include: {
           model: Spot,
-          attributes: ['name']
+          attributes: ['name', 'price']
         }
       },
     ]

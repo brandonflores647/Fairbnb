@@ -46,7 +46,11 @@ const IndividualBooking = ({ data }) => {
         const diffInTime = formattedEnd.getTime() - formattedStart.getTime();
         const diffInDays = diffInTime / (1000 * 3600 * 24);
 
-        setCost(parseInt(data.cost, 10) + (parseInt(data.cost, 10) * diffInDays));
+        if (!diffInDays) {
+            setCost(parseInt(data.price, 10));
+        } else {
+            setCost(parseInt(data.price, 10) + (parseInt(data.price, 10) * diffInDays));
+        }
     }, [startDate, endDate, data.cost]);
 
     return (

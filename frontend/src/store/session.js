@@ -112,7 +112,8 @@ const sessionReducer = (state = initialState, action) => {
           spotId: booking.spotId,
           startDate: booking.startDate,
           endDate: booking.endDate,
-          cost: booking.cost
+          cost: booking.cost,
+          price: booking.Spot.price,
         }
       });
       newState.user.reviews = reviewsObj;
@@ -126,6 +127,7 @@ const sessionReducer = (state = initialState, action) => {
         startDate: action.booking.startDate,
         endDate: action.booking.endDate,
         cost: action.booking.cost,
+        price: action.booking.Spot.price,
       }
       return newState;
     default:

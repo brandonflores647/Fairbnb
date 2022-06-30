@@ -39,7 +39,7 @@ router.patch(
             },
             include: {
                 model: Spot,
-                attributes: ['name']
+                attributes: ['name', 'price']
             }
         });
 
