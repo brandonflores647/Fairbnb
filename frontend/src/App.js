@@ -26,7 +26,6 @@ function App() {
       <Navigation loaded={loaded} />
       <Switch>
         <Route exact path="/">
-          <h1>cool app</h1>
           <SpotsContainer />
         </Route>
         <Route exact path="/login">

@@ -11,7 +11,7 @@ const ProfileBookingContainer = ({ bookings }) => {
                             <IndividualBooking key={i} data={ele}/>
                         );
                     } else {
-                        <></>
+                        return <></>
                     }
                 })
             : null}
