@@ -30,8 +30,9 @@ const SpotCard = ({ spot }) => {
                     : null
                 }
             </div>
-            <p>{spot.name}</p>
-            <p>${spot.price} night</p>
+            <p className='spot-card-name'>{spot.name}</p>
+            <p className='spot-card-price'>
+                <span className='spot-card-cost'>${spot.price}</span> night</p>
         </div>
     )
 }

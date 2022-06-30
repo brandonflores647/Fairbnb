@@ -1,3 +1,23 @@
+.spots-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    margin: 8% 2% 8% 2%;
+}
+
+.individual-spot {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+
+    margin: 30px;
+
+    height: fit-content;
+
+    cursor: pointer;
+}
+
 .img-container {
     position: relative;
     display: flex;
@@ -65,11 +85,23 @@
     transition: opacity .15s ease, width .15s ease, height .15s ease;
 }
 
-.img-container:hover .spot-card-leftarrow,.img-container:hover .spot-card-rightarrow {
+.individual-spot:hover .spot-card-leftarrow,.individual-spot:hover .spot-card-rightarrow {
     opacity: 80%;
 }
 
 .spot-card-leftarrow:hover, .spot-card-rightarrow:hover {
     width: 32px;
     height: 32px;
+}
+
+.spot-card-name {
+    margin: 5px 0 0 0;
+
+    font-weight: 600;
+}
+.spot-card-price {
+    margin: 5px 0 0 0;
+}
+.spot-card-cost {
+    font-weight: 600;
 }
