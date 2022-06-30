@@ -15,7 +15,6 @@ const IndividualBooking = ({ data }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
-        console.log(user.id)
         let dispatchData;
         dispatchData = await dispatch(editBookingThunk({
             spotId: data.spotId,

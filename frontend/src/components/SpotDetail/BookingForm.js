@@ -13,6 +13,7 @@ const BookingForm = ({ userId, price }) => {
     const [startDate, setStartDate] = useState(today);
     const [endDate, setEndDate] = useState(today);
     const [cost, setCost] = useState(price)
+    const [submitState, setSubmitState] = useState(false);
 
     useEffect(() => {
         // Calculate difference between start & end date
@@ -26,6 +27,7 @@ const BookingForm = ({ userId, price }) => {
     }, [startDate, endDate, price])
 
     const handleSubmit = async (e) => {
+        setSubmitState(true);
         e.preventDefault();
         setErrors([]);
         let dispatchData;
@@ -34,12 +36,13 @@ const BookingForm = ({ userId, price }) => {
               const data = await res.json();
               if (data && data.errors) setErrors(data.errors);
             })
+        if (!dispatchData) setSubmitState(false);
         return dispatchData;
     }
 
     return (
         <>
-            {spot.bookings[userId] ?
+            {submitState || spot.bookings[userId] ?
                 <div>
                     <p>Looks like you've booked this spot! Go to your profile to modify your booking</p>
                 </div>
@@ -69,7 +72,7 @@ const BookingForm = ({ userId, price }) => {
                         />
                     </label>
                     <p>Total Cost: ${cost}</p>
-                    <button type='submit'>Submit Booking</button>
+                    <button type='submit' disabled={submitState}>Submit Booking</button>
                 </form>
             }
         </>
