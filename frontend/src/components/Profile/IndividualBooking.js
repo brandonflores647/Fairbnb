@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editBookingThunk } from '../../store/booking';
 
 const IndividualBooking = ({ data }) => {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.session.user);
 
     const [errors, setErrors] = useState([]);
     const [editForm, setEditForm] = useState(false);
@@ -14,12 +15,19 @@ const IndividualBooking = ({ data }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
+        console.log(user.id)
         let dispatchData;
-        dispatchData = await dispatch(editBookingThunk({}))
-        .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-        })
+        dispatchData = await dispatch(editBookingThunk({
+            spotId: data.spotId,
+            userId: user.id,
+            startDate,
+            endDate,
+            cost
+        }))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            })
         if (dispatchData) setEditForm(!editForm);
         return dispatchData;
     }

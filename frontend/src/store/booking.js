@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 export const SET_BOOKING = 'spot/SET_BOOKING';
-export const EDIT_BOOKING = 'spot/EDIT_BOOKING';
+export const EDIT_BOOKING = 'session/EDIT_BOOKING';
 
 export const setBooking = (booking) => ({
     type: SET_BOOKING,
@@ -9,7 +9,7 @@ export const setBooking = (booking) => ({
 });
 
 export const editBooking = (booking) => ({
-    type: SET_BOOKING,
+    type: EDIT_BOOKING,
     booking
 });
 

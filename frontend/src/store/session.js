@@ -1,8 +1,14 @@
 import { csrfFetch } from './csrf';
 
+// Booking actions
+import {
+  EDIT_BOOKING,
+} from './booking.js'
+
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const GET_USER_DETAIL = 'session/GET_USER_DETAIL';
+
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -101,7 +107,7 @@ const sessionReducer = (state = initialState, action) => {
       });
       const bookingsObj = {}
       action.user.Bookings.forEach((booking, i) => {
-        bookingsObj[i] = {
+        bookingsObj[booking.spotId] = {
           spot: booking.Spot.name,
           spotId: booking.spotId,
           startDate: booking.startDate,
@@ -111,6 +117,16 @@ const sessionReducer = (state = initialState, action) => {
       });
       newState.user.reviews = reviewsObj;
       newState.user.bookings = bookingsObj;
+      return newState;
+    case EDIT_BOOKING:
+      newState = { ...state }
+      newState.user.bookings[action.booking.spotId] = {
+        spot: action.booking.Spot.name,
+        spotId: action.booking.spotId,
+        startDate: action.booking.startDate,
+        endDate: action.booking.endDate,
+        cost: action.booking.cost,
+      }
       return newState;
     default:
       return state;
