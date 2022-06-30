@@ -1,20 +1,18 @@
+import IndividualBooking from "./IndividualBooking";
+
 const ProfileBookingContainer = ({ bookings }) => {
     return (
-        <div>
+        <div className='booking-container'>
             <p>Your Bookings:</p>
             {bookings ?
                 Object.values(bookings).map((ele, i) => {
-                    return (
-                        <div key={i}>
-                            <p>{ele.spot}</p>
-                            <p>Start: </p>
-                            <p>{ele.startDate.split('T')[0]}</p>
-                            <p>End: </p>
-                            <p>{ele.endDate.split('T')[0]}</p>
-                            <p>Cost: </p>
-                            <p>{ele.cost}</p>
-                        </div>
-                    );
+                    if (ele) {
+                        return (
+                            <IndividualBooking key={i} data={ele}/>
+                        );
+                    } else {
+                        <></>
+                    }
                 })
             : null}
         </div>

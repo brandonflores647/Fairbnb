@@ -42,12 +42,11 @@ router.get('/:userId(\\d+)', asyncHandler(async (req, res) => {
         attributes: ['spotId','startDate','endDate','cost'],
         include: {
           model: Spot,
-          attributes: ['name']
+          attributes: ['name', 'price']
         }
       },
     ]
   });
-  console.log(JSON.stringify(user))
   return res.json(user);
 }));
 
