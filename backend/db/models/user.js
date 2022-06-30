@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     defaultScope: {
       attributes: {
-        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
+        exclude: ['hashedPassword', 'createdAt', 'updatedAt']
       }
     },
     scopes: {
@@ -52,6 +52,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId'
     });
     User.hasMany(models.Review, {
+      foreignKey: 'userId'
+    });
+    User.hasMany(models.Booking, {
       foreignKey: 'userId'
     });
   };

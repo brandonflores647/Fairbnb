@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { validateSignup } = require('../../utils/validation');
-const { User } = require('../../db/models');
+const { User, Review, Booking, Spot } = require('../../db/models');
 
 const router = express.Router();
 
@@ -22,5 +22,33 @@ router.post(
       });
     })
 );
+
+// Load individual user
+router.get('/:userId(\\d+)', asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+
+  const user = await User.findByPk(userId, {
+    include: [
+      {
+        model: Review,
+        attributes: ['spotId','description','rating'],
+        include: {
+          model: Spot,
+          attributes: ['name']
+        }
+      },
+      {
+        model: Booking,
+        attributes: ['spotId','startDate','endDate','cost'],
+        include: {
+          model: Spot,
+          attributes: ['name']
+        }
+      },
+    ]
+  });
+  console.log(JSON.stringify(user))
+  return res.json(user);
+}));
 
 module.exports = router;

@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
 
 function ProfileButton({ user }) {
     const history = useHistory();
+    const sesh = useSelector(state => state.session);
+    let userId;
+    if (sesh.user) userId = sesh.user.id
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
 
@@ -54,7 +57,7 @@ function ProfileButton({ user }) {
                             <p className='nav-pd-text' id='nav-pd-username'>{user.username}</p>
                             <p className='nav-pd-text' >{user.email}</p>
                         </div>
-                        <p className='nav-pd-text' id='nav-pd-profile' >TODO: ADD PROFILE BUTTON</p>
+                        <p className='nav-pd-text' id='nav-pd-profile' onClick={() => history.push(`/users/${userId}`)}>My Profile</p>
                         <p className='nav-pd-text' id='nav-pd-logout' onClick={logout}>Log Out</p>
                     </div>
                 )}

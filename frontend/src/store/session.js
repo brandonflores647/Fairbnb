@@ -2,16 +2,21 @@ import { csrfFetch } from './csrf';
 
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const GET_USER_DETAIL = 'session/GET_USER_DETAIL';
 
-const setUser = user => ({
-    type: SET_USER,
-    user
+const setUser = (user) => ({
+  type: SET_USER,
+  user
 });
 
 const removeUser = () => ({
-    type: REMOVE_USER
+  type: REMOVE_USER
 });
 
+const loadUserDetail = (user) => ({
+  type: GET_USER_DETAIL,
+  user
+})
 
 // THUNKS =============================================
 
@@ -43,7 +48,7 @@ export const signup = (user) => async dispatch => {
     });
 
     const data = await response.json();
-    dispatch(setUser(data.user));
+    dispatch(setUser(data.user, {}, {}));
     return response;
 }
 export const logout = () => async dispatch => {
@@ -59,6 +64,15 @@ export const restoreUser = () => async dispatch => {
     dispatch(setUser(data.user));
     return response;
 }
+export const getUserDetail = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/users/${id}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(loadUserDetail(data));
+      return data;
+    }
+}
 
 const initialState = { user: null };
 
@@ -73,6 +87,30 @@ const sessionReducer = (state = initialState, action) => {
     case REMOVE_USER:
       newState = Object.assign({}, state);
       newState.user = null;
+      return newState;
+    case GET_USER_DETAIL:
+      newState = {...state};
+      const reviewsObj = {}
+      action.user.Reviews.forEach((review, i) => {
+        reviewsObj[i] = {
+          spot: review.Spot.name,
+          spotId: review.spotId,
+          description: review.description,
+          rating: review.rating
+        }
+      });
+      const bookingsObj = {}
+      action.user.Bookings.forEach((booking, i) => {
+        bookingsObj[i] = {
+          spot: booking.Spot.name,
+          spotId: booking.spotId,
+          startDate: booking.startDate,
+          endDate: booking.endDate,
+          cost: booking.cost
+        }
+      });
+      newState.user.reviews = reviewsObj;
+      newState.user.bookings = bookingsObj;
       return newState;
     default:
       return state;
