@@ -13,6 +13,7 @@ const IndividualBooking = ({ data }) => {
     const [endDate, setEndDate] = useState(data.endDate.split('T')[0]);
     const [cost, setCost] = useState(data.cost);
     const [deleteMsg, setDeleteMsg] = useState('Delete');
+    const [disable, setDisable] = useState(false);
 
     const todayDate = new Date();
     const today = todayDate.toISOString().split('T')[0];
@@ -61,6 +62,12 @@ const IndividualBooking = ({ data }) => {
         // Calculate difference between start & end date
         const formattedStart = new Date(startDate);
         const formattedEnd = new Date(endDate);
+
+        if (formattedStart.getTime() - todayDate.getTime() > 0) {
+            setDisable(false);
+        } else {
+            setDisable(true);
+        }
 
         const diffInTime = formattedEnd.getTime() - formattedStart.getTime();
         const diffInDays = diffInTime / (1000 * 3600 * 24);
@@ -112,7 +119,8 @@ const IndividualBooking = ({ data }) => {
                         />
                     </label>
                     <p>Total Cost: ${cost}</p>
-                    <button type='submit'>Submit Edit</button>
+                    {disable ? <p>You cannot edit a booking while it's in progress.</p> : null}
+                    <button type='submit' disabled={disable}>Submit Edit</button>
                 </form>
                 <button onClick={handleDelete}>{deleteMsg}</button>
             </>
