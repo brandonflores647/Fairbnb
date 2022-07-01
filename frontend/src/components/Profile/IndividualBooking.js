@@ -62,8 +62,9 @@ const IndividualBooking = ({ data }) => {
         // Calculate difference between start & end date
         const formattedStart = new Date(startDate);
         const formattedEnd = new Date(endDate);
+        const newToday = new Date();
 
-        if (formattedStart.getTime() - todayDate.getTime() > 0) {
+        if (formattedStart.getTime() - newToday.getTime() > 0) {
             setDisable(false);
         } else {
             setDisable(true);
