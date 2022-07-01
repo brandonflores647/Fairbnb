@@ -1,6 +1,6 @@
 #footer-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     z-index: 2;
 
     position: fixed;
@@ -9,7 +9,6 @@
     width: 100%;
 
     margin: 0;
-    padding: 0 15% 0 15%;
 
     background-color: white;
     border-top: 1px solid #dddddd;
@@ -20,6 +19,18 @@
 .footer-anchor {
     color: black;
     text-decoration: none;
+}
+
+#footer-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: 0 15% 0 15%;
+}
+
+#footer-bottom {
+    height: 100%;
 }
 
 #footer-right-info {
