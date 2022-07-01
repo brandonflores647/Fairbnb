@@ -26,10 +26,12 @@ function SpotFormPage() {
 
     const [images, setImages] = useState([imgOne, imgTwo, imgThree, imgFour]);
     const [errors, setErrors] = useState([]);
+    const [submitState, setSubmitState] = useState(false);
 
     if (!sessionUser) return <Redirect to="/login" />;
 
     const handleSubmit = async (e) => {
+      setSubmitState(true);
       e.preventDefault();
       setErrors([]);
       let dispatchData;
@@ -37,6 +39,7 @@ function SpotFormPage() {
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
+        setSubmitState(false);
       })
       .then(res => {
         if (res) history.push(`/spots/${res.spot.id}`)
@@ -135,6 +138,7 @@ function SpotFormPage() {
         <button
           type="submit"
           onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
+          disabled={submitState}
           >Post</button>
       </form>
     );

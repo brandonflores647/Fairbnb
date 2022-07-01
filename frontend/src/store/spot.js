@@ -14,6 +14,7 @@ import {
 // Spot Actions
 const SET_SPOT = 'spot/SET_SPOT';
 const LOAD_SPOT = 'spot/LOAD_SPOT';
+const LOAD_ALL_SPOT = 'spot/LOAD_ALL_SPOT';
 const UPDATE_SPOT = 'spot/UPDATE_SPOT';
 const DELETE_SPOT = 'spot/DELETE_SPOT';
 
@@ -29,6 +30,11 @@ const loadSpot = (spot, images, reviews, bookings) => ({
   images,
   reviews,
   bookings
+});
+
+const loadAllSpots = (data) => ({
+  type: LOAD_ALL_SPOT,
+  data,
 });
 
 const updateSpot = (spot, imgArr) => ({
@@ -63,6 +69,16 @@ export const getSpotDetail = (id) => async dispatch => {
   if (response.ok) {
     const data = await response.json();
     dispatch(loadSpot(data.spot, data.images, data.reviews, data.bookings));
+    return data;
+  }
+}
+
+export const getAllSpots = () => async dispatch => {
+  const response = await csrfFetch(`/api/spots/all`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadAllSpots(data));
     return data;
   }
 }
@@ -151,6 +167,22 @@ const spotReducer = (state = initialState, action) => {
         images: imgObj,
         reviews: reviewObj,
       };
+    }
+    case LOAD_ALL_SPOT: {
+      const newState = {};
+      action.data.forEach(spot => {
+        const imgObj = {};
+        spot.Images.forEach((img, i) => {
+          imgObj[i] = img.url;
+        });
+        newState[spot.id] = {
+          id: spot.id,
+          name: spot.name,
+          price: spot.price,
+          images: imgObj
+        }
+      });
+      return newState;
     }
     case UPDATE_SPOT: {
       const imgObj = {};

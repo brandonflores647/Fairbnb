@@ -38,6 +38,18 @@ router.post(
     })
 );
 
+// Load All
+router.get('/all', asyncHandler(async (req, res) => {
+    const data = await Spot.findAll({
+        include: {
+            model: Image,
+            attributes: ['url']
+        }
+    });
+
+    return res.json(data);
+}));
+
 // Load individual
 router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
     const spotId = parseInt(req.params.spotId, 10);
