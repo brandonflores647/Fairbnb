@@ -38,8 +38,9 @@ const Navigation = ({ loaded }) => {
             </div>
             </NavLink>
             <div id='right-nav-info'>
-                {sessionUser ? <p id='right-nav-welcome'>Welcome {sessionUser.username}</p>
-                    : <div id='right-nav-demo-login' onClick={handleDemoLogin}>Demo Login</div>}
+                {sessionUser ?
+                <>
+                    <p id='right-nav-welcome'>Welcome {sessionUser.username}</p>
                     <NavLink exact to='/spots/new'>
                         <button>
                             New
@@ -52,6 +53,8 @@ const Navigation = ({ loaded }) => {
                             </svg>
                         </button>
                     </NavLink>
+                </>
+                    : <div id='right-nav-demo-login' onClick={handleDemoLogin}>Demo Login</div>}
                 { loaded && <ProfileButton user={sessionUser} /> }
             </div>
         </nav>
