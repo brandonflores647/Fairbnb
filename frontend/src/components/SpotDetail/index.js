@@ -5,6 +5,7 @@ import { getSpotDetail } from '../../store/spot';
 import SpotEditForm from '../SpotEditForm';
 import BookingForm from './BookingForm';
 import ReviewContainer from './ReviewContainer';
+import PhotoCard from './PhotoCard';
 
 const SpotDetail = () => {
     const history = useHistory();
@@ -35,20 +36,20 @@ const SpotDetail = () => {
             {editForm ?
                 <SpotEditForm hideForm={() => setEditForm(false)}/>
             :
-                <>
-                    <h2>{spot.data.name}</h2>
-                    <p>{spot.data.price}</p>
-                    <p>{spot.data.address}</p>
-                    <p>{spot.data.city}</p>
-                    <p>{spot.data.state}</p>
-                    <p>{spot.data.country}</p>
-                    {Object.values(spot.images).map((img, i) => {
-                        return <img key={i} src={img.url} alt={`number ${i}`}/>
-                    })}
-                </>
+                <div id='spot-page-top-container'>
+                    <PhotoCard spot={spot} />
+                    <div id='spot-page-details'>
+                        <section>
+                            <h2 id='spot-page-name'>{spot.data.name}</h2>
+                            <p id='spot-page-price'>$ {spot.data.price} <span>night</span></p>
+                            <p className='spot-page-details'>{spot.data.address}</p>
+                            <p className='spot-page-details'>{spot.data.city}, {spot.data.state}</p>
+                            <p className='spot-page-details'>{spot.data.country}</p>
+                        </section>
+                        <BookingForm userId={userId} price={spot.data.price} />
+                    </div>
+                </div>
             }
-
-            <BookingForm userId={userId} price={spot.data.price} />
 
             <ReviewContainer reviews={reviews}/>
         </>
