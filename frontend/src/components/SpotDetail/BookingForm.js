@@ -19,7 +19,7 @@ const BookingForm = ({ userId, price }) => {
     const [submitState, setSubmitState] = useState(false);
 
     useEffect(() => {
-        if (spot.bookings[userId]) setSubmitState(true);
+        if (spot.bookings && spot.bookings[userId]) setSubmitState(true);
         if (!user) setSubmitState(false);
         // Calculate difference between start & end date
         const formattedStart = new Date(startDate);
