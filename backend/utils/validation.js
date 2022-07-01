@@ -85,7 +85,7 @@ const validateSpot = [
   .withMessage('Uh oh! Looks like your first image url is too long! Please compress it.'),
   check('images[0]')
   .custom((value) => {
-      let testRegex = /^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png|bmp)$/;
+      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
       if (value && !testRegex.test(value)) {
         throw new Error('Oh no! Looks like your first image url is invalid! Check the link you provided.')
       }
@@ -99,7 +99,7 @@ const validateSpot = [
       if (value && value.length > 255) {
         throw new Error('Uh oh! Looks like your second image url is too long! Please compress it.');
       }
-      let testRegex = /^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png|bmp)$/;
+      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
       if (value && !testRegex.test(value)) {
         throw new Error('Oh no! Looks like your second image url is invalid! Check the link you provided.')
       }
@@ -113,7 +113,7 @@ const validateSpot = [
       if (value && value.length > 255) {
         throw new Error('Uh oh! Looks like your third image url is too long! Please compress it.');
       }
-      let testRegex = /^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png|bmp)$/;
+      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
       if (value && !testRegex.test(value)) {
         throw new Error('Oh no! Looks like your third image url is invalid! Check the link you provided.')
       }
@@ -127,7 +127,7 @@ const validateSpot = [
       if (value && value.length > 255) {
         throw new Error('Uh oh! Looks like your fourth image url is too long! Please compress it.');
       }
-      let testRegex = /^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png|bmp)$/;
+      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
       if (value && !testRegex.test(value)) {
         throw new Error('Oh no! Looks like your fourth image url is invalid! Check the link you provided.')
       }
