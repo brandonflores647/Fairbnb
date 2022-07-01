@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteSpotThunk } from '../../store/spot';
 
+import './SpotDeleteForm.css';
+
 const SpotDeleteForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -26,7 +28,7 @@ const SpotDeleteForm = () => {
     }
 
     return (
-        <>
+        <div id='spot-delete-form'>
         <p>Type the name if this spot and press 'Delete' to confirm this action.</p>
         {errors.length > 0 ?
             <ul>
@@ -34,13 +36,19 @@ const SpotDeleteForm = () => {
             </ul> : null}
         <form onSubmit={handleSubmit}>
             <input
+                className='edit-form-input'
+                id='delete-form-input'
                 value={deleteInput}
                 onChange={(e) => setDeleteInput(e.target.value)}
                 placeholder="(Type name here)"
             />
-            <button type='submit'>Delete</button>
+            <button
+                className='edit-post-button'
+                type='submit'
+                id='delete-form-button'
+                >Delete</button>
         </form>
-        </>
+        </div>
     );
 }
 
