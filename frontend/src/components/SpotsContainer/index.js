@@ -11,16 +11,21 @@ const SpotsContainer = () => {
 
     useEffect(() => {
         dispatch(getAllSpots());
-    }, []);
+    }, [dispatch]);
 
     return (
-        <div className='spots-container'>
-            {Object.values(spots).map((spot, i) => {
-                return (
-                    <SpotCard spot={spot} key={i}/>
-                );
-            })}
-        </div>
+        <>
+        {!spots.data ?
+            <div className='spots-container'>
+                {Object.values(spots).map((spot, i) => {
+                    return (
+                        <SpotCard spot={spot} key={i}/>
+                    );
+                })}
+            </div>
+        : <p>loading...</p>
+        }
+        </>
     );
 }
 
