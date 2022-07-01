@@ -1,6 +1,6 @@
 #footer-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     z-index: 2;
 
     position: fixed;
@@ -9,7 +9,6 @@
     width: 100%;
 
     margin: 0;
-    padding: 0 15% 0 15%;
 
     background-color: white;
     border-top: 1px solid #dddddd;
@@ -20,6 +19,22 @@
 .footer-anchor {
     color: black;
     text-decoration: none;
+}
+
+#footer-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: 0 15% 0 15%;
+}
+
+#footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    height: 100%;
+    margin-top: 3%;
 }
 
 #footer-right-info {
@@ -149,3 +164,42 @@
     transition: opacity .2s ease-in;
 }
 #footer-linkedin:hover #linkedin-triangle {opacity: 100%;}
+
+#footer-bottom-topinfo {
+    display: flex;
+    justify-content: center;
+}
+
+#footer-icon,#footer-logo {
+    fill: #ff385c;
+}
+#footer-logo {
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#footer-description {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-left: 2%;
+
+    font-size: 20px;
+}
+#footer-created-by {
+    margin-top: 10px;
+    font-size: 19px;
+    font-weight: 600;
+    font-style: italic;
+    color: rgb(82, 82, 82);
+}
+
+#footer-bottom-tech {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    margin: 4% 15% 0 15%;
+
+    font-size: 32px;
+}
