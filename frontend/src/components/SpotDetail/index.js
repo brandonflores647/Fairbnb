@@ -32,9 +32,6 @@ const SpotDetail = () => {
             {editForm ?
                 <>
                     <SpotEditForm hideForm={() => setEditForm(false)}/>
-                    {sessionUser && sessionUser.id === spot.data.userId ?
-                        <button id='edit-post-button' onClick={() => setEditForm(!editForm)}
-                        >{editForm ? 'Cancel Edit' : 'Edit Post'}</button> : null}
                 </>
                 :
                 <div id='spot-page-top-container'>
@@ -47,7 +44,7 @@ const SpotDetail = () => {
                             <p className='spot-page-details'>{spot.data.city}, {spot.data.state}</p>
                             <p className='spot-page-details'>{spot.data.country}</p>
                             {sessionUser && sessionUser.id === spot.data.userId ?
-                                <button id='edit-post-button' onClick={() => setEditForm(!editForm)}
+                                <button className='edit-post-button' onClick={() => setEditForm(!editForm)}
                                 >{editForm ? 'Cancel Edit' : 'Edit Post'}</button> : null}
                         </section>
                         <BookingForm userId={userId} price={spot.data.price} />

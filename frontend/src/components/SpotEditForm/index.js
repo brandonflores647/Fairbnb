@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { update } from "../../store/spot";
 import SpotDeleteForm from '../SpotDeleteForm';
 
+import './SpotEditForm.css';
+
 const SpotEditForm = ({ hideForm }) => {
     const dispatch = useDispatch();
 
@@ -46,24 +48,26 @@ const SpotEditForm = ({ hideForm }) => {
 
     return (
         <>
-        <form onSubmit={handleSubmit} id='signup-form'>
+        <form onSubmit={handleSubmit} id='spot-edit-form'>
             {errors.length > 0 ?
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul> : null}
 
-            <label>
-                Name
+            <label className='edit-form-label'>
+                Name:
                 <input
+                    className='edit-form-input'
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
                 />
             </label>
-            <label>
-                Cost Per Night
+            <label className='edit-form-label'>
+                Cost Per Night:
                 <input
+                    className='edit-form-input'
                     type="number"
                     min="10"
                     step='1'
@@ -72,83 +76,96 @@ const SpotEditForm = ({ hideForm }) => {
                     required
                 />
             </label>
-            <label>
-                Address
+            <label className='edit-form-label'>
+                Address:
                 <input
+                    className='edit-form-input'
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     required
                 />
             </label>
-            <label>
-                City
+            <label className='edit-form-label'>
+                City:
                 <input
+                    className='edit-form-input'
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     required
                 />
             </label>
-            <label>
-                State
+            <label className='edit-form-label'>
+                State:
                 <input
+                    className='edit-form-input'
                     type="text"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
                     required
                 />
             </label>
-            <label>
-                Country
+            <label className='edit-form-label'>
+                Country:
                 <input
+                    className='edit-form-input'
                     type="text"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                     required
                 />
             </label>
-            <label>
-                Image Url
-                <input
-                    type="text"
-                    value={imgOne}
-                    onChange={(e) => setImgOne(e.target.value)}
-                    placeholder=' (Required)'
-                />
-                <input
-                    type="text"
-                    value={imgTwo}
-                    onChange={(e) => setImgTwo(e.target.value)}
-                    placeholder=' (Optional)'
-                />
-                <input
-                    type="text"
-                    value={imgThree}
-                    onChange={(e) => setImgThree(e.target.value)}
-                    placeholder=' (Optional)'
-                />
-                <input
-                    type="text"
-                    value={imgFour}
-                    onChange={(e) => setImgFour(e.target.value)}
-                    placeholder=' (Optional)'
-                />
+            <label className='edit-form-label'>
+                Image Url's:
+                <div id='edit-spot-images'>
+                    <input
+                        className='edit-form-input'
+                        type="text"
+                        value={imgOne}
+                        onChange={(e) => setImgOne(e.target.value)}
+                        placeholder=' (Required)'
+                    />
+                    <input
+                        className='edit-form-input'
+                        type="text"
+                        value={imgTwo}
+                        onChange={(e) => setImgTwo(e.target.value)}
+                        placeholder=' (Optional)'
+                    />
+                    <input
+                        className='edit-form-input'
+                        type="text"
+                        value={imgThree}
+                        onChange={(e) => setImgThree(e.target.value)}
+                        placeholder=' (Optional)'
+                    />
+                    <input
+                        className='edit-form-input'
+                        type="text"
+                        value={imgFour}
+                        onChange={(e) => setImgFour(e.target.value)}
+                        placeholder=' (Optional)'
+                    />
+                </div>
             </label>
-            <button
-                type="submit"
-                onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
-                >Post</button>
-        </form>
-
+            <div id='edit-form-buttons'>
+                <button
+                    type='button'
+                    className='edit-post-button'
+                    onClick={hideForm}
+                    >Cancel Edit</button>
+                <button
+                    className='edit-post-button'
+                    type="submit"
+                    onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
+                >Post Changes</button>
         {sessionUser && sessionUser.id === spot.data.userId ?
-                <button onClick={() => setDeleteBtn(!deleteBtn)}
-                    >{deleteBtn ? 'Cancel' : 'Delete'}</button> : null}
-        {deleteBtn ?
-                <SpotDeleteForm />
-            :
-                null
-            }
+                <button type='button' className='edit-post-button' onClick={() => setDeleteBtn(!deleteBtn)}
+                >{deleteBtn ? 'Cancel Delete' : 'Delete'}</button> : null}
+            </div>
+        </form>
+                {deleteBtn ? <SpotDeleteForm /> : null }
         </>
     );
 }

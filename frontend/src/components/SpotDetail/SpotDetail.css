@@ -121,7 +121,7 @@
     max-width: 426px;
 }
 
-#edit-post-button {
+.edit-post-button {
     cursor: pointer;
     padding: 5px 20px 5px 20px;
     background-color: white;
@@ -131,6 +131,6 @@
     font-weight: 600;
     transition: box-shadow 0.2s ease;
 }
-#edit-post-button:hover {
+.edit-post-button:hover {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 }
