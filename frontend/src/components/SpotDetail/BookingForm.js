@@ -29,7 +29,7 @@ const BookingForm = ({ userId, price }) => {
         const diffInDays = diffInTime / (1000 * 3600 * 24);
 
         setCost(parseInt(price, 10) + (parseInt(price, 10) * diffInDays));
-    }, [startDate, endDate, price, user])
+    }, [startDate, endDate, price, user, spot.bookings, userId])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
