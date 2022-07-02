@@ -175,10 +175,17 @@ const spotReducer = (state = initialState, action) => {
         spot.Images.forEach((img, i) => {
           imgObj[i] = img.url;
         });
+        let avgRating = "New";
+        if (spot.Reviews.length) {
+          const sum = (Object.values(spot.Reviews).reduce((prev, curr) => prev + curr.rating, 0));
+          const avg = sum / Object.values(spot.Reviews).length
+          avgRating = (Math.round(avg*100)/100).toFixed(1);
+        }
         newState[spot.id] = {
           id: spot.id,
           name: spot.name,
           price: spot.price,
+          avgRating,
           images: imgObj
         }
       });
