@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteReviewThunk } from '../../store/review'
 
+import './ReviewContainer.css';
+
 const ReviewContainer = ({ reviews }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
@@ -33,17 +35,24 @@ const ReviewContainer = ({ reviews }) => {
     }
 
     return (
-        <>
-            <p>Reviews</p>
-
+        <div id='spot-review-wrapper'>
+            <div id='review-container-title'>
+                <p>Reviews</p>
+            </div>
+            <div id='spot-review-container'>
             {sessionUser &&
                 (!reviews[userId] || (reviews[userId] && !reviews[userId].id))
-                ? <ReviewForm
-                    setDelMessage={setDelMessage}
-                    setEditForm={setEditForm}/> : null}
+                ?
+                <div id='review-form-container'>
+                    <p>Post a review:</p>
+                    <ReviewForm
+                        setDelMessage={setDelMessage}
+                        setEditForm={setEditForm}/>
+                </div>
+                : null}
 
             {sessionUser && reviews[userId] && reviews[userId].id ?
-                <div>
+                <div className='spot-individual-review-container'>
                     <p>{`${sessionUser.username}'s Review:`}</p>
                     {editForm ?
                         <EditReviewForm
@@ -62,9 +71,10 @@ const ReviewContainer = ({ reviews }) => {
                 </div> : null }
 
             {Object.values(reviews).map((review, i) => {
-                if (review.userId !== userId) {
+                if (review.userId && review.userId !== userId) {
                     return (
-                        <div key={i}>
+                        <div key={i} className='spot-individual-review-container'>
+                            <p>Anonymous Review:</p>
                             <p>{review.rating}</p>
                             <p>{review.description}</p>
                         </div>
@@ -72,7 +82,8 @@ const ReviewContainer = ({ reviews }) => {
                 }
                 return null;
             })}
-        </>
+            </div>
+        </div>
     );
 }
 
