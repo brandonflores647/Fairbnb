@@ -35,7 +35,13 @@ const SpotCard = ({ spot }) => {
             </div>
             <NavLink to={`/spots/${spot.id}`} className='individual-spot-link'>
                 <div>
-                    <p className='spot-card-name'>{spot.name}</p>
+                    <div className='spot-card-topinfo'>
+                        <p className='spot-card-name'>{spot.name}</p>
+                        <section>
+                            <p className='spot-card-rating'>{spot.avgRating}</p>
+                            <i className="fa-solid fa-star fa-sm front-page-star"></i>
+                        </section>
+                    </div>
                     <p className='spot-card-price'>
                         <span className='spot-card-cost'>${spot.price}</span> night</p>
                 </div>

@@ -175,7 +175,7 @@ const spotReducer = (state = initialState, action) => {
         spot.Images.forEach((img, i) => {
           imgObj[i] = img.url;
         });
-        let avgRating = "New!";
+        let avgRating = "New";
         if (spot.Reviews.length) {
           const sum = (Object.values(spot.Reviews).reduce((prev, curr) => prev + curr.rating, 0));
           const avg = sum / Object.values(spot.Reviews).length

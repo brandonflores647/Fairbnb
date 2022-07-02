@@ -82,23 +82,23 @@ const EditReviewForm = ({ setDelMessage, setEditForm }) => {
                     Rating:
                     <div className='star-container' onMouseLeave={() => setStar(rating)}>
                         <i
-                        className={`fa-solid fa-star fa-xl`}
+                        className={`fa-solid fa-star fa-xl rating-star`}
                         onMouseEnter={() => setStar(1)}
                         onClick={() => setRating(1)}></i>
                         <i
-                        className={`fa-${starTwo} fa-star fa-xl`}
+                        className={`fa-${starTwo} fa-star fa-xl rating-star`}
                         onMouseEnter={() => setStar(2)}
                         onClick={() => setRating(2)}></i>
                         <i
-                        className={`fa-${starThree} fa-star fa-xl`}
+                        className={`fa-${starThree} fa-star fa-xl rating-star`}
                         onMouseEnter={() => setStar(3)}
                         onClick={() => setRating(3)}></i>
                         <i
-                        className={`fa-${starFour} fa-star fa-xl`}
+                        className={`fa-${starFour} fa-star fa-xl rating-star`}
                         onMouseEnter={() => setStar(4)}
                         onClick={() => setRating(4)}></i>
                         <i
-                        className={`fa-${starFive} fa-star fa-xl`}
+                        className={`fa-${starFive} fa-star fa-xl rating-star`}
                         onMouseEnter={() => setStar(5)}
                         onClick={() => setRating(5)}></i>
                     </div>

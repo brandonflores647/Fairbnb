@@ -94,6 +94,25 @@
     height: 32px;
 }
 
+.spot-card-topinfo {
+    display: flex;
+    justify-content: space-between;
+}
+.spot-card-topinfo > section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spot-card-rating {
+    margin: 5px 5px 0 0;
+}
+
+.front-page-star {
+    margin-top: 1px;
+    color: black;
+}
+
 .spot-card-name {
     margin: 5px 0 0 0;
 

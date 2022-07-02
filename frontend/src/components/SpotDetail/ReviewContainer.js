@@ -60,7 +60,7 @@ const ReviewContainer = ({ reviews }) => {
                             setEditForm={setEditForm}/>
                         :
                         <>
-                            <p>{reviews[userId].rating}/5 <i className={'fa-solid fa-star fa-lg'}></i></p>
+                            <p>{reviews[userId].rating}/5 <i className={'fa-solid fa-star fa-lg rating-star'}></i></p>
                             <p>{reviews[userId].description}</p>
                         </>
                     }
@@ -82,7 +82,7 @@ const ReviewContainer = ({ reviews }) => {
                     return (
                         <div key={i} className='spot-individual-review-container'>
                             <p>Anonymous Review:</p>
-                            <p>{review.rating}/5 <i className={'fa-solid fa-star fa-lg'}></i></p>
+                            <p>{review.rating}/5 <i className={'fa-solid fa-star fa-lg rating-star'}></i></p>
                             <p>{review.description}</p>
                         </div>
                     );
