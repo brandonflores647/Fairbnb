@@ -41,12 +41,18 @@ router.post(
 // Load All
 router.get('/all', asyncHandler(async (req, res) => {
     const data = await Spot.findAll({
-        include: {
-            model: Image,
-            attributes: ['url']
-        }
+        include: [
+            {
+                model: Image,
+                attributes: ['url']
+            },
+            {
+                model: Review,
+                attributes: ['rating']
+            }
+        ]
     });
-
+    console.log(JSON.stringify(data))
     return res.json(data);
 }));
 
