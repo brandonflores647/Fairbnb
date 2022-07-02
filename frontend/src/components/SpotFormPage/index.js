@@ -49,9 +49,12 @@ function SpotFormPage() {
 
     return (
       <form onSubmit={handleSubmit} id='spot-edit-form'>
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+        <div className='error-container'>
+          {errors.length ? <p className='error-message'>The following errors occured:</p> : null}
+          <ul>
+            {errors.map((error, idx) => <li className='form-error' key={idx}>{error}</li>)}
+          </ul>
+        </div>
         <label className='edit-form-label'>
           Name
           <input

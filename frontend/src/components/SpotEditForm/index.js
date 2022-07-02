@@ -49,10 +49,13 @@ const SpotEditForm = ({ hideForm }) => {
     return (
         <>
         <form onSubmit={handleSubmit} id='spot-edit-form'>
-            {errors.length > 0 ?
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul> : null}
+            <div className='error-container'>
+            {errors.length ? <p className='error-message'>The following errors occured:</p> : null}
+                {errors.length > 0 ?
+                <ul>
+                    {errors.map((error, idx) => <li className='form-error' key={idx}>{error}</li>)}
+                </ul> : null}
+            </div>
 
             <label className='edit-form-label'>
                 Name:
