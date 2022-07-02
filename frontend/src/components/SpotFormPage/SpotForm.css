@@ -1,0 +1,8 @@
+#spot-post-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#post-spot-button {
+    width: 25%;
+}
