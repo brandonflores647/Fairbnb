@@ -34,5 +34,11 @@
 
 </div>
  
+## Future Features:
+- Spot Filters
+- Google Maps
+- Favorite Spots
+- Reply to reviews
+
 ## Created By
 [Brandon Flores](https://github.com/brandonflores647)
