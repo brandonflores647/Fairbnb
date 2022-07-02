@@ -36,11 +36,11 @@ const ReviewForm = ({ setDelMessage, setEditForm }) => {
     useEffect(() => {
         switch (star) {
             case 1:
-              setStarTwo('regular');
-              setStarThree('regular');
-              setStarFour('regular');
-              setStarFive('regular');
-              break;
+                setStarTwo('regular');
+                setStarThree('regular');
+                setStarFour('regular');
+                setStarFive('regular');
+                break;
             case 2:
                 setStarTwo('solid');
                 setStarThree('regular');
@@ -79,7 +79,7 @@ const ReviewForm = ({ setDelMessage, setEditForm }) => {
             <form id='new-review-form' onSubmit={handleSubmit}>
                 <label>
                     Rating:
-                    <div onMouseLeave={() => setStar(rating)}>
+                    <div className='star-container' onMouseLeave={() => setStar(rating)}>
                         <i
                         className={`fa-solid fa-star fa-xl`}
                         onMouseEnter={() => setStar(1)}
@@ -106,8 +106,10 @@ const ReviewForm = ({ setDelMessage, setEditForm }) => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description"
+                    rows='10'
                 />
-                <button type='submit'>Submit Review</button>
+
+                <button className='edit-post-button' id='new-review-submit-button' type='submit'>Submit Review</button>
             </form>
         </>
     );

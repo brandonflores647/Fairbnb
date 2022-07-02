@@ -21,7 +21,7 @@
     font-size: 24px;
 }
 
-.spot-individual-review-container {
+.spot-individual-review-container,#review-form-container {
     width: 90%;
     margin-top: 10px;
     margin-bottom: 5px;
@@ -30,15 +30,33 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 }
 
-#review-form-container {
-    width: 90%;
-}
+#review-form-container > p {font-size:18px;}
 
 #new-review-form {
     display: flex;
     flex-direction: column;
 }
+#new-review-form > textarea {
+    resize: none;
+    padding: 10px;
+    font-size: 16px;
+}
+#new-review-form > label {
+    font-size: 18px;
+}
+
+.star-container {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
 
 .fa-star {
     color: #ff385c;
+}
+
+#new-review-submit-button {
+    margin-top: 15px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
 }
