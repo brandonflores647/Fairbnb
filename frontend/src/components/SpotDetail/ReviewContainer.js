@@ -60,14 +60,21 @@ const ReviewContainer = ({ reviews }) => {
                             setEditForm={setEditForm}/>
                         :
                         <>
-                            <p>{reviews[userId].rating}</p>
+                            <p>{reviews[userId].rating}/5 <i className={'fa-solid fa-star fa-lg'}></i></p>
                             <p>{reviews[userId].description}</p>
                         </>
                     }
                     {userId === reviews[userId].userId ?
-                        <button onClick={handleDelete}>{delMessage}</button> : null}
+                        <button className='review-modify-buttons' onClick={handleDelete}>{delMessage}</button> : null}
                     {userId === reviews[userId].userId ?
-                        <button onClick={() => setEditForm(!editForm)}>{editForm ? 'Cancel' : 'Edit'}</button> : null}
+                        <button
+                            className='review-modify-buttons'
+                            id='edit-review-button'
+                            onClick={() => {
+                                setEditForm(!editForm)
+                                setDelMessage('Delete')
+                            }}
+                            >{editForm ? 'Cancel' : 'Edit'}</button> : null}
                 </div> : null }
 
             {Object.values(reviews).map((review, i) => {
@@ -75,7 +82,7 @@ const ReviewContainer = ({ reviews }) => {
                     return (
                         <div key={i} className='spot-individual-review-container'>
                             <p>Anonymous Review:</p>
-                            <p>{review.rating}</p>
+                            <p>{review.rating}/5 <i className={'fa-solid fa-star fa-lg'}></i></p>
                             <p>{review.description}</p>
                         </div>
                     );
