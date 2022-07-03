@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllSpots } from '../../store/spot';
 import SpotCard from './SpotCard';
+import FakeCard from './FakeCard';
 
 import './SpotsContainer.css';
 
@@ -23,7 +24,13 @@ const SpotsContainer = () => {
                     );
                 })}
             </div>
-        : <p>loading...</p>
+        : (
+            <div className='spots-container'>
+                {Array.apply(null, Array(30)).map((ele, i) => {
+                    return <FakeCard key={i}/>
+                })}
+            </div>
+        )
         }
         </>
     );
