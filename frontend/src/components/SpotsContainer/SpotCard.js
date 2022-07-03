@@ -10,7 +10,7 @@ const SpotCard = ({ spot }) => {
     return (
         <div className='individual-spot'>
             <div className='img-container'>
-                {Object.values(spot.images).map((img, i) => {
+                {Object.values(spot.images).reverse().map((img, i) => {
                     return (
                         <div className={i === current ? 'slide-active' : 'slide'} key={i}>
                                 {i === current ?
