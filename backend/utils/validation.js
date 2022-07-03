@@ -62,6 +62,9 @@ const validateSpot = [
   check('name')
   .isLength({ min: 5 })
   .withMessage('Name must be atleast 5 characters.'),
+  check('name')
+  .isLength({ max: 32 })
+  .withMessage('Name cannot be longer than 32 characters.'),
   check('address')
   .isLength({ min: 8 })
   .withMessage('Address must be atleast 8 characters.'),
