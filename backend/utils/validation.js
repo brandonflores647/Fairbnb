@@ -82,7 +82,7 @@ const validateSpot = [
     .withMessage('State must be atleast 4 characters.'),
   check('state')
     .isLength({ max: 20 })
-    .withMessage('State cannot be longer than 4 characters.'),
+    .withMessage('State cannot be longer than 20 characters.'),
   check('country')
     .isLength({ min: 4 })
     .withMessage('Country must be atleast 4 characters.'),
