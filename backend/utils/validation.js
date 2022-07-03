@@ -53,41 +53,53 @@ const validateSignup = [
 
 const validateSpot = [
   check('name')
-  .exists({ checkFalsy: true })
-  .withMessage("Please provide a name."),
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a name."),
   check('name')
-  .not()
-  .isEmail()
-  .withMessage('Please provide a proper value for the name field.'),
+    .not()
+    .isEmail()
+    .withMessage('Please provide a proper value for the name field.'),
   check('name')
-  .isLength({ min: 5 })
-  .withMessage('Name must be atleast 5 characters.'),
+    .isLength({ min: 5 })
+    .withMessage('Name must be atleast 5 characters.'),
   check('name')
-  .isLength({ max: 32 })
-  .withMessage('Name cannot be longer than 32 characters.'),
+    .isLength({ max: 32 })
+    .withMessage('Name cannot be longer than 32 characters.'),
   check('address')
-  .isLength({ min: 8 })
-  .withMessage('Address must be atleast 8 characters.'),
+    .isLength({ min: 8 })
+    .withMessage('Address must be atleast 8 characters.'),
+  check('address')
+    .isLength({ max: 64 })
+    .withMessage('Address cannot be longer than 64 characters.'),
   check('city')
-  .isLength({ min: 4 })
-  .withMessage('City must be atleast 4 characters.'),
+    .isLength({ min: 4 })
+    .withMessage('City must be atleast 4 characters.'),
+  check('city')
+    .isLength({ max: 64 })
+    .withMessage('City cannot be longer than 64 characters.'),
   check('state')
-  .isLength({ min: 4 })
-  .withMessage('State must be atleast 4 characters.'),
+    .isLength({ min: 4 })
+    .withMessage('State must be atleast 4 characters.'),
+  check('state')
+    .isLength({ max: 20 })
+    .withMessage('State cannot be longer than 4 characters.'),
   check('country')
-  .isLength({ min: 4 })
-  .withMessage('Country must be atleast 4 characters.'),
+    .isLength({ min: 4 })
+    .withMessage('Country must be atleast 4 characters.'),
+  check('country')
+    .isLength({ max: 64 })
+    .withMessage('Country cannot be longer than 64 characters.'),
   check('images[0]')
-  .exists({ checkFalsy: true })
-  .withMessage('Please provide your cover image in the first input field.'),
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide your cover image in the first input field.'),
   check('images[0]')
-  .isLength({ min: 6 })
-  .withMessage('Uh oh! Looks like your first image is invalid.'),
+    .isLength({ min: 6 })
+    .withMessage('Uh oh! Looks like your first image is invalid.'),
   check('images[0]')
-  .isLength({ max: 255 })
-  .withMessage('Uh oh! Looks like your first image url is too long! Please compress it.'),
+    .isLength({ max: 255 })
+    .withMessage('Uh oh! Looks like your first image url is too long! Please compress it.'),
   check('images[0]')
-  .custom((value) => {
+    .custom((value) => {
       let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
       if (value && !testRegex.test(value)) {
         throw new Error('Oh no! Looks like your first image url is invalid! Check the link you provided.')
@@ -95,7 +107,7 @@ const validateSpot = [
       return true;
     }),
   check('images[1]')
-  .custom((value) => {
+    .custom((value) => {
       if (value && value.length < 6) {
         throw new Error('Uh oh! Looks like your second image is invalid.');
       }
@@ -108,7 +120,7 @@ const validateSpot = [
       }
       return true;
     }),
-    check('images[2]')
+  check('images[2]')
     .custom((value) => {
       if (value && value.length < 6) {
         throw new Error('Uh oh! Looks like your third image is invalid.');
@@ -121,8 +133,8 @@ const validateSpot = [
         throw new Error('Oh no! Looks like your third image url is invalid! Check the link you provided.')
       }
       return true;
-    }),
-    check('images[3]')
+  }),
+  check('images[3]')
     .custom((value) => {
       if (value && value.length < 6) {
         throw new Error('Uh oh! Looks like your fourth image is invalid.');
@@ -135,8 +147,8 @@ const validateSpot = [
         throw new Error('Oh no! Looks like your fourth image url is invalid! Check the link you provided.')
       }
       return true;
-    }),
-    handleValidationErrors
+  }),
+  handleValidationErrors
 ];
 
 const validateSpotDelete = [
