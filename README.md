@@ -32,6 +32,8 @@
 
 # Splash Page
 
+![Capture](https://user-images.githubusercontent.com/100805072/177055701-f6b7783e-fea2-4eee-8af8-31edcc6a36e4.PNG)
+
 </div>
  
 ## Future Features:
