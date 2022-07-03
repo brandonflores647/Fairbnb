@@ -15,8 +15,9 @@ const IndividualBooking = ({ data }) => {
     const [deleteMsg, setDeleteMsg] = useState('Delete');
     const [disable, setDisable] = useState(false);
 
-    const todayDate = new Date();
-    const today = todayDate.toISOString().split('T')[0];
+    const tomorrowDate = new Date();
+    tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+    const tomorrow = tomorrowDate.toISOString().split('T')[0];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -106,8 +107,9 @@ const IndividualBooking = ({ data }) => {
                             type="date"
                             value={startDate}
                             onChange={(e) => setStartDate(e.target.value)}
-                            min={today}
+                            min={tomorrow}
                             max={endDate}
+                            required
                         />
                     </label>
                     <label>
@@ -116,7 +118,8 @@ const IndividualBooking = ({ data }) => {
                             type="date"
                             value={endDate}
                             onChange={(e) => setEndDate(e.target.value)}
-                            min={data.startDate.split('T')[0]}
+                            min={tomorrow}
+                            required
                         />
                     </label>
                     <p>Total Cost: ${cost}</p>

@@ -9,12 +9,16 @@ const BookingForm = ({ userId, price }) => {
     const spot = useSelector(state => state.spot);
     const user = useSelector(state => state.session.user);
 
-    const todayDate = new Date();
-    const today = todayDate.toISOString().split('T')[0];
+    const tomorrowDate = new Date();
+    tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+    const tomorrow = tomorrowDate.toISOString().split('T')[0];
+    const threeDaysFromTodayDate = new Date();
+    threeDaysFromTodayDate.setDate(threeDaysFromTodayDate.getDate() + 3); // 3 days from today
+    const threeDaysFromToday = threeDaysFromTodayDate.toISOString().split('T')[0];
 
     const [errors, setErrors] = useState([]);
-    const [startDate, setStartDate] = useState(today);
-    const [endDate, setEndDate] = useState(today);
+    const [startDate, setStartDate] = useState(tomorrow);
+    const [endDate, setEndDate] = useState(threeDaysFromToday);
     const [cost, setCost] = useState(price)
     const [submitState, setSubmitState] = useState(false);
 
@@ -70,9 +74,10 @@ const BookingForm = ({ userId, price }) => {
                                 type="date"
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
-                                min={today}
+                                min={tomorrow}
                                 max={endDate}
                                 className='dates'
+                                required
                             />
                         </label>
                         <label id='end-date'>
@@ -81,8 +86,9 @@ const BookingForm = ({ userId, price }) => {
                                 type="date"
                                 value={endDate}
                                 onChange={(e) => setEndDate(e.target.value)}
-                                min={today}
+                                min={tomorrow}
                                 className='dates'
+                                required
                             />
                         </label>
                         <p id='spot-details-total'>Total Cost: <span>${cost}</span></p>
