@@ -21,18 +21,18 @@ const Profile = () => {
     }, [dispatch, history, sesh.user, userId]);
 
     return (
-        <>
+        <div className='profile-wrapper'>
             {sesh.user ?
-            <>
-                <h2>{sesh.user.username}</h2>
-                <div className='profile-container'>
+            <div className='profile-container'>
+                <h2>{sesh.user.username}'s Profile</h2>
+                <div className='profile-info'>
                     <ProfileReviewContainer reviews={sesh.user.reviews} />
                     <ProfileBookingContainer bookings={sesh.user.bookings} />
                 </div>
-            </>
+            </div>
                 : null
             }
-        </>
+        </div>
     );
 }
 
