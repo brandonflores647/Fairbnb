@@ -29,30 +29,35 @@ const LoginFormPage = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit} id='login-form'>
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-            <label>
-                Username or Email
-                <input
-                    type="text"
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Password
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <button type="submit">Log In</button>
-        </form>
+        <div id='login-form-container'>
+            <form onSubmit={handleSubmit} id='login-form'>
+                <h2>Login:</h2>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <label>
+                    <p className='login-form-p' >Username or Email:</p>
+                    <input
+                        className='login-signup-input'
+                        type="text"
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    <p className='login-form-p' >Password:</p>
+                    <input
+                        className='login-signup-input'
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </label>
+                <button id='login-button' type="submit">Log In</button>
+            </form>
+        </div>
     );
   }
 
