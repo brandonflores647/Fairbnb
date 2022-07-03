@@ -16,6 +16,7 @@
     height: fit-content;
 
     cursor: pointer;
+    animation: .15s ease 0s 1 fadeIn;
 }
 .individual-spot-fake {
     display: flex;
@@ -174,4 +175,13 @@
 .individual-spot-link {
     color: black;
     text-decoration: none;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
 }
