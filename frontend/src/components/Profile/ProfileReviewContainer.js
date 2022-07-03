@@ -1,20 +1,21 @@
 const ProfileReviewContainer = ({ reviews }) => {
     return (
         <div className='review-container'>
-            <p>Your Reviews:</p>
-            {reviews ?
-                Object.values(reviews).map((ele, i) => {
-                    return (
-                        <div key={i} className='individual-review-container'>
-                            <p>{ele.spot}</p>
-                            <p>Description: </p>
-                            <p>{ele.description}</p>
-                            <p>Rating: </p>
-                            <p>{ele.rating}</p>
-                        </div>
-                    )
-                })
-            : null}
+            <p className='list-title'>Your Reviews:</p>
+            <div className='review-list'>
+                {reviews ?
+                    Object.values(reviews).map((ele, i) => {
+                        return (
+                            <div key={i} className='individual-review-container'>
+                                <p className='individual-review-title'>{ele.spot}</p>
+                                <p>{ele.rating}/5 <i className={'fa-solid fa-star fa-lg rating-star'}></i></p>
+                                <p>Description: </p>
+                                <p>{ele.description}</p>
+                            </div>
+                        )
+                    })
+                : null}
+            </div>
         </div>
     );
 }
