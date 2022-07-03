@@ -85,25 +85,34 @@ const IndividualBooking = ({ data }) => {
         <>
             {!editForm ?
             <div className='individual-booking-container'>
-                <p>{data.spot}</p>
-                <p>Start: </p>
-                <p>{data.startDate.split('T')[0]}</p>
-                <p>End: </p>
-                <p>{data.endDate.split('T')[0]}</p>
-                <p>Cost: </p>
-                <p>$ {data.cost}</p>
+                <p className='individual-review-title'>{data.spot}</p>
+                <div className='individual-booking-info'>
+                    <p className='individual-booking-info-dates-title'>Start: </p>
+                    <p className='individual-booking-info-dates-start'>{data.startDate.split('T')[0]}</p>
+                    <p className='individual-booking-info-dates-title'>End: </p>
+                    <p>{data.endDate.split('T')[0]}</p>
+                </div>
+                <div className='individual-booking-info'>
+                    <p className='individual-booking-info-dates-title'>Total Cost: </p>
+                    <p>${data.cost}</p>
+                </div>
+                <div className='individual-booking-edit-button'>
+                    <button onClick={!editForm ? (e) => setEditForm(!editForm)
+                                : handleCancel}>{editForm ? 'Cancel' : 'Edit'}</button>
+                </div>
             </div>
             :
             <>
-                <form onSubmit={handleSubmit}>
-                    <p>{data.spot}</p>
+                <form onSubmit={handleSubmit} className='individual-booking-container'>
+                    <p className='individual-review-title'>{data.spot}</p>
                     {errors.length > 0 ?
                         <ul>
                             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                         </ul> : null}
-                    <label>
-                        Start
+                    <label className='individual-booking-label'>
+                        Start:
                         <input
+                            className='individual-booking-input'
                             type="date"
                             value={startDate}
                             onChange={(e) => setStartDate(e.target.value)}
@@ -112,9 +121,10 @@ const IndividualBooking = ({ data }) => {
                             required
                         />
                     </label>
-                    <label>
-                        End
+                    <label className='individual-booking-label'>
+                        End:
                         <input
+                            className='individual-booking-input'
                             type="date"
                             value={endDate}
                             onChange={(e) => setEndDate(e.target.value)}
@@ -124,13 +134,17 @@ const IndividualBooking = ({ data }) => {
                     </label>
                     <p>Total Cost: ${cost}</p>
                     {disable ? <p>You cannot edit a booking while it's in progress.</p> : null}
-                    <button type='submit' disabled={disable}>Submit Edit</button>
+                    <div className='individual-booking-edit-button' id='individual-booking-edit-button'>
+                        <button type='submit' disabled={disable}>Submit Edit</button>
+                    </div>
+                    <div className='individual-booking-edit-button'>
+                        <button onClick={!editForm ? (e) => setEditForm(!editForm)
+                                    : handleCancel}>{editForm ? 'Cancel' : 'Edit'}</button>
+                        <button onClick={handleDelete}>{deleteMsg}</button>
+                    </div>
                 </form>
-                <button onClick={handleDelete}>{deleteMsg}</button>
             </>
             }
-            <button onClick={!editForm ? (e) => setEditForm(!editForm)
-                        : handleCancel}>{editForm ? 'Cancel' : 'Edit'}</button>
         </>
     );
 }
