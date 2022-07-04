@@ -40,11 +40,11 @@ const SpotDetail = () => {
                         <section>
                             <h2 id='spot-page-name'>{spot.data.name}</h2>
                             <p id='spot-page-price'>$ {spot.data.price} <span>night</span></p>
-                            <p className='spot-page-details'>{spot.data.address}</p>
-                            <p className='spot-page-details'>{spot.data.city}, {spot.data.state}</p>
-                            <p className='spot-page-details'>{spot.data.country}</p>
+                            <p id='spot-page-address'className='spot-page-details'>{spot.data.address}</p>
+                            <p id='spot-page-city'className='spot-page-details'>{spot.data.city}, {spot.data.state}</p>
+                            <p id='spot-page-country'className='spot-page-details'>{spot.data.country}</p>
                             {sessionUser && sessionUser.id === spot.data.userId ?
-                                <button className='edit-post-button' onClick={() => setEditForm(!editForm)}
+                                <button id='spot-page-edit-post-button' className='edit-post-button' onClick={() => setEditForm(!editForm)}
                                 >{editForm ? 'Cancel Edit' : 'Edit Post'}</button> : null}
                         </section>
                         <BookingForm userId={userId} price={spot.data.price} />
@@ -55,7 +55,7 @@ const SpotDetail = () => {
             <ReviewContainer reviews={reviews}/>
         </>
     )
-    else return <p>Loading...</p>;
+    else return null;
 }
 
 export default SpotDetail;
