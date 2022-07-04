@@ -30,10 +30,6 @@
 ### [Fairbnb's Features](https://github.com/brandonflores647/Fairbnb/wiki/Features)
 ### [Database Schema](https://github.com/brandonflores647/Fairbnb/wiki/Database-Schema)
 
-# Splash Page
-
-![Capture](https://user-images.githubusercontent.com/100805072/177055701-f6b7783e-fea2-4eee-8af8-31edcc6a36e4.PNG)
-
 </div>
  
 ## Future Features:
@@ -72,6 +68,20 @@ Setting Up and Starting a Local Server
 7. Run `npm start` in the `/frontend` directory
 8. The frontend server will be live on http://localhost:3000 by default
 ```
+
+# Overview
+
+## Login / Signup
+![login](https://user-images.githubusercontent.com/100805072/177199311-6487b9e8-bf64-47b7-b11a-6504539d10f1.gif)
+
+## Spots
+![spots](https://user-images.githubusercontent.com/100805072/177200966-a09109cc-8b24-403d-bed3-642a549f381d.gif)
+
+## Bookings
+![bookings](https://user-images.githubusercontent.com/100805072/177201735-96908291-03ce-4219-9dec-f6cdf2438e00.gif)
+
+## Reviews
+![reviews](https://user-images.githubusercontent.com/100805072/177202428-451cec52-bd2a-49fd-82cb-6fc95bde0696.gif)
 
 ## Created By
 [Brandon Flores](https://github.com/brandonflores647)
