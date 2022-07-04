@@ -65,6 +65,13 @@ const validateSpot = [
   check('name')
     .isLength({ max: 32 })
     .withMessage('Name cannot be longer than 32 characters.'),
+  check('price')
+    .custom((value) => {
+      if (value > 99999) {
+        throw new Error('Cost per night cannot be more than $99,999')
+      }
+      return true;
+  }),
   check('address')
     .isLength({ min: 8 })
     .withMessage('Address must be atleast 8 characters.'),
