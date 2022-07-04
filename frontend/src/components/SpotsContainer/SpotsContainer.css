@@ -16,7 +16,6 @@
     height: fit-content;
 
     cursor: pointer;
-    animation: .15s ease 0s 1 fadeIn;
 }
 .individual-spot-fake {
     display: flex;
@@ -36,6 +35,8 @@
 
     width: 300px;
     height: 300px;
+    border-radius: 20px;
+    background-color: #dddddd;
 }
 
 .individual-spot-img {
@@ -43,6 +44,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
+    animation: .15s ease 0s 1 fadeIn;
 }
 .individual-spot-img-fake {
     width: 100%;
