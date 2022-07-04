@@ -71,6 +71,7 @@ function SpotFormPage() {
             className='edit-form-input'
             type="number"
             min="10"
+            max="99999"
             step='1'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
