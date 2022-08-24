@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { create } from "../../store/spot";
@@ -46,6 +46,7 @@ function SpotFormPage() {
       })
       return dispatchData;
     };
+
 
     return (
       <form onSubmit={handleSubmit} id='spot-edit-form'>
@@ -119,36 +120,48 @@ function SpotFormPage() {
           />
         </label>
         <label className='edit-form-label'>
-          Image Url
+          Upload Images
           <div id='edit-spot-images'>
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgOne}
-              onChange={(e) => setImgOne(e.target.value)}
-              placeholder=' (Required)'
-            />
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgTwo}
-              onChange={(e) => setImgTwo(e.target.value)}
-              placeholder=' (Optional)'
-            />
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgThree}
-              onChange={(e) => setImgThree(e.target.value)}
-              placeholder=' (Optional)'
-            />
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgFour}
-              onChange={(e) => setImgFour(e.target.value)}
-              placeholder=' (Optional)'
-            />
+            <label className='edit-form-label'>
+              First Image: *
+              <input
+                id='imgOneInput'
+                type="file"
+                onChange={() => setImgOne(document.querySelector('#imgOneInput').files[0])}
+                accept=".png, .jpg, .jpeg"
+                required
+              />
+            </label>
+            <label className='edit-form-label'>
+              Second Image:
+              <input
+                id='imgTwoInput'
+                type="file"
+                onChange={() => setImgTwo(document.querySelector('#imgTwoInput').files[0])}
+                accept=".png, .jpg, .jpeg"
+                required
+              />
+            </label>
+            <label className='edit-form-label'>
+              Third Image:
+              <input
+                id='imgThreeInput'
+                type="file"
+                onChange={() => setImgThree(document.querySelector('#imgThreeInput').files[0])}
+                accept=".png, .jpg, .jpeg"
+                required
+              />
+            </label>
+            <label className='edit-form-label'>
+              Fourth Image:
+              <input
+                id='imgFourInput'
+                type="file"
+                onChange={() => setImgFour(document.querySelector('#imgFourInput').files[0])}
+                accept=".png, .jpg, .jpeg"
+                required
+              />
+            </label>
           </div>
         </label>
         <div id='spot-post-buttons'>
