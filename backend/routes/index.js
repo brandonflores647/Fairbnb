@@ -2,7 +2,6 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const router = express.Router();
 const apiRouter = require('./api');
-const { generateUploadURL } = require('../utils/s3');
 
 router.use('/api', apiRouter);
 

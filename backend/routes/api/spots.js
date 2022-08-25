@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
 const { validateSpot, validateSpotDelete } = require('../../utils/validation');
 const { Spot, Image, Review, Booking } = require('../../db/models');
-const { multiplePublicFileUpload, multipleMulterUpload } = require('../../utils/s3');
+const { multiplePublicFileUpload, multipleMulterUpload } = require('../../s3');
 
 const router = express.Router();
 
@@ -16,7 +16,16 @@ router.post(
     validateSpot,
     asyncHandler(async (req, res) => {
         const { userId, address, city, state, country, name, price, images } = req.body;
-        const imageUrls = await multiplePublicFileUpload(req.files)
+        console.log(" ")
+        console.log(" ")
+        console.log(" ")
+        console.log(" ")
+        console.log(req.files)
+        console.log(" ")
+        console.log(" ")
+        console.log(" ")
+        console.log(" ")
+        const imageUrls = await multiplePublicFileUpload(req.files);
 
         const spot = await Spot.create({
             userId,

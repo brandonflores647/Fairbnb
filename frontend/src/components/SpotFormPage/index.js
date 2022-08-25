@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import { create } from "../../store/spot";
-import { csrfFetch } from '../../store/csrf';
+import { create, update } from "../../store/spot";
 
 import './SpotForm.css';
 
@@ -20,12 +19,12 @@ function SpotFormPage() {
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
 
-    const [imgOne, setImgOne] = useState("");
-    const [imgTwo, setImgTwo] = useState("");
-    const [imgThree, setImgThree] = useState("");
-    const [imgFour, setImgFour] = useState("");
+    // const [imgOne, setImgOne] = useState("");
+    // const [imgTwo, setImgTwo] = useState("");
+    // const [imgThree, setImgThree] = useState("");
+    // const [imgFour, setImgFour] = useState("");
 
-    const [images, setImages] = useState([imgOne, imgTwo, imgThree, imgFour]);
+    const [images, setImages] = useState([]);
     const [errors, setErrors] = useState([]);
     const [submitState, setSubmitState] = useState(false);
 
@@ -35,23 +34,6 @@ function SpotFormPage() {
       setSubmitState(true);
       e.preventDefault();
       setErrors([]);
-
-      const imgs = [];
-      images.forEach(async (file) => {
-        const { url } = await csrfFetch("/s3Url").then(res => res.json());
-
-        await csrfFetch(url, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "multipart/form-data"
-            },
-            body: file
-        })
-
-        const imageUrl = url.split('?')[0];
-        imgs.push(imageUrl);
-        console.log(imgs)
-      });
 
       let dispatchData;
       dispatchData = await dispatch(create({ userId, name, price, address, city, state, country, images }))
@@ -66,6 +48,11 @@ function SpotFormPage() {
       return dispatchData;
     };
 
+    const updateFiles = (e) => {
+      const files = e.target.files;
+      setImages(files);
+      console.log(images)
+    };
 
     return (
       <form onSubmit={handleSubmit} id='spot-edit-form'>
@@ -146,12 +133,13 @@ function SpotFormPage() {
               <input
                 id='imgOneInput'
                 type="file"
-                onChange={() => setImgOne(document.querySelector('#imgOneInput').files[0])}
+                onChange={updateFiles}
+                multiple
                 accept=".png, .jpg, .jpeg"
                 required
               />
             </label>
-            <label className='edit-form-label'>
+            {/* <label className='edit-form-label'>
               Second Image:
               <input
                 id='imgTwoInput'
@@ -177,7 +165,7 @@ function SpotFormPage() {
                 onChange={() => setImgFour(document.querySelector('#imgFourInput').files[0])}
                 accept=".png, .jpg, .jpeg"
               />
-            </label>
+            </label> */}
           </div>
         </label>
         <div id='spot-post-buttons'>
@@ -185,7 +173,6 @@ function SpotFormPage() {
             className='edit-post-button'
             id='post-spot-button'
             type="submit"
-            onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
             disabled={submitState}
             >Post</button>
         </div>

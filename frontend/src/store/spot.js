@@ -51,9 +51,29 @@ const deleteSpot = () => ({
 // THUNKS =============================================
 
 export const create = (spot) => async dispatch => {
+  const { userId, name, price, address, city, state, country, images } = spot;
+
+  const formData = new FormData();
+  formData.append("userId", userId);
+  formData.append("name", name);
+  formData.append("price", price);
+  formData.append("address", address);
+  formData.append("city", city);
+  formData.append("state", state);
+  formData.append("country", country);
+
+  if (images && images.length !== 0) {
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+  }
+
   const response = await csrfFetch('/api/spots', {
     method: 'POST',
-    body: JSON.stringify(spot)
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
   });
 
   if (response.ok) {
