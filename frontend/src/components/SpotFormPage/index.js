@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { create } from "../../store/spot";
+import { csrfFetch } from '../../store/csrf';
 
 import './SpotForm.css';
 
@@ -34,6 +35,24 @@ function SpotFormPage() {
       setSubmitState(true);
       e.preventDefault();
       setErrors([]);
+
+      const imgs = [];
+      images.forEach(async (file) => {
+        const { url } = await csrfFetch("/s3Url").then(res => res.json());
+
+        await csrfFetch(url, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "multipart/form-data"
+            },
+            body: file
+        })
+
+        const imageUrl = url.split('?')[0];
+        imgs.push(imageUrl);
+        console.log(imgs)
+      });
+
       let dispatchData;
       dispatchData = await dispatch(create({ userId, name, price, address, city, state, country, images }))
       .catch(async (res) => {
@@ -139,7 +158,6 @@ function SpotFormPage() {
                 type="file"
                 onChange={() => setImgTwo(document.querySelector('#imgTwoInput').files[0])}
                 accept=".png, .jpg, .jpeg"
-                required
               />
             </label>
             <label className='edit-form-label'>
@@ -149,7 +167,6 @@ function SpotFormPage() {
                 type="file"
                 onChange={() => setImgThree(document.querySelector('#imgThreeInput').files[0])}
                 accept=".png, .jpg, .jpeg"
-                required
               />
             </label>
             <label className='edit-form-label'>
@@ -159,7 +176,6 @@ function SpotFormPage() {
                 type="file"
                 onChange={() => setImgFour(document.querySelector('#imgFourInput').files[0])}
                 accept=".png, .jpg, .jpeg"
-                required
               />
             </label>
           </div>
