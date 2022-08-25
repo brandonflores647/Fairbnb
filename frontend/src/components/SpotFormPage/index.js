@@ -19,12 +19,7 @@ function SpotFormPage() {
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
 
-    const [imgOne, setImgOne] = useState("");
-    const [imgTwo, setImgTwo] = useState("");
-    const [imgThree, setImgThree] = useState("");
-    const [imgFour, setImgFour] = useState("");
-
-    const [images, setImages] = useState([imgOne, imgTwo, imgThree, imgFour]);
+    const [images, setImages] = useState([]);
     const [errors, setErrors] = useState([]);
     const [submitState, setSubmitState] = useState(false);
 
@@ -34,6 +29,7 @@ function SpotFormPage() {
       setSubmitState(true);
       e.preventDefault();
       setErrors([]);
+
       let dispatchData;
       dispatchData = await dispatch(create({ userId, name, price, address, city, state, country, images }))
       .catch(async (res) => {
@@ -45,6 +41,11 @@ function SpotFormPage() {
         if (res) history.push(`/spots/${res.spot.id}`)
       })
       return dispatchData;
+    };
+
+    const updateFiles = (e) => {
+      const files = e.target.files;
+      setImages(files);
     };
 
     return (
@@ -119,36 +120,20 @@ function SpotFormPage() {
           />
         </label>
         <label className='edit-form-label'>
-          Image Url
+          Upload Images
           <div id='edit-spot-images'>
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgOne}
-              onChange={(e) => setImgOne(e.target.value)}
-              placeholder=' (Required)'
-            />
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgTwo}
-              onChange={(e) => setImgTwo(e.target.value)}
-              placeholder=' (Optional)'
-            />
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgThree}
-              onChange={(e) => setImgThree(e.target.value)}
-              placeholder=' (Optional)'
-            />
-            <input
-              className='edit-form-input'
-              type="text"
-              value={imgFour}
-              onChange={(e) => setImgFour(e.target.value)}
-              placeholder=' (Optional)'
-            />
+            <label className='edit-form-label'>
+              Images: *
+              <input
+                id='imgOneInput'
+                type="file"
+                onChange={updateFiles}
+                multiple
+                accept=".png, .jpg, .jpeg"
+                required
+                name='imgInput'
+              />
+            </label>
           </div>
         </label>
         <div id='spot-post-buttons'>
@@ -156,7 +141,6 @@ function SpotFormPage() {
             className='edit-post-button'
             id='post-spot-button'
             type="submit"
-            onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
             disabled={submitState}
             >Post</button>
         </div>
