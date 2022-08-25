@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import { create, update } from "../../store/spot";
+import { create } from "../../store/spot";
 
 import './SpotForm.css';
 
@@ -18,11 +18,6 @@ function SpotFormPage() {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
-
-    // const [imgOne, setImgOne] = useState("");
-    // const [imgTwo, setImgTwo] = useState("");
-    // const [imgThree, setImgThree] = useState("");
-    // const [imgFour, setImgFour] = useState("");
 
     const [images, setImages] = useState([]);
     const [errors, setErrors] = useState([]);
@@ -51,7 +46,6 @@ function SpotFormPage() {
     const updateFiles = (e) => {
       const files = e.target.files;
       setImages(files);
-      console.log(images)
     };
 
     return (
@@ -129,7 +123,7 @@ function SpotFormPage() {
           Upload Images
           <div id='edit-spot-images'>
             <label className='edit-form-label'>
-              First Image: *
+              Images: *
               <input
                 id='imgOneInput'
                 type="file"
@@ -137,35 +131,9 @@ function SpotFormPage() {
                 multiple
                 accept=".png, .jpg, .jpeg"
                 required
+                name='imgInput'
               />
             </label>
-            {/* <label className='edit-form-label'>
-              Second Image:
-              <input
-                id='imgTwoInput'
-                type="file"
-                onChange={() => setImgTwo(document.querySelector('#imgTwoInput').files[0])}
-                accept=".png, .jpg, .jpeg"
-              />
-            </label>
-            <label className='edit-form-label'>
-              Third Image:
-              <input
-                id='imgThreeInput'
-                type="file"
-                onChange={() => setImgThree(document.querySelector('#imgThreeInput').files[0])}
-                accept=".png, .jpg, .jpeg"
-              />
-            </label>
-            <label className='edit-form-label'>
-              Fourth Image:
-              <input
-                id='imgFourInput'
-                type="file"
-                onChange={() => setImgFour(document.querySelector('#imgFourInput').files[0])}
-                accept=".png, .jpg, .jpeg"
-              />
-            </label> */}
           </div>
         </label>
         <div id='spot-post-buttons'>

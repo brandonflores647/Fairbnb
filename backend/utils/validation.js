@@ -96,6 +96,21 @@ const validateSpot = [
   check('country')
     .isLength({ max: 64 })
     .withMessage('Country cannot be longer than 64 characters.'),
+  check('imgInput')
+    .custom((val, {req}) => {
+      for (let file of req.files) {
+        if (
+          file.mimetype !== 'image/png'
+          && file.mimetype !== 'image/jpeg'
+          && file.mimetype !== 'image/jpg'
+        ) {
+          console.log(file.mimetype)
+          return false;
+        }
+      }
+      return true;
+    })
+    .withMessage('Image must be .png, .jpg, or .jpeg'),
   handleValidationErrors
 ];
 

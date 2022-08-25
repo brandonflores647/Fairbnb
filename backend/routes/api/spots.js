@@ -15,18 +15,9 @@ router.post(
     requireAuth,
     validateSpot,
     asyncHandler(async (req, res) => {
-        const { userId, address, city, state, country, name, price, images } = req.body;
-        console.log(" ")
-        console.log(" ")
-        console.log(" ")
-        console.log(" ")
-        console.log(req.files)
-        console.log(" ")
-        console.log(" ")
-        console.log(" ")
-        console.log(" ")
-        const imageUrls = await multiplePublicFileUpload(req.files);
+        const { userId, address, city, state, country, name, price } = req.body;
 
+        const imageUrls = await multiplePublicFileUpload(req.files);
         const spot = await Spot.create({
             userId,
             address,

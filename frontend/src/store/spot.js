@@ -64,7 +64,7 @@ export const create = (spot) => async dispatch => {
 
   if (images && images.length !== 0) {
     for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
+      await formData.append("images", images[i]);
     }
   }
 
