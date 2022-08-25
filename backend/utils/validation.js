@@ -111,6 +111,18 @@ const validateSpot = [
       return true;
     })
     .withMessage('Image must be .png, .jpg, or .jpeg'),
+  check('imgInput')
+    .custom((val, {req}) => {
+      if (!req.files.length) return false;
+      return true;
+    })
+    .withMessage('At least one image is required.'),
+  check('imgInput')
+    .custom((val, {req}) => {
+      if (req.files.length > 4) return false;
+      return true;
+    })
+    .withMessage('Sorry! Spots are limited to 4 images.'),
   handleValidationErrors
 ];
 
