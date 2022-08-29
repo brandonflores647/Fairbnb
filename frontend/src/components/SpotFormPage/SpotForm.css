@@ -25,6 +25,19 @@
     border-radius: 6px;
 }
 
+#spot-form-title {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 24px;
+}
+#title-gradient {
+    width: 100%;
+    height: 3px;
+    background-image: linear-gradient(to right, #FF385C, #BD1E59);
+    border-radius: 3px;
+}
+
 .spot-form-top, .spot-form-middle, .spot-form-bottom {
     display: flex;
     width: 100%;

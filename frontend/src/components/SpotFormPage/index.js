@@ -50,6 +50,7 @@ function SpotFormPage() {
 
     return (
       <form onSubmit={handleSubmit} id='spot-edit-form'>
+        <span id='spot-form-title'>Create a spot <div id='title-gradient'></div></span>
         <div className='error-container'>
           {errors.length ? <p className='error-message'>The following errors occured:</p> : null}
           <ul>
@@ -129,7 +130,6 @@ function SpotFormPage() {
           Upload Images
           <div id='edit-spot-images'>
             <label className='edit-form-label'>
-              Images: *
               <input
                 id='imgOneInput'
                 type="file"
