@@ -56,30 +56,33 @@ function SpotFormPage() {
             {errors.map((error, idx) => <li className='form-error' key={idx}>{error}</li>)}
           </ul>
         </div>
-        <label className='edit-form-label'>
-          Name
-          <input
-            className='edit-form-input'
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </label>
-        <label className='edit-form-label'>
-          Cost Per Night
-          <input
-            className='edit-form-input'
-            type="number"
-            min="10"
-            max="99999"
-            step='1'
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-        </label>
-        <label className='edit-form-label'>
+        <div className='spot-form-top'>
+          <label className='edit-form-label' id='edit-form-name'>
+            Name
+            <input
+              className='edit-form-input'
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </label>
+          <label className='edit-form-label' id='edit-form-cost'>
+            Cost Per Night
+            <input
+              className='edit-form-input'
+              type="number"
+              min="10"
+              max="99999"
+              step='1'
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div className='spot-form-middle'>
+        <label className='edit-form-label' id='edit-form-address'>
           Address
           <input
             className='edit-form-input'
@@ -89,7 +92,7 @@ function SpotFormPage() {
             required
           />
         </label>
-        <label className='edit-form-label'>
+        <label className='edit-form-label' id='edit-form-city'>
           City
           <input
             className='edit-form-input'
@@ -99,7 +102,9 @@ function SpotFormPage() {
             required
           />
         </label>
-        <label className='edit-form-label'>
+        </div>
+        <div className='spot-form-bottom'>
+        <label className='edit-form-label' id='edit-form-state'>
           State
           <input
             className='edit-form-input'
@@ -109,7 +114,7 @@ function SpotFormPage() {
             required
           />
         </label>
-        <label className='edit-form-label'>
+        <label className='edit-form-label' id='edit-form-country'>
           Country
           <input
             className='edit-form-input'
@@ -119,6 +124,7 @@ function SpotFormPage() {
             required
           />
         </label>
+        </div>
         <label className='edit-form-label'>
           Upload Images
           <div id='edit-spot-images'>

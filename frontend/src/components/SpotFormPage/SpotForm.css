@@ -25,6 +25,30 @@
     border-radius: 6px;
 }
 
+.spot-form-top, .spot-form-middle, .spot-form-bottom {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+#edit-form-name {
+    width: 65%;
+}
+#edit-form-cost {
+    width: 32%;
+}
+#edit-form-address {
+    width: 59%;
+}
+#edit-form-city {
+    width: 38%;
+}
+#edit-form-state {
+    width: 53%;
+}
+#edit-form-country {
+    width: 44%;
+}
+
 #spot-post-buttons {
     display: flex;
     justify-content: center;
