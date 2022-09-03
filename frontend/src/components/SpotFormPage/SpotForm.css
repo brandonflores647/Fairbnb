@@ -116,8 +116,19 @@
     font-weight: 600;
     color: white;
 
-    background-image: radial-gradient(circle at var(--x) var(--y), #FF385C 0%, #E61E4D 27.5%, #E31C5F 40%, #D70466 57.5%, #BD1E59 100%);
+    /* background-image: radial-gradient(circle at var(--x) var(--y), #FF385C 0%, #E61E4D 27.5%, #E31C5F 40%, #D70466 57.5%, #BD1E59 100%); */
+    background-image: radial-gradient(circle, #FF385C 0%, #E61E4D 27.5%, #E31C5F 40%, #D70466 57.5%, #BD1E59 100%);
+    background-size: 200% 200%;
+    background-position-x: calc((100 - var(--x)) * 1%);
+    background-position-y: calc((100 - var(--y)) * 1%);
 
     border: none;
     border-radius: 6px;
+    /* transition: background-position 1.2s ease; */
+}
+
+.post-spot-button-default {
+    background-position-x: 20% !important;
+    background-position-y: 20% !important;
+    transition: background-position-x 2.25s ease-out;
 }
