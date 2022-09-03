@@ -24,6 +24,8 @@ function SpotFormPage() {
     const [errors, setErrors] = useState([]);
     const [submitState, setSubmitState] = useState(false);
 
+    const [btnGradient, setBtnGradient] = useState(false);
+
     if (!sessionUser) return <Redirect to="/login" />;
 
     const handleSubmit = async (e) => {
@@ -128,13 +130,31 @@ function SpotFormPage() {
         </label>
         </div>
         <FileUpload updateFiles={updateFiles} images={images}/>
-        <div id='spot-post-buttons'>
+        <div id='spot-post-button'>
           <button
-            className='edit-post-button'
             id='post-spot-button'
             type="submit"
             disabled={submitState}
-            >Post</button>
+            onMouseMove={(e) => {
+              const xPos = Math.ceil(
+                Math.abs(
+                  (e.clientX - e.target.offsetLeft)
+                  / e.target.offsetWidth * 100
+                )
+              );
+              const yPos = Math.ceil(
+                Math.abs(
+                  (e.clientY - e.target.offsetTop)
+                  / e.target.offsetHeight * 100
+                )
+              );
+              e.target.style.setProperty('--x', xPos + '%');
+              e.target.style.setProperty('--y', yPos + '%');
+            }}
+            onMouseEnter={() => setBtnGradient(true)}
+            onMouseLeave={() => setBtnGradient(false)}
+          >Create Spot
+          </button>
         </div>
       </form>
     );
