@@ -34,7 +34,7 @@
 #title-gradient {
     width: 100%;
     height: 3px;
-    background-image: linear-gradient(to right, #FF385C, #BD1E59);
+    background-image: linear-gradient(to right, #FF385C, #FF385C, #BD1E59, #bd1e5800);
     border-radius: 3px;
 }
 
@@ -62,11 +62,62 @@
     width: 44%;
 }
 
-#spot-post-buttons {
+#file-upload-container {
+    width: 100%;
+    height: 20vh;
+    min-height: 180px;
+    max-height: 300px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px 8px 5px 8px;
+
+    border: 1px solid #737373;
+    border-radius: 6px;
+}
+
+#img-input {
+    margin-top: 5px;
+    cursor: pointer;
+}
+#img-input::file-selector-button {
+    padding: 5px 8px 5px 8px;
+    cursor: pointer;
+}
+
+#upload-image-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.preview-img {
+    width: 11%;
+    min-width: 80px;
+}
+
+:root {
+    --x: 80%;
+    --y: 120%;
+}
+
+#spot-post-button {
     display: flex;
     justify-content: center;
 }
 
 #post-spot-button {
-    width: 25%;
+    width: 40%;
+    height: 50px;
+
+    opacity: 100%;
+
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+
+    background-image: radial-gradient(circle at var(--x) var(--y), #FF385C 0%, #E61E4D 27.5%, #E31C5F 40%, #D70466 57.5%, #BD1E59 100%);
+
+    border: none;
+    border-radius: 6px;
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { create } from "../../store/spot";
+import FileUpload from "./FileUpload";
 
 import './SpotForm.css';
 
@@ -22,6 +23,8 @@ function SpotFormPage() {
     const [images, setImages] = useState([]);
     const [errors, setErrors] = useState([]);
     const [submitState, setSubmitState] = useState(false);
+
+    const [btnGradient, setBtnGradient] = useState(false);
 
     if (!sessionUser) return <Redirect to="/login" />;
 
@@ -126,29 +129,32 @@ function SpotFormPage() {
           />
         </label>
         </div>
-        <label className='edit-form-label'>
-          Upload Images
-          <div id='edit-spot-images'>
-            <label className='edit-form-label'>
-              <input
-                id='imgOneInput'
-                type="file"
-                onChange={updateFiles}
-                multiple
-                accept=".png, .jpg, .jpeg"
-                required
-                name='imgInput'
-              />
-            </label>
-          </div>
-        </label>
-        <div id='spot-post-buttons'>
+        <FileUpload updateFiles={updateFiles} images={images}/>
+        <div id='spot-post-button'>
           <button
-            className='edit-post-button'
             id='post-spot-button'
             type="submit"
             disabled={submitState}
-            >Post</button>
+            onMouseMove={(e) => {
+              const xPos = Math.ceil(
+                Math.abs(
+                  (e.clientX - e.target.offsetLeft)
+                  / e.target.offsetWidth * 100
+                )
+              );
+              const yPos = Math.ceil(
+                Math.abs(
+                  (e.clientY - e.target.offsetTop)
+                  / e.target.offsetHeight * 100
+                )
+              );
+              e.target.style.setProperty('--x', xPos + '%');
+              e.target.style.setProperty('--y', yPos + '%');
+            }}
+            onMouseEnter={() => setBtnGradient(true)}
+            onMouseLeave={() => setBtnGradient(false)}
+          >Create Spot
+          </button>
         </div>
       </form>
     );
