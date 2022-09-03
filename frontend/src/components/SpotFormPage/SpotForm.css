@@ -34,7 +34,7 @@
 #title-gradient {
     width: 100%;
     height: 3px;
-    background-image: linear-gradient(to right, #FF385C, #BD1E59);
+    background-image: linear-gradient(to right, #FF385C, #FF385C, #BD1E59, #bd1e5800);
     border-radius: 3px;
 }
 
@@ -60,6 +60,53 @@
 }
 #edit-form-country {
     width: 44%;
+}
+
+#file-upload-container {
+    position: relative;
+    width: 100%;
+    height: 20vh;
+    min-height: 180px;
+    max-height: 300px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px 8px 5px 8px;
+
+    background-color: white;
+    border: 1px solid #737373;
+    border-radius: 6px;
+    background-clip: padding-box;
+}
+/* #file-upload-container::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+
+    top: -2px; bottom: -2px;
+    left: -2px; right: -2px;
+
+    background: linear-gradient(135deg, #FF385C, #BD1E59);
+    border-radius: 6px;
+} */
+
+#img-input {
+    margin-top: 5px;
+    cursor: pointer;
+}
+#img-input::file-selector-button {
+    padding: 5px 8px 5px 8px;
+    cursor: pointer;
+}
+
+#upload-image-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.preview-img {
+    width: 11%;
+    min-width: 80px;
 }
 
 #spot-post-buttons {

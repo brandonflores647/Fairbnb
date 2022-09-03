@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { create } from "../../store/spot";
+import FileUpload from "./FileUpload";
 
 import './SpotForm.css';
 
@@ -126,22 +127,7 @@ function SpotFormPage() {
           />
         </label>
         </div>
-        <label className='edit-form-label'>
-          Upload Images
-          <div id='edit-spot-images'>
-            <label className='edit-form-label'>
-              <input
-                id='imgOneInput'
-                type="file"
-                onChange={updateFiles}
-                multiple
-                accept=".png, .jpg, .jpeg"
-                required
-                name='imgInput'
-              />
-            </label>
-          </div>
-        </label>
+        <FileUpload updateFiles={updateFiles} images={images}/>
         <div id='spot-post-buttons'>
           <button
             className='edit-post-button'
