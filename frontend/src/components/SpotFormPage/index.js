@@ -132,6 +132,7 @@ function SpotFormPage() {
         <FileUpload updateFiles={updateFiles} images={images}/>
         <div id='spot-post-button'>
           <button
+            className={btnGradient?'':'post-spot-button-default'}
             id='post-spot-button'
             type="submit"
             disabled={submitState}
@@ -148,8 +149,8 @@ function SpotFormPage() {
                   / e.target.offsetHeight * 100
                 )
               );
-              e.target.style.setProperty('--x', xPos + '%');
-              e.target.style.setProperty('--y', yPos + '%');
+              e.target.style.setProperty('--x', xPos);
+              e.target.style.setProperty('--y', yPos);
             }}
             onMouseEnter={() => setBtnGradient(true)}
             onMouseLeave={() => setBtnGradient(false)}
