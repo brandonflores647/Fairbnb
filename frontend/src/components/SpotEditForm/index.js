@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from "../../store/spot";
 import SpotDeleteForm from '../SpotDeleteForm';
+import EditFileUpload from "./EditFileUpload";
 
 import './SpotEditForm.css';
 import '../SpotFormPage/SpotForm.css';
@@ -25,14 +26,9 @@ const SpotEditForm = ({ hideForm }) => {
   const [city, setCity] = useState(spot.data.city);
   const [state, setState] = useState(spot.data.state);
   const [country, setCountry] = useState(spot.data.country);
-  const [imgOne, setImgOne] = useState(imgArr[0].url);
-  const [imgTwo, setImgTwo] = useState(imgArr[1] ? imgArr[1].url : '');
-  const [imgThree, setImgThree] = useState(imgArr[2] ? imgArr[2].url : '');
-  const [imgFour, setImgFour] = useState(imgArr[3] ? imgArr[3].url : '');
-  const [images, setImages] = useState([imgOne, imgTwo, imgThree, imgFour]);
+  const [images, setImages] = useState(imgArr.map(e => e.url));
   const [oldImages] = useState(images);
   const [errors, setErrors] = useState([]);
-
   const [deleteBtn, setDeleteBtn] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -45,6 +41,11 @@ const SpotEditForm = ({ hideForm }) => {
       if (data && data.errors) setErrors(data.errors);
     });
     if (!data) hideForm();
+  };
+
+  const updateFiles = (e) => {
+    const files = e.target.files;
+    setImages(files);
   };
 
   return (
@@ -126,39 +127,7 @@ const SpotEditForm = ({ hideForm }) => {
         />
       </label>
       </div>
-      <label className='edit-form-label'>
-        Image Url's:
-        <div id='edit-spot-images'>
-          <input
-            className='edit-form-input'
-            type="text"
-            value={imgOne}
-            onChange={(e) => setImgOne(e.target.value)}
-            placeholder=' (Required)'
-          />
-          <input
-            className='edit-form-input'
-            type="text"
-            value={imgTwo}
-            onChange={(e) => setImgTwo(e.target.value)}
-            placeholder=' (Optional)'
-          />
-          <input
-            className='edit-form-input'
-            type="text"
-            value={imgThree}
-            onChange={(e) => setImgThree(e.target.value)}
-            placeholder=' (Optional)'
-          />
-          <input
-            className='edit-form-input'
-            type="text"
-            value={imgFour}
-            onChange={(e) => setImgFour(e.target.value)}
-            placeholder=' (Optional)'
-          />
-        </div>
-      </label>
+      <EditFileUpload updateFiles={updateFiles} images={images}/>
       <div id='edit-form-buttons'>
         <button
           type='button'
@@ -168,7 +137,6 @@ const SpotEditForm = ({ hideForm }) => {
         <button
           className='edit-post-button'
           type="submit"
-          onClick={() => setImages([imgOne, imgTwo, imgThree, imgFour])}
         >Post Changes</button>
       {sessionUser && sessionUser.id === spot.data.userId ?
         <button type='button' className='edit-post-button' onClick={() => setDeleteBtn(!deleteBtn)}
