@@ -55,7 +55,6 @@ function SpotFormPage() {
       <form onSubmit={handleSubmit} id='spot-edit-form'>
         <span id='spot-form-title'>Create a spot <div id='title-gradient'></div></span>
         <div className='error-container'>
-          {errors.length ? <p className='error-message'>The following errors occured:</p> : null}
           <ul>
             {errors.map((error, idx) => <li className='form-error' key={idx}>{error}</li>)}
           </ul>
