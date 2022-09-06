@@ -130,5 +130,5 @@
 .post-spot-button-default {
     background-position-x: 20% !important;
     background-position-y: 20% !important;
-    transition: background-position-x 2.25s ease-out;
+    transition: background-position-x 2.25s ease-out, background-position-y 2.25s ease-out;
 }
