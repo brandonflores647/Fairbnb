@@ -53,6 +53,17 @@ app.use((err, _req, _res, next) => {
     if (err instanceof ValidationError) {
       err.errors = err.errors.map((e) => e.message);
       err.title = 'Validation error';
+
+      // CUSTOM VALIDATION MESSAGES:
+      const addressMessage = err.errors.find(e => e==='address must be unique');
+      const nameMessage = err.errors.find(e => e==='name must be unique');
+
+      if (addressMessage) {
+        err.errors[err.errors.indexOf(addressMessage)] = 'A spot with this address already exists.'
+      }
+      if (nameMessage) {
+        err.errors[err.errors.indexOf(nameMessage)] = 'A spot with this name already exists.'
+      }
     }
     next(err);
 });
