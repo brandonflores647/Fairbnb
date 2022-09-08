@@ -13,6 +13,7 @@ import {
 
 // Favorite Actions
 import {
+  DELETE_FAVORITE,
   GET_ALL_FAVORITE,
   SET_FAVORITE
 } from './favorite.js';
@@ -290,6 +291,11 @@ const spotReducer = (state = initialState, action) => {
     case SET_FAVORITE: {
       newState = { ...state }
       newState[action.data.spotId].favorite = true;
+      return newState;
+    }
+    case DELETE_FAVORITE: {
+      newState = { ...state }
+      newState[action.data.spotId].favorite = false;
       return newState;
     }
     default:

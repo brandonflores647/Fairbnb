@@ -30,4 +30,19 @@ router.post('/new', requireAuth, asyncHandler(async (req, res) => {
   return res.json(favorite);
 }));
 
+// Remove
+router.delete('/delete', requireAuth, asyncHandler(async (req, res) => {
+  const { spotId, userId } = req.body;
+
+  const favorite = await Favorite.findOne({
+    where: {
+      userId,
+      spotId
+    }
+  });
+  await favorite.destroy();
+
+  return res.json(favorite);
+}));
+
 module.exports = router;

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 
-import { setFavoriteThunk } from '../../store/favorite';
+import { setFavoriteThunk, deleteFavoriteThunk } from '../../store/favorite';
 
 const Heart = ({ spot }) => {
     const history = useHistory();
@@ -14,7 +14,7 @@ const Heart = ({ spot }) => {
         if (!spot.favorite) {
             dispatch(setFavoriteThunk({spotId: spot.id, userId: user.id}));
         } else {
-            console.log('REMOVE');
+            dispatch(deleteFavoriteThunk({spotId: spot.id, userId: user.id}));
         }
     }
 
