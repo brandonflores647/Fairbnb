@@ -4,17 +4,20 @@ const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
 const { validateSpot, validateSpotDelete } = require('../../utils/validation');
 const { Spot, Image, Review, Booking } = require('../../db/models');
+const { multiplePublicFileUpload, multipleMulterUpload } = require('../../s3');
 
 const router = express.Router();
 
 // Create
 router.post(
     '/',
+    multipleMulterUpload('images'),
     requireAuth,
     validateSpot,
     asyncHandler(async (req, res) => {
-        const { userId, address, city, state, country, name, price, images } = req.body;
+        const { userId, address, city, state, country, name, price } = req.body;
 
+        const imageUrls = await multiplePublicFileUpload(req.files);
         const spot = await Spot.create({
             userId,
             address,
@@ -25,10 +28,10 @@ router.post(
             price
         });
         const spotId = spot.id;
-        const imgArr = [];
 
-        for (let url of images) {
-            if (url) imgArr.push(await Image.create({spotId, url}));
+        const imgArr = [];
+        for (let url of imageUrls) {
+            imgArr.push(await Image.create({spotId, url}));
         }
 
         return res.json({
@@ -52,7 +55,6 @@ router.get('/all', asyncHandler(async (req, res) => {
             }
         ]
     });
-    console.log(JSON.stringify(data))
     return res.json(data);
 }));
 
@@ -81,6 +83,7 @@ router.get('/:spotId(\\d+)', asyncHandler(async (req, res) => {
 
 // Update individual
 router.patch('/:spotId(\\d+)',
+    multipleMulterUpload('images'),
     requireAuth,
     validateSpot,
     asyncHandler(async (req, res) => {
@@ -88,29 +91,23 @@ router.patch('/:spotId(\\d+)',
         const spot = await Spot.findByPk(spotId);
 
         const imgArr = [];
-
-        // check if images are removed, delete from DB if so
-        const filteredOld = (req.body.oldImages).filter(url => {
-            return !(req.body.images).includes(url);
-        });
-        if (filteredOld.length) {
-            for (let url of filteredOld) {
-                if (url) {
-                    const imgToRemove = await Image.findOne({ where: { spotId, url } });
-                    await imgToRemove.destroy();
-                }
+        if (req.files.length) {
+            // remove old images from DB
+            const imgs = await Image.findAll({ where: { spotId } });
+            for (let img of imgs) {
+                await img.destroy();
             }
-        }
-        // check for new image, add to DB if so
-        for (let url of req.body.images) {
-            if (url) {
-                const img = await Image.findAll({ where: { url } });
-                if (!img.length) {
-                    const newImg = await Image.create({spotId, url});
-                    imgArr.push(newImg);
-                } else {
-                    imgArr.push(await Image.findOne({ where: { url } }));
-                }
+
+            // create new images in s3 bucket + DB
+            const imageUrls = await multiplePublicFileUpload(req.files);
+            for (let url of imageUrls) {
+                imgArr.push(await Image.create({spotId, url}));
+            }
+        } else {
+            const imgSplit = req.body.oldImages.split(',');
+            for (let url of imgSplit) {
+                const curImg = await Image.findOne({ where: { url } });
+                imgArr.push(curImg);
             }
         }
 
@@ -122,7 +119,6 @@ router.patch('/:spotId(\\d+)',
         spot.price = req.body.price;
 
         await spot.save();
-
         return res.json({spot, imgArr});
 }));
 

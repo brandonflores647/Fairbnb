@@ -96,65 +96,35 @@ const validateSpot = [
   check('country')
     .isLength({ max: 64 })
     .withMessage('Country cannot be longer than 64 characters.'),
-  check('images[0]')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide your cover image in the first input field.'),
-  check('images[0]')
-    .isLength({ min: 6 })
-    .withMessage('Uh oh! Looks like your first image is invalid.'),
-  check('images[0]')
-    .isLength({ max: 255 })
-    .withMessage('Uh oh! Looks like your first image url is too long! Please compress it.'),
-  check('images[0]')
-    .custom((value) => {
-      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
-      if (value && !testRegex.test(value)) {
-        throw new Error('Oh no! Looks like your first image url is invalid! Check the link you provided.')
+  check('imgInput')
+    .custom((val, {req}) => {
+      if (req.files) {
+        for (let file of req.files) {
+          if (
+            file.mimetype !== 'image/png'
+            && file.mimetype !== 'image/jpeg'
+            && file.mimetype !== 'image/jpg'
+          ) {
+            return false;
+          }
+        }
       }
       return true;
-    }),
-  check('images[1]')
-    .custom((value) => {
-      if (value && value.length < 6) {
-        throw new Error('Uh oh! Looks like your second image is invalid.');
-      }
-      if (value && value.length > 255) {
-        throw new Error('Uh oh! Looks like your second image url is too long! Please compress it.');
-      }
-      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
-      if (value && !testRegex.test(value)) {
-        throw new Error('Oh no! Looks like your second image url is invalid! Check the link you provided.')
-      }
+    })
+    .withMessage('Image must be .png, .jpg, or .jpeg'),
+  check('imgInput')
+    .custom((val, {req}) => {
+      if (req.files && !req.files.length && !req.body.oldImages) return false;
       return true;
-    }),
-  check('images[2]')
-    .custom((value) => {
-      if (value && value.length < 6) {
-        throw new Error('Uh oh! Looks like your third image is invalid.');
-      }
-      if (value && value.length > 255) {
-        throw new Error('Uh oh! Looks like your third image url is too long! Please compress it.');
-      }
-      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
-      if (value && !testRegex.test(value)) {
-        throw new Error('Oh no! Looks like your third image url is invalid! Check the link you provided.')
-      }
+    })
+    .withMessage('At least one image is required.'),
+  check('imgInput')
+    .custom((val, {req}) => {
+      if (req.files && req.files.length > 4) return false;
+      if (req.body.images > 4) return false;
       return true;
-  }),
-  check('images[3]')
-    .custom((value) => {
-      if (value && value.length < 6) {
-        throw new Error('Uh oh! Looks like your fourth image is invalid.');
-      }
-      if (value && value.length > 255) {
-        throw new Error('Uh oh! Looks like your fourth image url is too long! Please compress it.');
-      }
-      let testRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
-      if (value && !testRegex.test(value)) {
-        throw new Error('Oh no! Looks like your fourth image url is invalid! Check the link you provided.')
-      }
-      return true;
-  }),
+    })
+    .withMessage('Sorry! Spots are limited to 4 images.'),
   handleValidationErrors
 ];
 
