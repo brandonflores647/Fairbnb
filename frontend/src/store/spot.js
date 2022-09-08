@@ -11,6 +11,11 @@ import {
   SET_BOOKING,
 } from './booking.js'
 
+// Favorite Actions
+import {
+  GET_ALL_FAVORITE,
+} from './favorite.js'
+
 // Spot Actions
 const SET_SPOT = 'spot/SET_SPOT';
 const LOAD_SPOT = 'spot/LOAD_SPOT';
@@ -97,9 +102,9 @@ export const getAllSpots = () => async dispatch => {
   const response = await csrfFetch(`/api/spots/all`);
 
   if (response.ok) {
-    const data = await response.json();
-    dispatch(loadAllSpots(data));
-    return data;
+    const payload = await response.json();
+    dispatch(loadAllSpots(payload));
+    return payload;
   }
 }
 
