@@ -7,6 +7,7 @@
 }
 
 .individual-spot {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: top;
@@ -186,4 +187,11 @@
     100% {
         opacity: 100%;
     }
+}
+
+#heart-container {
+    position: absolute;
+    z-index: 2;
+    top: 16px;
+    right: 16px;
 }

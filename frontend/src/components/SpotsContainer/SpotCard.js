@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Heart from './Heart';
 
 const SpotCard = ({ spot }) => {
 
@@ -9,6 +10,9 @@ const SpotCard = ({ spot }) => {
 
     return (
         <div className='individual-spot'>
+            <div id='heart-container'>
+                <Heart />
+            </div>
             <div className='img-container'>
                 {Object.values(spot.images).reverse().map((img, i) => {
                     return (
