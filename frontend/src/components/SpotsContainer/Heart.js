@@ -1,19 +1,28 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 
-const Heart = ({ favorite }) => {
+import { setFavoriteThunk } from '../../store/favorite';
+
+const Heart = ({ spot }) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
 
     const handleFavorite = () => {
         if (!user) return history.push(`/login`);
+
+        if (!spot.favorite) {
+            dispatch(setFavoriteThunk({spotId: spot.id, userId: user.id}));
+        } else {
+            console.log('REMOVE');
+        }
     }
 
     return (
         <button id='heart-button' onClick={handleFavorite}>
             <svg
                 id='heart-svg'
-                className={favorite ? 'heart-favorite' : ''}
+                className={spot.favorite ? 'heart-favorite' : ''}
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"

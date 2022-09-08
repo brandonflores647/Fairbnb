@@ -227,4 +227,20 @@
 
 .heart-favorite {
     fill: #FF385C !important;
+    transition: stroke .2s ease;
+}
+.heart-favorite:hover {
+    animation: 1s infinite ease strokePulse;
+}
+
+@keyframes strokePulse {
+    0% {
+        stroke: #ffffff;
+    }
+    50% {
+        stroke: #ffffff79;
+    }
+    100% {
+        stroke: #ffffff;
+    }
 }

@@ -10,7 +10,7 @@ const SpotCard = ({ spot }) => {
     return (
         <div className='individual-spot'>
             <div id='heart-container'>
-                <Heart favorite={spot.favorite}/>
+                <Heart spot={spot}/>
             </div>
             <div className='img-container'>
                 {Object.values(spot.images).reverse().map((img, i) => {

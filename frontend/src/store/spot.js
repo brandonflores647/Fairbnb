@@ -14,6 +14,7 @@ import {
 // Favorite Actions
 import {
   GET_ALL_FAVORITE,
+  SET_FAVORITE
 } from './favorite.js';
 
 // Spot Actions
@@ -284,6 +285,11 @@ const spotReducer = (state = initialState, action) => {
       let favorites = [];
       if (action.data.length) favorites = action.data.map(e => e.spotId);
       favorites.forEach(spotId => newState[spotId].favorite = true);
+      return newState;
+    }
+    case SET_FAVORITE: {
+      newState = { ...state }
+      newState[action.data.spotId].favorite = true;
       return newState;
     }
     default:
