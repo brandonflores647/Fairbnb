@@ -9,12 +9,12 @@ import {
 // Booking Actions
 import {
   SET_BOOKING,
-} from './booking.js'
+} from './booking.js';
 
 // Favorite Actions
 import {
   GET_ALL_FAVORITE,
-} from './favorite.js'
+} from './favorite.js';
 
 // Spot Actions
 const SET_SPOT = 'spot/SET_SPOT';
@@ -232,7 +232,8 @@ const spotReducer = (state = initialState, action) => {
           name: spot.name,
           price: spot.price,
           avgRating,
-          images: imgObj
+          images: imgObj,
+          favorite: false
         }
       });
       return newState;
@@ -276,6 +277,13 @@ const spotReducer = (state = initialState, action) => {
     case SET_BOOKING: {
       newState = { ...state }
       newState.bookings[action.booking.userId] = action.booking.userId
+      return newState;
+    }
+    case GET_ALL_FAVORITE: {
+      newState = { ...state }
+      let favorites = [];
+      if (action.data.length) favorites = action.data.map(e => e.spotId);
+      favorites.forEach(spotId => newState[spotId].favorite = true);
       return newState;
     }
     default:
