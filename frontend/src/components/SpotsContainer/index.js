@@ -18,7 +18,7 @@ const SpotsContainer = () => {
 
     useEffect(() => {
         if (user) dispatch(getAllFavoriteThunk(user.id));
-    }, [user])
+    }, [user]);
 
     return (
         <>
