@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import Heart from './Heart';
 
 const SpotCard = ({ spot }) => {
-
     const [current, setCurrent] = useState(0);
 
     let length = Object.values(spot.images).length;
