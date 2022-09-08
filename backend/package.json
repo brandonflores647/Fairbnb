@@ -31,6 +31,7 @@
     "pg": "^8.7.3",
     "sequelize": "^5.22.5",
     "sequelize-cli": "^5.5.1",
+    "usa-state-validator": "^1.0.6",
     "util": "^0.12.4",
     "util.promisify": "^1.1.1"
   },

@@ -9,6 +9,7 @@ import './ReviewContainer.css';
 const ReviewContainer = ({ reviews }) => {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
+    const spotInfo = useSelector((state) => state.spot.data);
 
     let userId;
     if (sessionUser) userId = sessionUser.id;
@@ -33,7 +34,6 @@ const ReviewContainer = ({ reviews }) => {
             setDelMessage('Delete');
         }
     }
-
     return (
         <div id='spot-review-wrapper'>
             <div id='review-container-title'>
@@ -41,7 +41,8 @@ const ReviewContainer = ({ reviews }) => {
             </div>
             <div id='spot-review-container'>
             {sessionUser &&
-                (!reviews[userId] || (reviews[userId] && !reviews[userId].id))
+                ((!reviews[userId]|| (reviews[userId] && !reviews[userId].id))
+                && spotInfo.userId !== parseInt(sessionUser.id, 10))
                 ?
                 <div id='review-form-container'>
                     <p>Post a review:</p>
