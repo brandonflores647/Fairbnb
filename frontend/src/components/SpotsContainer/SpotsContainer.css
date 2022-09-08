@@ -222,5 +222,9 @@
     cursor: pointer;
 }
 #heart-button:hover #heart-svg {
-    fill: #ff385dcb; /*#FF385C*/
+    fill: #ff385dcb;
+}
+
+.heart-favorite {
+    fill: #FF385C !important;
 }

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 
-const Heart = () => {
+const Heart = ({ favorite }) => {
     const history = useHistory();
     const user = useSelector(state => state.session.user);
 
@@ -13,6 +13,7 @@ const Heart = () => {
         <button id='heart-button' onClick={handleFavorite}>
             <svg
                 id='heart-svg'
+                className={favorite ? 'heart-favorite' : ''}
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
