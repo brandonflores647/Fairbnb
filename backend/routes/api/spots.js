@@ -134,16 +134,18 @@ router.delete('/:spotId(\\d+)',
     asyncHandler(async (req, res) => {
         const spotId = req.body.spot.id;
 
-        // remove images from s3 bucket
+        // grab images to be removed from s3 bucket
         const imgs = await Image.findAll({ where: { spotId } });
-        for (let img of imgs) {
-            const key = img.url.split('https://fairbnb-images.s3.amazonaws.com/')[1];
-            deleteFile(key);
-        }
 
         // destroy spot from DB
         const spot = await Spot.findByPk(spotId);
         await spot.destroy();
+
+        // remove images from s3 bucket
+        for (let img of imgs) {
+            const key = img.url.split('https://fairbnb-images.s3.amazonaws.com/')[1];
+            deleteFile(key);
+        }
 
         return res.json({});
 }));
