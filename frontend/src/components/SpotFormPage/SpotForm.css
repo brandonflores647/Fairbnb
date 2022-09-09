@@ -25,11 +25,110 @@
     border-radius: 6px;
 }
 
-#spot-post-buttons {
+#spot-form-title {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 24px;
+}
+#title-gradient {
+    width: 100%;
+    height: 3px;
+    background-image: linear-gradient(to right, #FF385C, #FF385C, #BD1E59, #bd1e5800);
+    border-radius: 3px;
+}
+
+.spot-form-top, .spot-form-middle, .spot-form-bottom {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+#edit-form-name {
+    width: 65%;
+}
+#edit-form-cost {
+    width: 32%;
+}
+#edit-form-address {
+    width: 59%;
+}
+#edit-form-city {
+    width: 38%;
+}
+#edit-form-state {
+    width: 53%;
+}
+#edit-form-country {
+    width: 44%;
+}
+
+#file-upload-container {
+    width: 100%;
+    height: 20vh;
+    min-height: 180px;
+    max-height: 300px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px 8px 5px 8px;
+
+    border: 1px solid #737373;
+    border-radius: 6px;
+}
+
+#img-input {
+    margin-top: 5px;
+    cursor: pointer;
+}
+#img-input::file-selector-button {
+    padding: 5px 8px 5px 8px;
+    cursor: pointer;
+}
+
+#upload-image-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.preview-img {
+    width: 11%;
+    min-width: 80px;
+}
+
+:root {
+    --x: 80%;
+    --y: 120%;
+}
+
+#spot-post-button {
     display: flex;
     justify-content: center;
 }
 
 #post-spot-button {
-    width: 25%;
+    width: 40%;
+    height: 50px;
+
+    opacity: 100%;
+
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+
+    /* background-image: radial-gradient(circle at var(--x) var(--y), #FF385C 0%, #E61E4D 27.5%, #E31C5F 40%, #D70466 57.5%, #BD1E59 100%); */
+    background-image: radial-gradient(circle, #FF385C 0%, #E61E4D 27.5%, #E31C5F 40%, #D70466 57.5%, #BD1E59 100%);
+    background-size: 200% 200%;
+    background-position-x: calc((100 - var(--x)) * 1%);
+    background-position-y: calc((100 - var(--y)) * 1%);
+
+    border: none;
+    border-radius: 6px;
+    /* transition: background-position 1.2s ease; */
+}
+
+.post-spot-button-default {
+    background-position-x: 20% !important;
+    background-position-y: 20% !important;
+    transition: background-position-x 2.25s ease-out, background-position-y 2.25s ease-out;
 }
