@@ -8,11 +8,12 @@
     margin-top: 120px;
 }
 
-.profile-container {
-    width: 50%;
+.profile-container, .profile-favorite-container {
+    width: 60%;
     height: 100%;
+    margin-bottom: 40px;
 }
-.profile-container > h2 {
+.profile-container > h2, .profile-favorite-container > h2 {
     padding-bottom: 20px;
     border-bottom: 1px solid #dddddd;
 }
@@ -114,4 +115,11 @@
 }
 .individual-booking-input {
     margin-left: 5px;
+}
+
+.profile-spots {
+    margin-top: 0 !important;
+}
+.profile-spots > .individual-spot {
+    margin: 20px !important;
 }

@@ -39,6 +39,7 @@ const IndividualBooking = ({ data }) => {
     }
 
     const handleDelete = async (e) => {
+        e.preventDefault();
         if (deleteMsg === 'Delete') {
             setDeleteMsg('Confirm Deletion');
             e.target.disabled = true;
@@ -46,8 +47,8 @@ const IndividualBooking = ({ data }) => {
                 e.target.disabled = false;
             }, 2000)
         } else {
+            await setDeleteMsg('Delete');
             await dispatch(deleteBookingThunk({spotId: data.spotId, userId: user.id}));
-            setDeleteMsg('Delete');
         }
     }
 

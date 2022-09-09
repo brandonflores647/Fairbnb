@@ -5,7 +5,7 @@ const ProfileBookingContainer = ({ bookings }) => {
         <div className='booking-container'>
             <p className='list-title'>Your Bookings:</p>
             <div className='booking-list'>
-                {bookings ?
+                {bookings && Object.keys(bookings).length > 0 ?
                     Object.values(bookings).map((ele, i) => {
                         if (ele) {
                             return (
@@ -15,7 +15,7 @@ const ProfileBookingContainer = ({ bookings }) => {
                             return <></>
                         }
                     })
-                : null}
+                : <p>No bookings have been made on this account.</p>}
             </div>
         </div>
     );

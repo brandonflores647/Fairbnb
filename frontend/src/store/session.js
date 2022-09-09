@@ -132,7 +132,7 @@ const sessionReducer = (state = initialState, action) => {
       return newState;
     case DELETE_BOOKING:
       newState = { ...state }
-      newState.user.bookings[action.spotId] = null;
+      delete newState.user.bookings[action.spotId];
       return newState;
     default:
       return state;

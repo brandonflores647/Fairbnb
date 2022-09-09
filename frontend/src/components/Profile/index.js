@@ -43,9 +43,9 @@ const Profile = () => {
                     <ProfileBookingContainer bookings={sesh.user.bookings} />
                 </div>
             </div>
-            <div>
+            <div className='profile-favorite-container'>
                 <h2>Favorite Spots</h2>
-                <div>
+                <div className='spots-container profile-spots'>
                     {
                         Object.values(favArray).length > 0 ?
                         Object.values(favArray).map((spot, i) => {
