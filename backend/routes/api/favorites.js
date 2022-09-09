@@ -20,19 +20,19 @@ router.get('/:userId(\\d+)', requireAuth, asyncHandler(async (req, res) => {
 
 // Set New
 router.post('/new', requireAuth, asyncHandler(async (req, res) => {
-  const { spotId, userId } = req.body;
+  const { spotId, userId, fav } = req.body;
 
   const favorite = await Favorite.create({
     userId,
     spotId
   });
 
-  return res.json(favorite);
+  return res.json({favorite, fav});
 }));
 
 // Remove
 router.delete('/delete', requireAuth, asyncHandler(async (req, res) => {
-  const { spotId, userId } = req.body;
+  const { spotId, userId, fav } = req.body;
 
   const favorite = await Favorite.findOne({
     where: {
@@ -42,7 +42,7 @@ router.delete('/delete', requireAuth, asyncHandler(async (req, res) => {
   });
   await favorite.destroy();
 
-  return res.json(favorite);
+  return res.json({favorite, fav});
 }));
 
 module.exports = router;

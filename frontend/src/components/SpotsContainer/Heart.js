@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 
@@ -7,14 +8,17 @@ const Heart = ({ spot }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
+    const [favCheck, setFavCheck] = useState(spot.fav?true:false);
 
     const handleFavorite = () => {
         if (!user) return history.push(`/login`);
 
-        if (!spot.favorite) {
-            dispatch(setFavoriteThunk({spotId: spot.id, userId: user.id}));
+        if (!spot.favorite && !favCheck) {
+            dispatch(setFavoriteThunk({spotId: spot.id, userId: user.id, fav: spot.fav}));
+            if (!favCheck) setFavCheck(true);
         } else {
-            dispatch(deleteFavoriteThunk({spotId: spot.id, userId: user.id}));
+            dispatch(deleteFavoriteThunk({spotId: spot.id, userId: user.id, fav: spot.fav}));
+            if (favCheck) setFavCheck(false);
         }
     }
 
@@ -22,7 +26,7 @@ const Heart = ({ spot }) => {
         <button id='heart-button' onClick={handleFavorite}>
             <svg
                 id='heart-svg'
-                className={spot.favorite && user ? 'heart-favorite' : ''}
+                className={(spot.favorite && user) || favCheck ? 'heart-favorite' : ''}
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"

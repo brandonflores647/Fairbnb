@@ -41,7 +41,7 @@ export const setFavoriteThunk = (data) => async dispatch => {
 
     if (response.ok) {
       const data = await response.json();
-      dispatch(setFavorite(data));
+      if (!data.fav) dispatch(setFavorite(data.favorite));
       return data;
     }
 }
@@ -54,7 +54,7 @@ export const deleteFavoriteThunk = (data) => async dispatch => {
 
     if (response.ok) {
       const data = await response.json();
-      dispatch(deleteFavorite(data));
+      if (!data.fav) dispatch(deleteFavorite(data.favorite));
       return data;
     }
 }
