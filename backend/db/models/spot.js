@@ -36,10 +36,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Spot.associate = function(models) {
-    Spot.belongsToMany(models.User, {
-      through: 'Favorite',
+    Spot.hasMany(models.Favorite, {
       foreignKey: 'spotId',
-      otherKey: 'userId'
+      onDelete: 'CASCADE',
+      hooks: true
     });
     Spot.belongsTo(models.User, {
       foreignKey: 'userId'

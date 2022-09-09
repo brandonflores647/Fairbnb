@@ -48,10 +48,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = function(models) {
-    User.belongsToMany(models.Spot, {
-      through: 'Favorite',
+    User.hasMany(models.Favorite, {
       foreignKey: 'userId',
-      otherKey: 'spotId'
     });
     User.hasMany(models.Spot, {
       foreignKey: 'userId'

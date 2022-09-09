@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { validateSignup } = require('../../utils/validation');
-const { User, Review, Booking, Spot } = require('../../db/models');
+const { User, Review, Booking, Spot, Favorite, Image } = require('../../db/models');
 
 const router = express.Router();
 
@@ -45,8 +45,21 @@ router.get('/:userId(\\d+)', asyncHandler(async (req, res) => {
           attributes: ['name', 'price']
         }
       },
+      {
+        model: Favorite,
+        attributes: ['spotId'],
+        include: {
+          model: Spot,
+          attributes: ['id', 'name', 'price'],
+          include: {
+            model: Image,
+            attributes: ['url']
+          },
+        }
+      },
     ]
   });
+
   return res.json(user);
 }));
 
