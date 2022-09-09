@@ -22,7 +22,7 @@ const Heart = ({ spot }) => {
         <button id='heart-button' onClick={handleFavorite}>
             <svg
                 id='heart-svg'
-                className={spot.favorite ? 'heart-favorite' : ''}
+                className={spot.favorite && user ? 'heart-favorite' : ''}
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"

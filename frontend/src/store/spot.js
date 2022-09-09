@@ -15,7 +15,8 @@ import {
 import {
   DELETE_FAVORITE,
   GET_ALL_FAVORITE,
-  SET_FAVORITE
+  SET_FAVORITE,
+  REMOVE_ALL_FAVORITE
 } from './favorite.js';
 
 // Spot Actions
@@ -286,6 +287,13 @@ const spotReducer = (state = initialState, action) => {
       let favorites = [];
       if (action.data.length) favorites = action.data.map(e => e.spotId);
       favorites.forEach(spotId => newState[spotId].favorite = true);
+      return newState;
+    }
+    case REMOVE_ALL_FAVORITE: {
+      newState = { ...state }
+      for (let i of Object.keys(newState)) {
+        if (newState[i].favorite) newState[i].favorite = false;
+      }
       return newState;
     }
     case SET_FAVORITE: {
