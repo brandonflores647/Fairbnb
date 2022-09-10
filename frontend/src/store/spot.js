@@ -15,6 +15,7 @@ import {
 import {
   DELETE_FAVORITE,
   GET_ALL_FAVORITE,
+  GET_FAVORITE,
   SET_FAVORITE,
   REMOVE_ALL_FAVORITE
 } from './favorite.js';
@@ -37,7 +38,7 @@ const loadSpot = (spot, images, reviews, bookings) => ({
   spot,
   images,
   reviews,
-  bookings
+  bookings,
 });
 
 const loadAllSpots = (data) => ({
@@ -214,7 +215,7 @@ const spotReducer = (state = initialState, action) => {
         },
         bookings: bookingObj,
         images: imgObj,
-        reviews: reviewObj,
+        reviews: reviewObj
       };
     }
     case LOAD_ALL_SPOT: {
@@ -289,6 +290,13 @@ const spotReducer = (state = initialState, action) => {
       favorites.forEach(spotId => newState[spotId].favorite = true);
       return newState;
     }
+    case GET_FAVORITE: {
+      if (action.data) {
+        newState = { ...state }
+        newState.data['favorite'] = true;
+      }
+      if (newState) return newState;
+    }
     case REMOVE_ALL_FAVORITE: {
       newState = { ...state }
       for (let i of Object.keys(newState)) {
@@ -298,12 +306,20 @@ const spotReducer = (state = initialState, action) => {
     }
     case SET_FAVORITE: {
       newState = { ...state }
-      newState[action.data.spotId].favorite = true;
+      if (newState[action.data.spotId]) {
+        newState[action.data.spotId].favorite = true;
+      } else {
+        newState.data.favorite = true;
+      }
       return newState;
     }
     case DELETE_FAVORITE: {
       newState = { ...state }
-      newState[action.data.spotId].favorite = false;
+      if (newState[action.data.spotId]) {
+        newState[action.data.spotId].favorite = false;
+      } else {
+        newState.data.favorite = false;
+      }
       return newState;
     }
     default:

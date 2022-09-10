@@ -18,6 +18,19 @@ router.get('/:userId(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   return res.json(data);
 }));
 
+// Load One
+router.get('/one/:userId(\\d+)/:spotId(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+  const spotId = parseInt(req.params.spotId, 10);
+  const data = await Favorite.findOne({
+    where: {
+      userId,
+      spotId
+    }
+  });
+  return res.json(data);
+}));
+
 // Set New
 router.post('/new', requireAuth, asyncHandler(async (req, res) => {
   const { spotId, userId, fav } = req.body;

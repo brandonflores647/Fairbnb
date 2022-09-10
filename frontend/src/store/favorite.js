@@ -1,12 +1,17 @@
 import { csrfFetch } from './csrf';
 
 export const GET_ALL_FAVORITE = 'favorite/GET_ALL_FAVORITE';
+export const GET_FAVORITE = 'favorite/GET_FAVORITE';
 export const SET_FAVORITE = 'favorite/SET_FAVORITE';
 export const DELETE_FAVORITE = 'favorite/DELETE_FAVORITE';
 export const REMOVE_ALL_FAVORITE = 'favorite/REMOVE_ALL_FAVORITE';
 
 export const getAllFavorite = (data) => ({
   type: GET_ALL_FAVORITE,
+  data
+});
+export const getFavorite = (data) => ({
+  type: GET_FAVORITE,
   data
 });
 export const setFavorite = (data) => ({
@@ -29,6 +34,16 @@ export const getAllFavoriteThunk = (userId) => async dispatch => {
     if (response.ok) {
       const data = await response.json();
       dispatch(getAllFavorite(data));
+      return data;
+    }
+}
+
+export const getFavoriteThunk = (data) => async dispatch => {
+    const response = await csrfFetch(`/api/favorites/one/${data.userId}/${data.spotId}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(getFavorite(data));
       return data;
     }
 }
