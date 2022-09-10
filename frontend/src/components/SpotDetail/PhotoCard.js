@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Heart from '../SpotsContainer/Heart';
 import './SpotDetail.css';
 
 const PhotoCard = ({ spot }) => {
@@ -10,6 +11,9 @@ const PhotoCard = ({ spot }) => {
     return (
         <>
             <div id='img-container'>
+                <div id='heart-container'>
+                    <Heart spot={spot.data}/>
+                </div>
                 {Object.values(spot.images).map((img, i) => {
                     return (
                         <div className={i === current ? 'slide-active' : 'slide'} key={i}>

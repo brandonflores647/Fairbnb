@@ -64,8 +64,8 @@
 
 #file-upload-container {
     width: 100%;
-    height: 20vh;
-    min-height: 180px;
+    height: fit-content;
+    min-height: 20vh;
     max-height: 300px;
 
     margin-top: 20px;
@@ -88,11 +88,16 @@
 #upload-image-container {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    height: fit-content;
 }
 
 .preview-img {
-    width: 11%;
-    min-width: 80px;
+    width: calc(100% / var(--imgamount));
+    max-width: 200px;
+    border-radius: 6px;
+    margin: 3px;
+    object-fit: cover;
 }
 
 :root {

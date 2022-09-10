@@ -1,5 +1,4 @@
 const ProfileReviewContainer = ({ reviews }) => {
-    console.log(reviews)
     return (
         <div className='review-container'>
             <p className='list-title'>Your Reviews:</p>

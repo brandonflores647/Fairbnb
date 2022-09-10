@@ -15,10 +15,10 @@ const Heart = ({ spot }) => {
 
         if (!spot.favorite && !favCheck) {
             dispatch(setFavoriteThunk({spotId: spot.id, userId: user.id, fav: spot.fav}));
-            if (!favCheck) setFavCheck(true);
+            setFavCheck(true);
         } else {
             dispatch(deleteFavoriteThunk({spotId: spot.id, userId: user.id, fav: spot.fav}));
-            if (favCheck) setFavCheck(false);
+            setFavCheck(false);
         }
     }
 

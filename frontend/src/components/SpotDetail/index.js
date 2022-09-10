@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpotDetail } from '../../store/spot';
+import { getFavoriteThunk } from '../../store/favorite';
 import SpotEditForm from '../SpotEditForm';
 import BookingForm from './BookingForm';
 import ReviewContainer from './ReviewContainer';
@@ -11,6 +12,11 @@ const SpotDetail = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { spotId } = useParams();
+    let userId;
+    const sessionUser = useSelector(state => state.session.user);
+    if (sessionUser) userId = sessionUser.id;
+    const spot = useSelector(state => state.spot);
+    const reviews = useSelector(state => state.spot.reviews);
 
     const [editForm, setEditForm] = useState(false);
 
@@ -18,14 +24,15 @@ const SpotDetail = () => {
         dispatch(getSpotDetail(spotId))
             .then(res => {
                 if (!res.spot) history.push('/');
+                if (sessionUser.id) {
+                    dispatch(getFavoriteThunk({
+                        userId:sessionUser.id,
+                        spotId
+                    }))
+                }
             });
-    }, [dispatch, history, spotId])
+    }, [dispatch, history, spotId, sessionUser]);
 
-    let userId;
-    const sessionUser = useSelector(state => state.session.user);
-    if (sessionUser) userId = sessionUser.id;
-    const spot = useSelector(state => state.spot);
-    const reviews = useSelector(state => state.spot.reviews);
 
     if (spot.data) return (
         <>

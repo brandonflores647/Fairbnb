@@ -48,6 +48,8 @@ function SpotFormPage() {
 
     const updateFiles = (e) => {
       const files = e.target.files;
+      const r = document.querySelector(':root');
+      r.style.setProperty('--imgamount', files.length*1.25);
       setImages(files);
     };
 
