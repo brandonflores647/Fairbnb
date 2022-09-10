@@ -53,7 +53,7 @@ const Profile = () => {
                                 <SpotCard spot={spot} key={i}/>
                             );
                         })
-                        : null
+                        : <p>No favorites have been made on this account.</p>
                     }
                 </div>
             </div>

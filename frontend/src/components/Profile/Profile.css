@@ -11,7 +11,7 @@
 .profile-container, .profile-favorite-container {
     width: 60%;
     height: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 110px;
 }
 .profile-container > h2, .profile-favorite-container > h2 {
     padding-bottom: 20px;
@@ -119,6 +119,7 @@
 
 .profile-spots {
     margin-top: 0 !important;
+    padding-bottom: 60px !important;
 }
 .profile-spots > .individual-spot {
     margin: 20px !important;
