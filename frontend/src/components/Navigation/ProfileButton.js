@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
+import { removeAllFavoriteThunk } from '../../store/favorite';
 import './Navigation.css';
 
 function ProfileButton({ user }) {
@@ -40,6 +41,7 @@ function ProfileButton({ user }) {
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
+        dispatch(removeAllFavoriteThunk());
     };
 
     return (

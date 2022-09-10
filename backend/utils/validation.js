@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const { check } = require('express-validator');
+const { isValidStateInput } = require('usa-state-validator');
 
 // middleware for formatting errors from express-validator middleware
 const handleValidationErrors = (req, _res, next) => {
@@ -85,8 +86,10 @@ const validateSpot = [
     .isLength({ max: 64 })
     .withMessage('City cannot be longer than 64 characters.'),
   check('state')
-    .isLength({ min: 4 })
-    .withMessage('State must be atleast 4 characters.'),
+    .custom((val, {req}) => {
+      return isValidStateInput(val);
+    })
+    .withMessage('State must be valid in the USA.'),
   check('state')
     .isLength({ max: 20 })
     .withMessage('State cannot be longer than 20 characters.'),

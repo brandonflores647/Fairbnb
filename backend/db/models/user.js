@@ -48,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = function(models) {
+    User.hasMany(models.Favorite, {
+      foreignKey: 'userId',
+    });
     User.hasMany(models.Spot, {
       foreignKey: 'userId'
     });

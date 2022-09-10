@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
+import Heart from './Heart';
 
 const SpotCard = ({ spot }) => {
+    const params = useParams();
 
     const [current, setCurrent] = useState(0);
 
@@ -9,6 +11,9 @@ const SpotCard = ({ spot }) => {
 
     return (
         <div className='individual-spot'>
+            <div id='heart-container'>
+                <Heart spot={spot}/>
+            </div>
             <div className='img-container'>
                 {Object.values(spot.images).reverse().map((img, i) => {
                     return (
@@ -38,12 +43,19 @@ const SpotCard = ({ spot }) => {
                     <div className='spot-card-topinfo'>
                         <p className='spot-card-name'>{spot.name}</p>
                         <section>
+                            {!params.userId ?
+                            <>
                             <p className='spot-card-rating'>{spot.avgRating}</p>
                             <i className="fa-solid fa-star fa-sm front-page-star"></i>
+                            </>
+                            : <p className='spot-card-price'>
+                            <span className='spot-card-cost'>${spot.price}</span> night</p>}
                         </section>
                     </div>
+                    {!params.userId ?
                     <p className='spot-card-price'>
                         <span className='spot-card-cost'>${spot.price}</span> night</p>
+                    : null}
                 </div>
             </NavLink>
         </div>

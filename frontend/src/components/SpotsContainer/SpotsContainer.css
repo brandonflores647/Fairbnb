@@ -7,6 +7,7 @@
 }
 
 .individual-spot {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: top;
@@ -185,5 +186,61 @@
     }
     100% {
         opacity: 100%;
+    }
+}
+
+#heart-container {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1;
+
+    height: fit-content;
+}
+#heart-button {
+    display: block;
+
+    padding: 0;
+    height: fit-content;
+    background-color: transparent;
+    border: none;
+}
+#heart-svg {
+    display: block;
+    height: 24px;
+    width: 24px;
+
+    fill: rgba(0, 0, 0, 0.5);
+    stroke: #ffffff;
+    stroke-width: 2;
+    overflow: visible;
+
+    transition: fill .2s ease;
+}
+
+#heart-button:hover {
+    cursor: pointer;
+}
+#heart-button:hover #heart-svg {
+    fill: #ff385dcb;
+}
+
+.heart-favorite {
+    fill: #FF385C !important;
+    transition: stroke .2s ease;
+}
+.heart-favorite:hover {
+    animation: 1s infinite ease strokePulse;
+}
+
+@keyframes strokePulse {
+    0% {
+        stroke: #ffffff;
+    }
+    50% {
+        stroke: #ffffff79;
+    }
+    100% {
+        stroke: #ffffff;
     }
 }

@@ -4,7 +4,10 @@ const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
 const { validateSpot, validateSpotDelete } = require('../../utils/validation');
 const { Spot, Image, Review, Booking } = require('../../db/models');
-const { multiplePublicFileUpload, multipleMulterUpload } = require('../../s3');
+const {
+    multiplePublicFileUpload,
+    multipleMulterUpload,
+    deleteFile } = require('../../s3');
 
 const router = express.Router();
 
@@ -92,9 +95,11 @@ router.patch('/:spotId(\\d+)',
 
         const imgArr = [];
         if (req.files.length) {
-            // remove old images from DB
+            // remove old images from DB + s3 bucket
             const imgs = await Image.findAll({ where: { spotId } });
             for (let img of imgs) {
+                const key = img.url.split('https://fairbnb-images.s3.amazonaws.com/')[1];
+                deleteFile(key);
                 await img.destroy();
             }
 
@@ -129,9 +134,18 @@ router.delete('/:spotId(\\d+)',
     asyncHandler(async (req, res) => {
         const spotId = req.body.spot.id;
 
+        // grab images to be removed from s3 bucket
+        const imgs = await Image.findAll({ where: { spotId } });
+
         // destroy spot from DB
         const spot = await Spot.findByPk(spotId);
         await spot.destroy();
+
+        // remove images from s3 bucket
+        for (let img of imgs) {
+            const key = img.url.split('https://fairbnb-images.s3.amazonaws.com/')[1];
+            deleteFile(key);
+        }
 
         return res.json({});
 }));
